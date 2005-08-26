@@ -24,6 +24,6 @@ else:
     import unittest
     def test_suite():
         suite = unittest.TestSuite()
-        suite.addTest(unittest.makeSuite(TestDiffTool))
+        suite.addTest(unittest.makeSuite(TestChangeSet))
         return suite
 

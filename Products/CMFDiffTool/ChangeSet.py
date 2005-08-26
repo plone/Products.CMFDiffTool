@@ -88,10 +88,10 @@ class ChangeSet(SkinnedFolder, DefaultDublinCoreImpl):
         return reduce(lambda x, y: x and y, [d.same for d in self._diffs], 1)
 
     security.declarePublic('same')
-    same = ComputedAttribute(lambda self: self._isSame(), 1)
+    same = ComputedAttribute(_isSame)
 
     security.declarePublic('computeDiff')
-    def computeDiff(self, ob1, ob2, recursive=1, exclude=[]):
+    def computeDiff(self, ob1, ob2, recursive=1, exclude=[], id1=None, id2=None):
         """Compute the differences from ob1 to ob2 (ie. ob2 - ob1).
 
         The results can be accessed through getDiffs()"""
@@ -107,7 +107,7 @@ class ChangeSet(SkinnedFolder, DefaultDublinCoreImpl):
         self.ob2_path = self.portal_url.getRelativeContentPath(ob2)
         
         diff_tool = getToolByName(self, "portal_diff")
-        self._diffs = diff_tool.computeDiff(ob1, ob2)
+        self._diffs = diff_tool.computeDiff(ob1, ob2, id1=id1, id2=id2)
 
         if recursive and ob1.isPrincipiaFolderish:
             self.recursive = 1
@@ -141,7 +141,7 @@ class ChangeSet(SkinnedFolder, DefaultDublinCoreImpl):
             for id in self._changed:
                 self.manage_addProduct['CMFDiffTool'].manage_addChangeSet(id, title='Changes to: %s' % id)
                 get_transaction().commit(1)
-                self[id].computeDiff(ob1[id], ob2[id], exclude=exclude)
+                self[id].computeDiff(ob1[id], ob2[id], exclude=exclude, id1=id1, id2=id2)
 
             # Clone any added subobjects
             for id in self._added:

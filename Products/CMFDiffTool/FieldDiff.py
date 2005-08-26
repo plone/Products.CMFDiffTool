@@ -52,7 +52,7 @@ class FieldDiff(BaseDiff):
             else:
                 raise ValueError, 'unknown tag ' + `tag`
         return '\n'.join(r)
-        
+
 InitializeClass(FieldDiff)
 
 def dump(tag, x, lo, hi, r):
