@@ -8,6 +8,7 @@ if __name__ == '__main__':
 
 from Testing import ZopeTestCase
 from Products.CMFDiffTool.ChangeSet import ChangeSet
+from Products.CMFDiffTool.ChangeSet import BaseChangeSet
 
 class TestChangeSet(ZopeTestCase.ZopeTestCase):
     """Test the portal_diff tool"""
@@ -16,6 +17,7 @@ class TestChangeSet(ZopeTestCase.ZopeTestCase):
         """Ensure that tool instances implement the portal_diff interface"""
         from Products.CMFDiffTool.interfaces.IChangeSet import IChangeSet
         self.failUnless(IChangeSet.isImplementedByInstancesOf(ChangeSet))
+        self.failUnless(IChangeSet.isImplementedByInstancesOf(BaseChangeSet))
 
 
 if __name__ == '__main__':

@@ -12,7 +12,7 @@ from interfaces.portal_diff import IDifference
 class BaseDiff:
     """Basic diff type"""
 
-    __implements__ = (IDifference)
+    __implements__ = (IDifference,)
     __allow_access_to_unprotected_subobjects__ = 1
     meta_type = "Base Diff"
     

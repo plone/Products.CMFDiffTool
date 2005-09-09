@@ -8,6 +8,7 @@
 # GNU General Public License (GPL).  See LICENSE.txt for details
 
 from Globals import InitializeClass
+from OFS.CopySupport import CopyError
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from AccessControl import getSecurityManager, ClassSecurityInfo
 from ComputedAttribute import ComputedAttribute
@@ -17,20 +18,22 @@ from Products.CMFDefault.SkinnedFolder import SkinnedFolder
 from Products.CMFDefault.DublinCore import DefaultDublinCoreImpl
 from ListDiff import ListDiff
 from interfaces.IChangeSet import IChangeSet
+from Acquisition import Implicit
+from Acquisition import aq_base
 import zLOG
 
 
 ### Contructors for Collaboration Request objects
 manage_addChangeSetForm = PageTemplateFile('zpt/manage_addChangeSetForm', globals())
-                                               
-                                               
+
+
 def manage_addChangeSet(self, id, title='', REQUEST=None):
     """Creates a new ChangeSet object """
-    
+
     id=str(id)
     if not id:
         raise "Bad Request", "Please specify an ID."
-     
+
     self=self.this()
     cs = ChangeSet(id, title)
     self._setObject(id, cs)
@@ -62,18 +65,15 @@ factory_type_information = (
      },
     )
 
-class ChangeSet(SkinnedFolder, DefaultDublinCoreImpl):
+class BaseChangeSet(Implicit):
     """A ChangeSet represents the set of differences between two objects"""
 
-    meta_type = "Change Set"
-    portal_type = "ChangeSet"
+    __implements__ = (IChangeSet,)
+    __allow_access_to_unprotected_subobjects__ = 1
     security = ClassSecurityInfo()
 
-    __implements__ = (IChangeSet)
-    
     def __init__(self, id, title=''):
         """ChangeSet constructor"""
-        DefaultDublinCoreImpl.__init__(self)
         self.id = id
         self.title = title
         self._diffs = []
@@ -81,7 +81,11 @@ class ChangeSet(SkinnedFolder, DefaultDublinCoreImpl):
         self._removed = []
         self.ob1_path = []
         self.ob2_path = []
+        self._changesets = {}
         self.recursive = 0
+
+    def __getitem__(self, key):
+        return self._changesets[key]
 
     def _isSame(self):
         """Returns true if there are no differences between the two objects"""
@@ -101,11 +105,10 @@ class ChangeSet(SkinnedFolder, DefaultDublinCoreImpl):
         self._added = []
         self._removed = []
         self._changed = []
-        self.manage_delObjects(self.objectIds())
+        self._changesets = {}
 
         self.ob1_path = self.portal_url.getRelativeContentPath(ob1)
         self.ob2_path = self.portal_url.getRelativeContentPath(ob2)
-        
         diff_tool = getToolByName(self, "portal_diff")
         self._diffs = diff_tool.computeDiff(ob1, ob2, id1=id1, id2=id2)
 
@@ -138,19 +141,17 @@ class ChangeSet(SkinnedFolder, DefaultDublinCoreImpl):
                     pass
 
             # Calculate a ChangeSet for every subobject that has changed
+            # XXX this is a little strange as self._changed doesn't appear
+            # to list changed objects, but rather objects which have been
+            # reordered or renamed.
             for id in self._changed:
-                self.manage_addProduct['CMFDiffTool'].manage_addChangeSet(id, title='Changes to: %s' % id)
-                get_transaction().commit(1)
-                self[id].computeDiff(ob1[id], ob2[id], exclude=exclude, id1=id1, id2=id2)
+                self._addSubSet(id, ob1, ob2, exclude, id1, id2)
 
-            # Clone any added subobjects
-            for id in self._added:
-                ob = ob2[id]
-                zLOG.LOG("ChangeSet", zLOG.BLATHER, "cloning %s (%s)" % (id, ob))
-                self.manage_clone(ob, id)
-
-        self._p_changed = 1
-
+    def _addSubSet(self, id, ob1, ob2, exclude, id1, id2):
+        cs = BaseChangeSet(id, title='Changes to: %s' % id)
+        cs = cs.__of__(self)
+        cs.computeDiff(ob1[id], ob2[id], exclude=exclude, id1=id1, id2=id2)
+        self._changesets[id] = aq_base(cs)
 
     security.declarePublic('testChanges')
     def testChanges(self, ob):
@@ -162,7 +163,7 @@ class ChangeSet(SkinnedFolder, DefaultDublinCoreImpl):
             cs = self[id]
             child = ob[id]
             cs.testChanges(child)
-        
+
     security.declarePublic('applyChanges')
     def applyChanges(self, ob):
         """Apply the change set to the specified object"""
@@ -175,7 +176,7 @@ class ChangeSet(SkinnedFolder, DefaultDublinCoreImpl):
         for id in self._added:
             child = self[id]
             ob.manage_clone(child, id)
-        
+
         for id in self._changed:
             cs = self[id]
             child = ob[id]
@@ -212,5 +213,49 @@ class ChangeSet(SkinnedFolder, DefaultDublinCoreImpl):
         """If the ChangeSet was computed recursively, returns the list
         of IDs of items that were removed"""
         return self._removed
+
+
+class ChangeSet(BaseChangeSet, SkinnedFolder, DefaultDublinCoreImpl):
+    """A persistent skinnable contentish Change Set"""
+    meta_type = "Change Set"
+    portal_type = "ChangeSet"
+    security = ClassSecurityInfo()
+
+    __implements__ = (BaseChangeSet.__implements__ +
+                        SkinnedFolder.__implements__ +
+                        DefaultDublinCoreImpl.__implements__)
+
+    def __init__(self, id, title=''):
+        BaseChangeSet.__init__(self, id, title='')
+        DefaultDublinCoreImpl.__init__(self)
+
+    def __getitem__(self, key):
+        SkinnedFolder.__getitem__(self, key)
+
+    def computeDiff(self, ob1, ob2, recursive=1, exclude=[], id1=None, id2=None):
+        self.manage_delObjects(self.objectIds())
+        BaseChangeSet.computeDiff(self, ob1, ob2, recursive, exclude, id1, id2)
+        if recursive and ob1.isPrincipiaFolderish:
+            # Clone any added subobjects
+            for id in self._added:
+                ob = ob2[id]
+                zLOG.LOG("ChangeSet", zLOG.BLATHER, "cloning %s (%s)" % (id, ob))
+                try:
+                    self.manage_clone(ob, id)
+                except CopyError:
+                    # If one of the objects isn't actually local to the ZODB
+                    # (i.e. it is a version in some other repository), this
+                    # will fail
+                    pass
+
+        self._p_changed = 1
+
+    # Override _addSubSet to add persistent sub changesets
+    def _addSubSet(self, id, ob1, ob2, exclude, id1, id2):
+        self.manage_addProduct['CMFDiffTool'].manage_addChangeSet(id,
+                                                  title='Changes to: %s' % id)
+        get_transaction().commit(1)
+        self[id].computeDiff(ob1[id], ob2[id], exclude=exclude, id1=id1, id2=id2)
+
 
 InitializeClass(ChangeSet)

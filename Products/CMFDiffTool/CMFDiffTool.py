@@ -15,14 +15,15 @@ from Acquisition import aq_base
 import zLOG
 
 from interfaces.portal_diff import portal_diff as IDiffTool, IDifference
-from ChangeSet import ChangeSet
+from ChangeSet import BaseChangeSet
 
 
 class CMFDiffTool(UniqueObject, SimpleItem):
     """ """
-    
+
     id = 'portal_diff'
     meta_type = 'CMF Diff Tool'
+
     #_actions = ()
 
     security = ClassSecurityInfo()
@@ -39,7 +40,7 @@ class CMFDiffTool(UniqueObject, SimpleItem):
 
     def __init__(self):
         self._pt_diffs = {}
-    
+
 
     ##   ZMI methods
     security.declareProtected(ManagePortal, 'manage_overview')
@@ -152,11 +153,11 @@ class CMFDiffTool(UniqueObject, SimpleItem):
         """Returns a ChangeSet object that represents the differences
         between ob1 and ob2 (ie. ob2 - ob1) ."""
         # FIXME: Pick a better ID
-        cs = ChangeSet('Changes').__of__(self)
+        cs = BaseChangeSet('Changes').__of__(self)
         cs.computeDiff(ob1, ob2, id1=id1, id2=id2)
         return aq_base(cs)
 
-            
+
 
 def registerDiffType(klass):
     """Register a class for computing differences.
@@ -166,5 +167,13 @@ def registerDiffType(klass):
 
     CMFDiffTool._difftypes[klass.meta_type] = klass
 
-    
+def unregisterDiffType(klass):
+    """Register a class for computing differences.
+
+    Instances of the class must implement the IDifference
+    interface."""
+
+    del CMFDiffTool._difftypes[klass.meta_type]
+
+
 InitializeClass(CMFDiffTool)

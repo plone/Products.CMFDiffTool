@@ -8,6 +8,7 @@ if __name__ == '__main__':
 
 import BaseTestCase
 from Products.CMFDiffTool.CMFDiffTool import registerDiffType
+from Products.CMFDiffTool.CMFDiffTool import unregisterDiffType
 
 class DummyDiff:
     meta_type = "Dummy Diff Type"
@@ -20,6 +21,7 @@ class TestDiffTool(BaseTestCase.BaseTestCase):
 
     def afterSetUp(self):
         self.p_diff = self.portal.portal_diff
+        registerDiffType(DummyDiff)
 
     def testInterface(self):
         """Ensure that tool instances implement the portal_diff interface"""
@@ -28,20 +30,19 @@ class TestDiffTool(BaseTestCase.BaseTestCase):
 
     def testRegisterDiffType(self):
         """Test registration of Diff types"""
+        unregisterDiffType(DummyDiff)
         self.failIf('Dummy Diff Type' in self.p_diff.listDiffTypes())
         registerDiffType(DummyDiff)
         self.failUnless('Dummy Diff Type' in self.p_diff.listDiffTypes())
 
     def testSetDiff(self):
         """Test setDiffForPortalType() method"""
-        registerDiffType(DummyDiff)
         d = {'field1':'TestDiff', 'field2':'Dummy Diff Type'}
         self.p_diff.setDiffForPortalType('Document', d)
         self.failUnless(self.p_diff.getDiffForPortalType('Document') == d)
 
     def testSetDiffReplaces(self):
         """Test that setDiffForPortalType() replaces old data"""
-        registerDiffType(DummyDiff)
         d1 = {'field1':'TestDiff', 'field2':'Dummy Diff Type'}
         d2 = {'field3':'Dummy Diff Type'}
         self.p_diff.setDiffForPortalType('Document', d1)
@@ -50,27 +51,25 @@ class TestDiffTool(BaseTestCase.BaseTestCase):
 
     def testSingleSetDiffField(self):
         """Test setDiffField method"""
-        registerDiffType(DummyDiff)
         self.p_diff.setDiffField('Document', 'title', 'Dummy Diff Type')
         self.failUnless(self.p_diff.getDiffForPortalType('Document') == {'title':'Dummy Diff Type'})
 
     def testMultipleSetDiffField(self):
         """Test setDiffField method adding a second field to one content type"""
-        registerDiffType(DummyDiff)
         self.p_diff.setDiffField('Document', 'title', 'Dummy Diff Type')
         self.p_diff.setDiffField('Document', 'description', 'Dummy Diff Type')
         d = {'title':'Dummy Diff Type', 'description':'Dummy Diff Type'}
         self.failUnless(self.p_diff.getDiffForPortalType('Document') == d)
-        
+
     def testReplaceSetDiffField(self):
         """Test that setDiffField does a replace for existing fields"""
-        registerDiffType(DummyDiff)
-        registerDiffType(DummyDiff2)        
+        registerDiffType(DummyDiff2)
         self.p_diff.setDiffField('Document', 'title', 'Dummy Diff Type')
         self.p_diff.setDiffField('Document', 'title', 'Second Dummy Diff Type')
         d = {'title':'Second Dummy Diff Type'}
         self.failUnless(self.p_diff.getDiffForPortalType('Document') == d)
-        
+        unregisterDiffType(DummyDiff2)
+
     def testSetDiffFieldNameFailure(self):
         self.assertRaises('BadRequest', self.p_diff.setDiffField, 'Bob', 'title', 'Dummy Diff Type')
 
@@ -79,6 +78,10 @@ class TestDiffTool(BaseTestCase.BaseTestCase):
 
     def testSetDiffFieldInvalidDiffFailure(self):
         self.assertRaises('BadRequest', self.p_diff.setDiffField, 'Document', 'title', 'NoDiff')
+
+    def beforeTearDown(self):
+        # Undo changes that don't get rolled back (i.e. module level changes)
+        unregisterDiffType(DummyDiff)
 
 
 if __name__ == '__main__':
