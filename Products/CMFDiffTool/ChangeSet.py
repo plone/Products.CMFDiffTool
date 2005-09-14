@@ -8,6 +8,7 @@
 # GNU General Public License (GPL).  See LICENSE.txt for details
 
 from Globals import InitializeClass
+from sets import Set
 from OFS.CopySupport import CopyError
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from AccessControl import getSecurityManager, ClassSecurityInfo
@@ -69,6 +70,7 @@ class BaseChangeSet(Implicit):
     """A ChangeSet represents the set of differences between two objects"""
 
     __implements__ = (IChangeSet,)
+    # This should really not be needed just for same, we should use a method
     __allow_access_to_unprotected_subobjects__ = 1
     security = ClassSecurityInfo()
 
@@ -83,6 +85,11 @@ class BaseChangeSet(Implicit):
         self.ob2_path = []
         self._changesets = {}
         self.recursive = 0
+
+    security.declarePublic('getId')
+    def getId(self):
+        """ChangeSet id"""
+        return self.id
 
     def __getitem__(self, key):
         return self._changesets[key]
@@ -107,23 +114,21 @@ class BaseChangeSet(Implicit):
         self._changed = []
         self._changesets = {}
 
-        self.ob1_path = self.portal_url.getRelativeContentPath(ob1)
-        self.ob2_path = self.portal_url.getRelativeContentPath(ob2)
+        purl = getToolByName(self, 'portal_url', None)
+        if purl is not None:
+            self.ob1_path = purl.getRelativeContentPath(ob1)
+            self.ob2_path = purl.getRelativeContentPath(ob2)
         diff_tool = getToolByName(self, "portal_diff")
         self._diffs = diff_tool.computeDiff(ob1, ob2, id1=id1, id2=id2)
 
-        if recursive and ob1.isPrincipiaFolderish:
+        if recursive and ob1.isPrincipiaFolderish and \
+                                                     ob2.isPrincipiaFolderish:
             self.recursive = 1
-            ld = ListDiff(ob1, ob2, 'objectIds')
-            a = ld.oldValue
-            b = ld.newValue
-            for tag, alo, ahi, blo, bhi in ld.getLineDiffs():
-                if tag in ('delete', 'replace'):
-                    self._removed.extend(a[alo:ahi])
-                if tag in ('insert', 'replace'):
-                    self._added.extend(b[blo:bhi])
-                if tag == 'equal':
-                    self._changed.extend(a[alo:ahi])
+            ids1 = Set(ob1.objectIds())
+            ids2 = Set(ob2.objectIds())
+            self._changed = ids1.intersection(ids2)
+            self._removed = ids1.difference(ids2)
+            self._added = ids2.difference(ids1)
 
             # Ignore any excluded items
             for id in exclude:
@@ -206,13 +211,13 @@ class BaseChangeSet(Implicit):
 
         A copy of these items is available as a cubject of the ChangeSet
         """
-        return self._added
+        return list(self._added)
 
     security.declarePublic('getRemovedItems')
     def getRemovedItems(self):
         """If the ChangeSet was computed recursively, returns the list
         of IDs of items that were removed"""
-        return self._removed
+        return list(self._removed)
 
 
 class ChangeSet(BaseChangeSet, SkinnedFolder, DefaultDublinCoreImpl):
