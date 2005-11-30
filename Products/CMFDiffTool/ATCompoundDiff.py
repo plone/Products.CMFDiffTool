@@ -48,58 +48,68 @@ class ATCompoundDiff:
             klass = field['klass']
             diff = klass(obj1, obj2, field['accessor'], id1=self.id1,
                               id2=self.id2, field_label=field['label'])
-            if field['primary']:
-                diff_list.insert(0,diff)
-            else:
-                diff_list.append(diff)
+            diff_list.append(diff)
         return diff_list
 
     def getFields(self, obj1, obj2):
-        schema = obj1.Schema()
         fields = []
-        for field in schema.viewableFields(obj1):
-            if (AT_FIELD_MAPPING.has_key(field.type) and 
-                    field.getName() not in AT_EXCLUDED_FIELDS):
-                is_primary = getattr(field, 'primary' , False)
-                label = field.widget.Label(obj1)
-                diff_type = AT_FIELD_MAPPING[field.type]
-                if IDifference.isImplementedByInstancesOf(diff_type):
-                    fields.append({'name':field.getName(),
-                                   'accessor':field.accessor,
-                                   'klass':diff_type,
-                                   'primary':is_primary,
-                                   'label':label})
-                elif 'raw' in diff_type:
-                    #Handle Fields which diff against the edit accessor
-                    diff_name = diff_type.split(':')[1]
-                    diff_type = globals()[diff_name]
-                    fields.append({'name':field.getName(),
-                                   'accessor':field.edit_accessor,
-                                   'klass':diff_type,
-                                   'primary':is_primary,
-                                   'label':label})
-                elif diff_type == 'variable_binary':
-                    diff_type = BinaryDiff
-                    if 'text/' in field.getContentType(obj1) and \
-                       'text/' in \
-                          obj2.getField(field.getName()).getContentType(obj2):
+        # Make sure we get the fields ordered by schemata, as in the edit view
+        schematas = obj1.Schemata()
+        schemata_names = schematas.keys()
+
+        # Put default first and metadata last
+        if 'default' in schemata_names and schemata_names[0] != 'default':
+            schemata_names.remove('default')
+            schemata_names.insert(0,'default')
+        if 'metadata' in schemata_names and schemata_names[-1] != 'metadata':
+            schemata_names.remove('metadata')
+            schemata_names.insert(-1,'metadata')
+
+        for schemata_name in schemata_names:
+            schema = schematas[schemata_name]
+            for field in schema.viewableFields(obj1):
+                if (AT_FIELD_MAPPING.has_key(field.type) and 
+                        field.getName() not in AT_EXCLUDED_FIELDS):
+                    is_primary = getattr(field, 'primary' , False)
+                    label = field.widget.Label(obj1)
+                    diff_type = AT_FIELD_MAPPING[field.type]
+                    if IDifference.isImplementedByInstancesOf(diff_type):
+                        fields.append({'name':field.getName(),
+                                    'accessor':field.accessor,
+                                    'klass':diff_type,
+                                    'primary':is_primary,
+                                    'label':label})
+                    elif 'raw' in diff_type:
+                        #Handle Fields which diff against the edit accessor
+                        diff_name = diff_type.split(':')[1]
+                        diff_type = globals()[diff_name]
+                        fields.append({'name':field.getName(),
+                                    'accessor':field.edit_accessor,
+                                    'klass':diff_type,
+                                    'primary':is_primary,
+                                    'label':label})
+                    elif diff_type == 'variable_binary':
+                        diff_type = BinaryDiff
+                        if 'text/' in field.getContentType(obj1) and \
+                        'text/' in \
+                            obj2.getField(field.getName()).getContentType(obj2):
+                            diff_type = TextDiff
+                        fields.append({'name':field.getName(),
+                                    'accessor':field.accessor,
+                                    'klass':diff_type,
+                                    'primary':is_primary,
+                                    'label':label})
+                    elif diff_type == 'variable_text':
                         diff_type = TextDiff
-                    fields.append({'name':field.getName(),
-                                   'accessor':field.accessor,
-                                   'klass':diff_type,
-                                   'primary':is_primary,
-                                   'label':label})
-                elif diff_type == 'variable_text':
-                    diff_type = TextDiff
-                    if 'html' in field.getContentType(obj1) and \
-                       'html' in \
-                          obj2.getField(field.getName()).getContentType(obj2):
-                        diff_type = CMFDTHtmlDiff
-                    fields.append({'name':field.getName(),
-                                   'accessor':field.accessor,
-                                   'klass':diff_type,
-                                   'primary':is_primary,
-                                   'label':label})
+                        if 'html' in field.getContentType(obj1) and \
+                        'html' in \
+                            obj2.getField(field.getName()).getContentType(obj2):
+                            diff_type = CMFDTHtmlDiff
+                        fields.append({'name':field.getName(),
+                                    'accessor':field.accessor,
+                                    'klass':diff_type,
+                                    'primary':is_primary,
+                                    'label':label})
         return fields
 
 InitializeClass(ATCompoundDiff)
