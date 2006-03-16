@@ -47,7 +47,8 @@ class ATCompoundDiff:
         for field in fields:
             klass = field['klass']
             diff = klass(obj1, obj2, field['accessor'], id1=self.id1,
-                              id2=self.id2, field_label=field['label'])
+                              id2=self.id2, field_label=field['label'],
+                              schemata=field['schemata'])
             diff_list.append(diff)
         return diff_list
 
@@ -78,7 +79,8 @@ class ATCompoundDiff:
                                     'accessor':field.accessor,
                                     'klass':diff_type,
                                     'primary':is_primary,
-                                    'label':label})
+                                    'label':label,
+                                    'schemata':schemata_name})
                     elif 'raw' in diff_type:
                         #Handle Fields which diff against the edit accessor
                         diff_name = diff_type.split(':')[1]
@@ -87,7 +89,8 @@ class ATCompoundDiff:
                                     'accessor':field.edit_accessor,
                                     'klass':diff_type,
                                     'primary':is_primary,
-                                    'label':label})
+                                    'label':label,
+                                    'schemata':schemata_name})
                     elif diff_type == 'variable_binary':
                         diff_type = BinaryDiff
                         if 'text/' in field.getContentType(obj1) and \
@@ -98,7 +101,8 @@ class ATCompoundDiff:
                                     'accessor':field.accessor,
                                     'klass':diff_type,
                                     'primary':is_primary,
-                                    'label':label})
+                                    'label':label,
+                                    'schemata':schemata_name})
                     elif diff_type == 'variable_text':
                         diff_type = TextDiff
                         if 'html' in field.getContentType(obj1) and \
@@ -109,7 +113,8 @@ class ATCompoundDiff:
                                     'accessor':field.accessor,
                                     'klass':diff_type,
                                     'primary':is_primary,
-                                    'label':label})
+                                    'label':label,
+                                    'schemata':schemata_name})
         return fields
 
 InitializeClass(ATCompoundDiff)

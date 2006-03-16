@@ -17,7 +17,7 @@ class BaseDiff:
     meta_type = "Base Diff"
     
     def __init__(self, obj1, obj2, field, id1=None, id2=None,
-                                                            field_label=None):
+                 field_label=None,schemata=None):
         self.field = field
         self.oldValue = _getValue(obj1, field)
         self.newValue = _getValue(obj2, field)
@@ -29,6 +29,7 @@ class BaseDiff:
         self.id1 = id1
         self.id2 = id2
         self.label = field_label or field
+        self.schemata = schemata or 'default'
 
     def testChanges(self, ob):
         """Test the specified object to determine if the change set will apply without errors"""
