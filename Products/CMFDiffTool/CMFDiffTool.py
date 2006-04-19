@@ -15,14 +15,15 @@ from Acquisition import aq_base
 import zLOG
 
 from interfaces.portal_diff import portal_diff as IDiffTool, IDifference
-from ChangeSet import ChangeSet
+from ChangeSet import BaseChangeSet
 
 
 class CMFDiffTool(UniqueObject, SimpleItem):
     """ """
-    
+
     id = 'portal_diff'
     meta_type = 'CMF Diff Tool'
+
     #_actions = ()
 
     security = ClassSecurityInfo()
@@ -39,7 +40,7 @@ class CMFDiffTool(UniqueObject, SimpleItem):
 
     def __init__(self):
         self._pt_diffs = {}
-    
+
 
     ##   ZMI methods
     security.declareProtected(ManagePortal, 'manage_overview')
@@ -102,7 +103,7 @@ class CMFDiffTool(UniqueObject, SimpleItem):
         Instances of the class will implement the IDifference
         interface"""
         return self._difftypes.get(diff, None)
-        
+
     security.declareProtected(ManagePortal, 'setDiffForPortalType')
     def setDiffForPortalType(self, pt_name, mapping):
         """Set the difference type(self, s) for the specific portal type
@@ -123,7 +124,7 @@ class CMFDiffTool(UniqueObject, SimpleItem):
         return self._pt_diffs.get(pt_name, {}).copy()
 
     security.declarePublic('computeDiff')
-    def computeDiff(self, ob1, ob2):
+    def computeDiff(self, ob1, ob2, id1=None, id2=None):
         """Compute the differences between two objects and return the
         results as a list.  Each object in the list will implement the
         IDifference interface"""
@@ -139,19 +140,24 @@ class CMFDiffTool(UniqueObject, SimpleItem):
         diffs = []
         for field, klass_name in diff_map.items():
             klass = self._difftypes[klass_name]
-            diffs.append(klass(ob1, ob2, field))
+            f_diff = klass(ob1, ob2, field, id1=id1, id2=id2)
+            # handle compound diff types
+            if hasattr(f_diff, '__getitem__'):
+                diffs.extend(f_diff)
+            else:
+                diffs.append(f_diff)
         return diffs
 
     security.declarePublic('createChangeSet')
-    def createChangeSet(self, ob1, ob2):
+    def createChangeSet(self, ob1, ob2, id1=None, id2=None):
         """Returns a ChangeSet object that represents the differences
         between ob1 and ob2 (ie. ob2 - ob1) ."""
         # FIXME: Pick a better ID
-        cs = ChangeSet('Changes').__of__(self)
-        cs.computeDiff(ob1, ob2)
+        cs = BaseChangeSet('Changes').__of__(self)
+        cs.computeDiff(ob1, ob2, id1=id1, id2=id2)
         return aq_base(cs)
 
-            
+
 
 def registerDiffType(klass):
     """Register a class for computing differences.
@@ -161,5 +167,13 @@ def registerDiffType(klass):
 
     CMFDiffTool._difftypes[klass.meta_type] = klass
 
-    
+def unregisterDiffType(klass):
+    """Register a class for computing differences.
+
+    Instances of the class must implement the IDifference
+    interface."""
+
+    del CMFDiffTool._difftypes[klass.meta_type]
+
+
 InitializeClass(CMFDiffTool)

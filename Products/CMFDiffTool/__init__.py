@@ -10,6 +10,8 @@ import TextDiff
 import ListDiff
 import BinaryDiff
 import ChangeSet
+import CMFDTHtmlDiff
+import ATCompoundDiff
 
 this_module = sys.modules[ __name__ ]
 product_globals = globals()
@@ -27,6 +29,8 @@ CMFDiffTool.registerDiffType(BinaryDiff.BinaryDiff)
 CMFDiffTool.registerDiffType(FieldDiff.FieldDiff)
 CMFDiffTool.registerDiffType(ListDiff.ListDiff)
 CMFDiffTool.registerDiffType(TextDiff.TextDiff)
+CMFDiffTool.registerDiffType(CMFDTHtmlDiff.CMFDTHtmlDiff)
+CMFDiffTool.registerDiffType(ATCompoundDiff.ATCompoundDiff)
 
 def initialize(context):
     utils.ToolInit('CMF Diff Tool',

@@ -9,6 +9,7 @@ ZopeTestCase.installProduct('MailHost')
 ZopeTestCase.installProduct('PageTemplates', quiet=1)
 ZopeTestCase.installProduct('PythonScripts', quiet=1)
 ZopeTestCase.installProduct('ExternalMethod', quiet=1)
+ZopeTestCase.installProduct('ZCTextIndex', quiet=1)
 
 from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.SecurityManagement import noSecurityManager
@@ -17,7 +18,10 @@ import time
 
 portal_name  = 'portal'
 portal_owner = 'portal_owner'
-default_user = ZopeTestCase._user_name
+if hasattr(ZopeTestCase, 'user_name'):
+    default_user = ZopeTestCase.user_name
+else:
+    default_user = ZopeTestCase._user_name
 
 
 class BaseTestCase(ZopeTestCase.PortalTestCase):
@@ -28,6 +32,7 @@ class BaseTestCase(ZopeTestCase.PortalTestCase):
 
     def createMemberarea(self, member_id):
         '''Creates a minimal, no-nonsense memberarea.'''
+        self.setRoles(['Manager','Member'])
         membership = self.portal.portal_membership
         catalog = self.portal.portal_catalog
         # Owner
@@ -38,18 +43,20 @@ class BaseTestCase(ZopeTestCase.PortalTestCase):
         user = user.__of__(uf)
         # Home folder
         members = membership.getMembersFolder()
-        members.manage_addPloneFolder(member_id)
+        members.invokeFactory('Folder', member_id)
         folder = membership.getHomeFolder(member_id)
         folder.changeOwnership(user)
         folder.__ac_local_roles__ = None
         folder.manage_setLocalRoles(member_id, ['Owner'])
         # Personal folder
-        folder.manage_addPloneFolder(membership.personal_id)
-        personal = membership.getPersonalFolder(member_id)
-        personal.changeOwnership(user)
-        personal.__ac_local_roles__ = None
-        personal.manage_setLocalRoles(member_id, ['Owner'])
-        catalog.unindexObject(personal)
+        if hasattr(membership, 'personal_id'):
+            folder.invokeFactory('Folder', membership.personal_id)
+            personal = membership.getPersonalFolder(member_id)
+            personal.changeOwnership(user)
+            personal.__ac_local_roles__ = None
+            personal.manage_setLocalRoles(member_id, ['Owner'])
+            catalog.unindexObject(personal)
+        self.setRoles(['Member'])
 
     def loginPortalOwner(self):
         '''Use if you need to manipulate the portal itself.'''
