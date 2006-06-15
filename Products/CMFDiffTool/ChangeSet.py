@@ -49,6 +49,7 @@ factory_type_information = (
      'meta_type': 'Change Set',
      'description': ('A collection of changes between two objects'),
      'product': 'CMFDiffTool',
+     'global_allow':0,
      'factory': 'manage_addChangeSet',
      'filter_content_types' : 0,
      'immediate_view': 'changeset_edit_form',

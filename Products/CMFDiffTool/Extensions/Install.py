@@ -63,4 +63,18 @@ def install(self):
             out.write("Skipping %s skin, %s is already set up\n" % (
                 skin, directory_name))
 
+    # setup defaults for plone 2.1 at content types
+    migration = getToolByName(self, 'portal_migration', None)
+    
+    if migration is not None and migration.getInstanceVersion().strip().startswith('2.1'):
+        portal_types = getToolByName( self, 'portal_types')
+        portal_diff  = getToolByName( self, 'portal_diff')
+        for type_info in portal_types.objectValues():
+            if type_info.global_allow and type_info.product == 'ATContentTypes':
+                portal_diff.manage_addDiffField( type_info.getId(),
+                                                 'All', 
+                                                 'Compound Diff for AT types' )    
+
+
+        
     return out.getvalue()
