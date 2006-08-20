@@ -14,7 +14,9 @@ import Acquisition
 from Acquisition import aq_base
 import zLOG
 
-from interfaces.portal_diff import portal_diff as IDiffTool, IDifference
+from interfaces.portal_diff import portal_diff as IDiffToolZ2
+from interfaces import IDiffTool
+from zope.interface import implements
 from ChangeSet import BaseChangeSet
 
 
@@ -33,7 +35,8 @@ class CMFDiffTool(UniqueObject, SimpleItem):
                       ) + SimpleItem.manage_options
                     )
 
-    __implements__ = (IDiffTool)
+    __implements__ = (IDiffToolZ2)
+    implements(IDiffTool)
 
     ## Internal attributes
     _difftypes = {}
@@ -43,8 +46,8 @@ class CMFDiffTool(UniqueObject, SimpleItem):
 
 
     ##   ZMI methods
-    security.declareProtected(ManagePortal, 'manage_overview')
-    manage_overview = PageTemplateFile('zpt/explainCMFDiffTool', globals() )
+    #security.declareProtected(ManagePortal, 'manage_overview')
+    #manage_overview = PageTemplateFile('zpt/explainCMFDiffTool', globals() )
 
     security.declareProtected(ManagePortal, 'manage_difftypes')
     manage_difftypes = PageTemplateFile('zpt/editCMFDiffTool', globals() )

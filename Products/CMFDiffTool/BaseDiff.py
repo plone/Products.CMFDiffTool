@@ -6,13 +6,16 @@
 from Globals import InitializeClass
 from Acquisition import aq_base
 import Acquisition
-from interfaces.portal_diff import IDifference
+from zope.interface import implements
+from interfaces.portal_diff import IDifference as IDifferenceZ2
+from interfaces import IDifference
 
 
 class BaseDiff:
     """Basic diff type"""
 
-    __implements__ = (IDifference,)
+    __implements__ = (IDifferenceZ2,)
+    implements(IDifference)
     __allow_access_to_unprotected_subobjects__ = 1
     meta_type = "Base Diff"
     

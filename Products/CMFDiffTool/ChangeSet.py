@@ -8,7 +8,11 @@
 # GNU General Public License (GPL).  See LICENSE.txt for details
 
 from Globals import InitializeClass
-from sets import Set
+from zope.interface import implements
+try:
+    set()
+except NameError:
+    from sets import Set as set
 from OFS.CopySupport import CopyError
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from AccessControl import getSecurityManager, ClassSecurityInfo
@@ -18,14 +22,15 @@ from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
 from Products.CMFDefault.SkinnedFolder import SkinnedFolder
 from Products.CMFDefault.DublinCore import DefaultDublinCoreImpl
 from ListDiff import ListDiff
-from interfaces.IChangeSet import IChangeSet
+from interfaces import IChangeSet
+from interfaces.IChangeSet import IChangeSet as IChangeSetZ2
 from Acquisition import Implicit
 from Acquisition import aq_base
 import zLOG
 
 
 ### Contructors for Collaboration Request objects
-manage_addChangeSetForm = PageTemplateFile('zpt/manage_addChangeSetForm', globals())
+#manage_addChangeSetForm = PageTemplateFile('zpt/manage_addChangeSetForm', globals())
 
 
 def manage_addChangeSet(self, id, title='', REQUEST=None):
@@ -70,7 +75,8 @@ factory_type_information = (
 class BaseChangeSet(Implicit):
     """A ChangeSet represents the set of differences between two objects"""
 
-    __implements__ = (IChangeSet,)
+    __implements__ = (IChangeSetZ2,)
+    implements(IChangeSet)
     # This should really not be needed just for same, we should use a method
     __allow_access_to_unprotected_subobjects__ = 1
     security = ClassSecurityInfo()
@@ -125,8 +131,8 @@ class BaseChangeSet(Implicit):
         if recursive and ob1.isPrincipiaFolderish and \
                                                      ob2.isPrincipiaFolderish:
             self.recursive = 1
-            ids1 = Set(ob1.objectIds())
-            ids2 = Set(ob2.objectIds())
+            ids1 = set(ob1.objectIds())
+            ids2 = set(ob2.objectIds())
             self._changed = ids1.intersection(ids2)
             self._removed = ids1.difference(ids2)
             self._added = ids2.difference(ids1)

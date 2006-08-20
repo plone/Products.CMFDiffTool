@@ -1,6 +1,5 @@
 from Globals import InitializeClass
 from TextDiff import TextDiff
-from interfaces.portal_diff import IDifference
 from libs import htmldiff
 
 # Give it a dumb name so it doesn't conflict with all the other html diffs
@@ -8,8 +7,6 @@ from libs import htmldiff
 # Python.
 class CMFDTHtmlDiff(TextDiff):
     """Text difference"""
-
-    __implements__ = (IDifference)
 
     meta_type = "HTML Diff"
 

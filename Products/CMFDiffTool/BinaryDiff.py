@@ -1,12 +1,9 @@
 from Globals import InitializeClass
 from BaseDiff import BaseDiff, _getValue
-from interfaces.portal_diff import IDifference
 
 
 class BinaryDiff(BaseDiff):
     """Simple binary difference"""
-
-    __implements__ = (IDifference)
 
     meta_type = "Binary Diff"
 

@@ -1,7 +1,6 @@
 import difflib
 from Globals import InitializeClass
 from FieldDiff import FieldDiff
-from interfaces.portal_diff import IDifference
 
 # Get python 2.4's HtmlDiff if available, otherwise use a local copy
 HtmlDiff = getattr(difflib, 'HtmlDiff', None)
@@ -11,8 +10,6 @@ if HtmlDiff is None:
 
 class TextDiff(FieldDiff):
     """Text difference"""
-
-    __implements__ = (IDifference)
 
     meta_type = "Lines Diff"
 

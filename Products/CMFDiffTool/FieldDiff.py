@@ -1,13 +1,9 @@
 import difflib
 from Globals import InitializeClass
 from BaseDiff import BaseDiff, _getValue
-from interfaces.portal_diff import IDifference
-
 
 class FieldDiff(BaseDiff):
     """Text difference"""
-
-    __implements__ = (IDifference)
 
     meta_type = "Field Diff"
 
