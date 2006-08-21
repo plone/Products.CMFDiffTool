@@ -22,7 +22,7 @@ class DiffToolXMLAdapter(XMLAdapterBase):
 
     def _importNode(self, node):
         if self.environ.shouldPurge():
-            self._purgeDiffTool()
+            self._purgeDiffToolSettings()
 
         self._initDiffToolSettings(node)
         self._logger.info("DiffTool settings imported.")
@@ -54,7 +54,7 @@ class DiffToolXMLAdapter(XMLAdapterBase):
                 child.setAttribute("portal_type", ptype)
                 node.appendChild(child)
             for field_name, diff in diffs.items():
-                field=self._doc.createElement("difftype")
+                field=self._doc.createElement("field")
                 field.setAttribute("name", field_name)
                 field.setAttribute("difftype", diff)
                 child.appendChild(field)
