@@ -35,7 +35,6 @@ CMFDiffTool.registerDiffType(ATCompoundDiff.ATCompoundDiff)
 def initialize(context):
     utils.ToolInit('CMF Diff Tool',
                     tools = tools,
-                    product_name = 'CMFDiffTool',
                     icon='tool.gif' 
                     ).initialize( context )
 
