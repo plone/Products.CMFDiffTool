@@ -22,31 +22,31 @@
   <form action="manage_addDiffField" method="post">
     <table>
       <tr>
-	<th>Portal Type</th>
-	<th>Field name</th>
-	<th>Diff Type</th>
+    <th>Portal Type</th>
+    <th>Field name</th>
+    <th>Diff Type</th>
       </tr>
       <tr>
-	<td>
-	  <select name="pt_name">
-	    <option tal:repeat="pt here/portal_types/listTypeInfo"
-	            tal:attributes="value pt/id;"
-	            tal:content="pt/id">[group]</option>
-	  </select>
-	</td>
-	<td>
-	  <input type="text" name="field" />
-	</td>
-	<td>
-	  <select name="diff">
-	    <option tal:repeat="d here/listDiffTypes"
-		    tal:attributes="value d;"
-		    tal:content="d">[group]</option>
-	  </select>
-	</td>
-	<td>
-	  <input type="submit" name="add" value="Add field" />
-	</td>
+    <td>
+      <select name="pt_name">
+        <option tal:repeat="pt here/portal_types/listTypeInfo"
+                tal:attributes="value pt/id;"
+                tal:content="pt/id">[group]</option>
+      </select>
+    </td>
+    <td>
+      <input type="text" name="field" />
+    </td>
+    <td>
+      <select name="diff">
+        <option tal:repeat="d here/listDiffTypes"
+            tal:attributes="value d;"
+            tal:content="d">[group]</option>
+      </select>
+    </td>
+    <td>
+      <input type="submit" name="add" value="Add field" />
+    </td>
       </tr>
     </table>
   </form>
@@ -55,43 +55,43 @@
 
     <table id="diffTable">
       <thead>
-	<tr>
-	  <th>Portal Type</th>
-	  <th>Field</th>
-	  <th>Diff Type</th>
-	  <th>Delete</th>
-	</tr>
+    <tr>
+      <th>Portal Type</th>
+      <th>Field</th>
+      <th>Diff Type</th>
+      <th>Delete</th>
+    </tr>
       </thead>
       <tal:p_type tal:repeat="pt_name here/portal_types/listContentTypes">
-	<tal:defs tal:define="diff_map python:here.getDiffForPortalType(pt_name)" tal:condition="diff_map">
-	  <tr tal:repeat="pair diff_map/items" tal:attributes="class python:test(repeat['pair'].end, 'lastrow', nothing)">
-	    <tal:defs tal:define="field python:pair[0]; difftype python:pair[1];">
+    <tal:defs tal:define="diff_map python:here.getDiffForPortalType(pt_name)" tal:condition="diff_map">
+      <tr tal:repeat="pair diff_map/items" tal:attributes="class python:test(repeat['pair'].end, 'lastrow', nothing)">
+        <tal:defs tal:define="field python:pair[0]; difftype python:pair[1];">
 
-	      <td class="form-label">
-		<a tal:condition="repeat/pair/start" 
+          <td class="form-label">
+        <a tal:condition="repeat/pair/start" 
                    tal:attributes="href string:../portal_types/$pt_name/manage_workspace" 
                    tal:content="pt_name">[pt_name]</a>
-	      </td>
+          </td>
 
-	      <td class="form-label" tal:content="field">[field]</td>
-	      <td class="form-element">
-		<select name="updates.diff:records">
-		  <option tal:repeat="d here/listDiffTypes"
-		           tal:content="d"
-			   tal:attributes="value d;
+          <td class="form-label" tal:content="field">[field]</td>
+          <td class="form-element">
+        <select name="updates.diff:records">
+          <option tal:repeat="d here/listDiffTypes"
+                   tal:content="d"
+               tal:attributes="value d;
                                            selected python:test(d == difftype, 'selected' ,nothing);">
-		    [group]
-		  </option>
-		</select>
-	      </td>
-	      <td align="center">
-		<input type="hidden" name="updates.pt_name:records" tal:attributes="value pt_name" />
-		<input type="hidden" name="updates.field:records" tal:attributes="value field" />
-		<input type="checkbox" name="updates.delete:records" />
-	      </td>
-	    </tal:defs>
-	  </tr>	  
-	</tal:defs>	  
+            [group]
+          </option>
+        </select>
+          </td>
+          <td align="center">
+        <input type="hidden" name="updates.pt_name:records" tal:attributes="value pt_name" />
+        <input type="hidden" name="updates.field:records" tal:attributes="value field" />
+        <input type="checkbox" name="updates.delete:records" />
+          </td>
+        </tal:defs>
+      </tr>   
+    </tal:defs>   
       </tal:p_type>
     </table>
     

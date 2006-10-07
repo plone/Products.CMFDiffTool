@@ -11,21 +11,21 @@
       
       <h1>Change Set</h1>
       <p>
-	Compute the difference between two objects
+          Compute the difference between two objects
       </p>
       
       <form action="changeset_edit" method="post">
-	
-	<p>
-	  <strong>Object 1:</strong> <input name="ob1_path" type="text" 
+    
+    <p>
+      <strong>Object 1:</strong> <input name="ob1_path" type="text" 
                                             tal:attributes="value python:'/'.join(here.ob1_path)" />
-	</p>
-	<p>
-	  <strong>Object 2:</strong> <input name="ob2_path" type="text" 
+    </p>
+    <p>
+      <strong>Object 2:</strong> <input name="ob2_path" type="text" 
                                             tal:attributes="value python:'/'.join(here.ob2_path)" />
-	</p>
-	
-	<input type="submit" name="compute" value="Compute Diff" class="standalone" />
+    </p>
+    
+    <input type="submit" name="compute" value="Compute Diff" class="standalone" />
       </form>
 
     </div>
