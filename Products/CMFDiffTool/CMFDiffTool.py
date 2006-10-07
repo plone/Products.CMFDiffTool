@@ -17,7 +17,6 @@ from Products.CMFDiffTool.interfaces.portal_diff import portal_diff as IDiffTool
 from Products.CMFDiffTool.interfaces import IDiffTool
 from Products.CMFDiffTool.ChangeSet import BaseChangeSet
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
-import zLOG
 
 
 class CMFDiffTool(UniqueObject, SimpleItem):

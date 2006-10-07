@@ -7,6 +7,7 @@
 # (C) 2003 Brent Hendricks - licensed under the terms of the
 # GNU General Public License (GPL).  See LICENSE.txt for details
 
+import logging
 import transaction
 from zope.interface import implements
 
@@ -24,12 +25,11 @@ from Products.CMFDefault.DublinCore import DefaultDublinCoreImpl
 from Products.CMFDiffTool.interfaces import IChangeSet
 from Products.CMFDiffTool.interfaces.IChangeSet import IChangeSet as IChangeSetZ2
 from Products.CMFDiffTool.ListDiff import ListDiff
-import zLOG
 
+logger = logging.getLogger('CMFDiffTool')
 
 def manage_addChangeSet(self, id, title='', REQUEST=None):
     """Creates a new ChangeSet object """
-
     id=str(id)
     if not id:
         raise "Bad Request", "Please specify an ID."
@@ -245,7 +245,7 @@ class ChangeSet(BaseChangeSet, SkinnedFolder, DefaultDublinCoreImpl):
             # Clone any added subobjects
             for id in self._added:
                 ob = ob2[id]
-                zLOG.LOG("ChangeSet", zLOG.BLATHER, "cloning %s (%s)" % (id, ob))
+                logger.log(logging.DEBUG, "ChangeSet: cloning %s (%s)" % (id, ob))
                 try:
                     self.manage_clone(ob, id)
                 except CopyError:
