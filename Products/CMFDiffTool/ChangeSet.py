@@ -7,30 +7,24 @@
 # (C) 2003 Brent Hendricks - licensed under the terms of the
 # GNU General Public License (GPL).  See LICENSE.txt for details
 
-from Globals import InitializeClass
+import transaction
 from zope.interface import implements
-try:
-    set()
-except NameError:
-    from sets import Set as set
-from OFS.CopySupport import CopyError
-from Products.PageTemplates.PageTemplateFile import PageTemplateFile
+
 from AccessControl import getSecurityManager, ClassSecurityInfo
-from ComputedAttribute import ComputedAttribute
-from Products.CMFCore.utils import getToolByName
-from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
-from Products.CMFDefault.SkinnedFolder import SkinnedFolder
-from Products.CMFDefault.DublinCore import DefaultDublinCoreImpl
-from ListDiff import ListDiff
-from interfaces import IChangeSet
-from interfaces.IChangeSet import IChangeSet as IChangeSetZ2
 from Acquisition import Implicit
 from Acquisition import aq_base
+from ComputedAttribute import ComputedAttribute
+from Globals import InitializeClass
+from OFS.CopySupport import CopyError
+from Products.PageTemplates.PageTemplateFile import PageTemplateFile
+from Products.CMFCore.utils import getToolByName
+from Products.CMFCore.permissions import View, ModifyPortalContent
+from Products.CMFDefault.SkinnedFolder import SkinnedFolder
+from Products.CMFDefault.DublinCore import DefaultDublinCoreImpl
+from Products.CMFDiffTool.interfaces import IChangeSet
+from Products.CMFDiffTool.interfaces.IChangeSet import IChangeSet as IChangeSetZ2
+from Products.CMFDiffTool.ListDiff import ListDiff
 import zLOG
-
-
-### Contructors for Collaboration Request objects
-#manage_addChangeSetForm = PageTemplateFile('zpt/manage_addChangeSetForm', globals())
 
 
 def manage_addChangeSet(self, id, title='', REQUEST=None):
@@ -266,7 +260,7 @@ class ChangeSet(BaseChangeSet, SkinnedFolder, DefaultDublinCoreImpl):
     def _addSubSet(self, id, ob1, ob2, exclude, id1, id2):
         self.manage_addProduct['CMFDiffTool'].manage_addChangeSet(id,
                                                   title='Changes to: %s' % id)
-        get_transaction().commit(1)
+        transaction.savepoint(optimistic=True)
         self[id].computeDiff(ob1[id], ob2[id], exclude=exclude, id1=id1, id2=id2)
 
 

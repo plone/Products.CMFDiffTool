@@ -2,10 +2,6 @@
 # CMFDiffTool tests
 #
 
-import os, sys
-if __name__ == '__main__':
-    execfile(os.path.join(sys.path[0], 'framework.py'))
-
 from Testing import ZopeTestCase
 from Products.CMFDiffTool.FieldDiff import FieldDiff
         
@@ -84,13 +80,8 @@ class TestFieldDiff(ZopeTestCase.ZopeTestCase):
         fd = FieldDiff(a, b, 'attribute')
         self.assertEqual(fd.ndiff(), expected)
 
-
-if __name__ == '__main__':
-    framework()
-else:
+def test_suite():
     import unittest
-    def test_suite():
-        suite = unittest.TestSuite()
-        suite.addTest(unittest.makeSuite(TestFieldDiff))        
-        return suite
-
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TestFieldDiff))
+    return suite

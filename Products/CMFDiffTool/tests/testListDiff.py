@@ -2,10 +2,6 @@
 # CMFDiffTool tests
 #
 
-import os, sys
-if __name__ == '__main__':
-    execfile(os.path.join(sys.path[0], 'framework.py'))
-
 from Testing import ZopeTestCase
 from Products.CMFDiffTool.ListDiff import ListDiff
         
@@ -71,12 +67,9 @@ class TestListDiff(ZopeTestCase.ZopeTestCase):
         # FIXME: need tests for other kinds of diffs
 
 
-if __name__ == '__main__':
-    framework()
-else:
+def test_suite():
     import unittest
-    def test_suite():
-        suite = unittest.TestSuite()
-        suite.addTest(unittest.makeSuite(TestListDiff))        
-        return suite
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TestListDiff))
+    return suite
 

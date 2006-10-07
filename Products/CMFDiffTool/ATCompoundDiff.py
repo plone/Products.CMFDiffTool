@@ -1,11 +1,10 @@
 from Globals import InitializeClass
-from interfaces.portal_diff import IDifference
-from TextDiff import TextDiff
-from FieldDiff import FieldDiff
-from BinaryDiff import BinaryDiff
-from ListDiff import ListDiff
-from CMFDTHtmlDiff import CMFDTHtmlDiff
-from interfaces.portal_diff import IDifference
+from Products.CMFDiffTool.interfaces.portal_diff import IDifference
+from Products.CMFDiffTool.TextDiff import TextDiff
+from Products.CMFDiffTool.FieldDiff import FieldDiff
+from Products.CMFDiffTool.BinaryDiff import BinaryDiff
+from Products.CMFDiffTool.ListDiff import ListDiff
+from Products.CMFDiffTool.CMFDTHtmlDiff import CMFDTHtmlDiff
 
 
 AT_FIELD_MAPPING = {'text': 'variable_text',

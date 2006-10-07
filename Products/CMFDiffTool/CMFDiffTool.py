@@ -3,21 +3,21 @@
    Calculate differences between content objects
 """
 
-from Products.CMFCore.utils import UniqueObject
-from Products.CMFCore.utils import getToolByName
-from OFS.SimpleItem import SimpleItem
-from Globals import InitializeClass
-from Products.PageTemplates.PageTemplateFile import PageTemplateFile
-from AccessControl import ClassSecurityInfo
-from Products.CMFCore.CMFCorePermissions import View, ManagePortal
+from zope.interface import implements
+
 import Acquisition
 from Acquisition import aq_base
+from AccessControl import ClassSecurityInfo
+from Globals import InitializeClass
+from OFS.SimpleItem import SimpleItem
+from Products.CMFCore.permissions import View, ManagePortal
+from Products.CMFCore.utils import UniqueObject
+from Products.CMFCore.utils import getToolByName
+from Products.CMFDiffTool.interfaces.portal_diff import portal_diff as IDiffToolZ2
+from Products.CMFDiffTool.interfaces import IDiffTool
+from Products.CMFDiffTool.ChangeSet import BaseChangeSet
+from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 import zLOG
-
-from interfaces.portal_diff import portal_diff as IDiffToolZ2
-from interfaces import IDiffTool
-from zope.interface import implements
-from ChangeSet import BaseChangeSet
 
 
 class CMFDiffTool(UniqueObject, SimpleItem):

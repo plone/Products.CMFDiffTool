@@ -1,6 +1,6 @@
 from Globals import InitializeClass
-from TextDiff import TextDiff
-from libs import htmldiff
+from Products.CMFDiffTool.TextDiff import TextDiff
+from Products.CMFDiffTool.libs import htmldiff
 
 # Give it a dumb name so it doesn't conflict with all the other html diffs
 # around.  This uses Ian Bicking's very nice htmldiff.py from Web Ware for

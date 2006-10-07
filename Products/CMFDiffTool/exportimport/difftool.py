@@ -4,12 +4,12 @@ from Products.GenericSetup.utils import importObjects
 from Products.GenericSetup.utils import exportObjects
 from Products.CMFCore.utils import getToolByName
 
+from zope.interface import implements
 
 class DiffToolXMLAdapter(XMLAdapterBase):
     """In- and exporter for DiffTool.
     """
-
-    __used_for__ = IDiffTool
+    implements(IDiffTool)
 
     def _exportNode(self):
         """Export the object as a DOM node.
@@ -29,7 +29,6 @@ class DiffToolXMLAdapter(XMLAdapterBase):
 
     def _purgeDiffToolSettings(self):
         self.context.manage_editDiffFields({})
-
 
     def _initDiffToolSettings(self, node):
         for child in node.childNodes:

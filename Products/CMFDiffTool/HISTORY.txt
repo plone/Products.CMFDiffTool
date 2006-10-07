@@ -1,0 +1,11 @@
+Changelog for CMFDiffTool
+
+    (name of developer listed in brackets)
+
+CMFDiffTool 1.0 - Unreleased
+
+    - Code modernization for Python 2.4 / CMF 1.6.
+      [hannosch]
+
+    - Initial version.
+      [brentmh]

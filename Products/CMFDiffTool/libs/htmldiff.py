@@ -13,16 +13,11 @@ Better results if you use mxTidy first.  The output is HTML.
 
 from difflib import SequenceMatcher
 import re
-try:
-    from cStringIO import StringIO
-except ImportError:
-    from StringIO import StringIO
+from StringIO import StringIO
 import cgi
 
 def htmlEncode(s, esc=cgi.escape):
     return esc(s, 1)
-
-True, False = 1==1, 1==0
 
 commentRE = re.compile('<!--.*?-->', re.S)
 tagRE = re.compile('<.*?>', re.S)

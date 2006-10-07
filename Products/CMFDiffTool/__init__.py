@@ -3,15 +3,16 @@
 import sys
 from Products.CMFCore.DirectoryView import registerDirectory
 from Products.CMFCore import utils
-from Products.CMFCore import CMFCorePermissions
-import CMFDiffTool
-import FieldDiff
-import TextDiff
-import ListDiff
-import BinaryDiff
-import ChangeSet
-import CMFDTHtmlDiff
-import ATCompoundDiff
+from Products.CMFCore.permissions import AddPortalContent
+
+import Products.CMFDiffTool.CMFDiffTool
+import Products.CMFDiffTool.FieldDiff
+import Products.CMFDiffTool.TextDiff
+import Products.CMFDiffTool.ListDiff
+import Products.CMFDiffTool.BinaryDiff
+import Products.CMFDiffTool.ChangeSet
+import Products.CMFDiffTool.CMFDTHtmlDiff
+import Products.CMFDiffTool.ATCompoundDiff
 
 this_module = sys.modules[ __name__ ]
 product_globals = globals()
@@ -19,7 +20,6 @@ tools = ( CMFDiffTool.CMFDiffTool,)
 
 contentConstructors = (ChangeSet.manage_addChangeSet,)
 contentClasses = (ChangeSet.ChangeSet,)
-z_bases = utils.initializeBasesPhase1(contentClasses, this_module)
 
 # Make the skins available as DirectoryViews
 registerDirectory('skins', globals())
@@ -38,9 +38,8 @@ def initialize(context):
                     icon='tool.gif' 
                     ).initialize( context )
 
-    utils.initializeBasesPhase2( z_bases, context )
     utils.ContentInit(ChangeSet.ChangeSet.meta_type,
                       content_types = contentClasses,
-                      permission = CMFCorePermissions.AddPortalContent,
+                      permission = AddPortalContent,
                       extra_constructors = contentConstructors,
                       fti = ChangeSet.factory_type_information).initialize(context)

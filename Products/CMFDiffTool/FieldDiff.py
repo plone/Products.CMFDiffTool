@@ -1,6 +1,6 @@
 import difflib
 from Globals import InitializeClass
-from BaseDiff import BaseDiff, _getValue
+from Products.CMFDiffTool.BaseDiff import BaseDiff, _getValue
 
 class FieldDiff(BaseDiff):
     """Text difference"""

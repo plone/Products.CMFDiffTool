@@ -1,12 +1,6 @@
 import difflib
 from Globals import InitializeClass
-from FieldDiff import FieldDiff
-
-# Get python 2.4's HtmlDiff if available, otherwise use a local copy
-HtmlDiff = getattr(difflib, 'HtmlDiff', None)
-if HtmlDiff is None:
-    from libs.py2_4_HtmlDiff import HtmlDiff
-
+from Products.CMFDiffTool.FieldDiff import FieldDiff
 
 class TextDiff(FieldDiff):
     """Text difference"""
@@ -28,7 +22,7 @@ class TextDiff(FieldDiff):
         """Return an HTML table showing differences"""
         a = [str(i) for i in self._parseField(self.oldValue)]
         b = [str(i) for i in self._parseField(self.newValue)]
-        vis_diff = HtmlDiff(wrapcolumn=wrapcolumn)
+        vis_diff = difflib.HtmlDiff(wrapcolumn=wrapcolumn)
         return vis_diff.make_table(a, b, self.id1, self.id2, context=context)
 
 InitializeClass(TextDiff)

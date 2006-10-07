@@ -1,5 +1,5 @@
 from Globals import InitializeClass
-from FieldDiff import FieldDiff
+from Products.CMFDiffTool.FieldDiff import FieldDiff
 
 
 class ListDiff(FieldDiff):

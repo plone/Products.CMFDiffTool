@@ -2,10 +2,6 @@
 # CMFDiffTool tests
 #
 
-import os, sys
-if __name__ == '__main__':
-    execfile(os.path.join(sys.path[0], 'framework.py'))
-
 import BaseTestCase
 from Products.CMFDiffTool.CMFDiffTool import registerDiffType
 from Products.CMFDiffTool.CMFDiffTool import unregisterDiffType
@@ -84,12 +80,9 @@ class TestDiffTool(BaseTestCase.BaseTestCase):
         unregisterDiffType(DummyDiff)
 
 
-if __name__ == '__main__':
-    framework()
-else:
+def test_suite():
     import unittest
-    def test_suite():
-        suite = unittest.TestSuite()
-        suite.addTest(unittest.makeSuite(TestDiffTool))
-        return suite
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TestDiffTool))
+    return suite
 

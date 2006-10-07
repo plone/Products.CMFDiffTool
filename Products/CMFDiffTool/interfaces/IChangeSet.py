@@ -4,11 +4,7 @@
 """Interface for computing object differences"""
 
 from Interface import Attribute
-try:
-    from Interface import Interface
-except ImportError:
-    # for Zope versions before 2.6.0
-    from Interface import Base as Interface
+from Interface import Interface
 
 class IChangeSet(Interface):
     """And interface representing all of the differences between two objects"""

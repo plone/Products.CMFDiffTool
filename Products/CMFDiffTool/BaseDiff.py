@@ -3,13 +3,13 @@
    Calculate differences between content objects
 """
 
-from Globals import InitializeClass
-from Acquisition import aq_base
-import Acquisition
 from zope.interface import implements
-from interfaces.portal_diff import IDifference as IDifferenceZ2
-from interfaces import IDifference
 
+import Acquisition
+from Acquisition import aq_base
+from Globals import InitializeClass
+from Products.CMFDiffTool.interfaces.portal_diff import IDifference as IDifferenceZ2
+from Products.CMFDiffTool.interfaces import IDifference
 
 class BaseDiff:
     """Basic diff type"""
