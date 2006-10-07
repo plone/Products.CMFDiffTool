@@ -1,7 +1,7 @@
 from Products.CMFCore.TypesTool import ContentFactoryMetadata
 from Products.CMFCore.DirectoryView import addDirectoryViews
 from Products.CMFCore.utils import getToolByName
-from Products.CMFDiffTool import CMFDiffTool, product_globals, ChangeSet
+from Products.CMFDiffTool import product_globals, ChangeSet
 from StringIO import StringIO
 import string
 

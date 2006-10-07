@@ -11,20 +11,18 @@ import logging
 import transaction
 from zope.interface import implements
 
-from AccessControl import getSecurityManager, ClassSecurityInfo
+from AccessControl import ClassSecurityInfo
 from Acquisition import Implicit
 from Acquisition import aq_base
 from ComputedAttribute import ComputedAttribute
 from Globals import InitializeClass
 from OFS.CopySupport import CopyError
-from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.permissions import View, ModifyPortalContent
 from Products.CMFDefault.SkinnedFolder import SkinnedFolder
 from Products.CMFDefault.DublinCore import DefaultDublinCoreImpl
 from Products.CMFDiffTool.interfaces import IChangeSet
 from Products.CMFDiffTool.interfaces.IChangeSet import IChangeSet as IChangeSetZ2
-from Products.CMFDiffTool.ListDiff import ListDiff
 
 logger = logging.getLogger('CMFDiffTool')
 

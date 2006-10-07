@@ -5,14 +5,12 @@
 
 from zope.interface import implements
 
-import Acquisition
 from Acquisition import aq_base
 from AccessControl import ClassSecurityInfo
 from Globals import InitializeClass
 from OFS.SimpleItem import SimpleItem
-from Products.CMFCore.permissions import View, ManagePortal
+from Products.CMFCore.permissions import ManagePortal
 from Products.CMFCore.utils import UniqueObject
-from Products.CMFCore.utils import getToolByName
 from Products.CMFDiffTool.interfaces.portal_diff import portal_diff as IDiffToolZ2
 from Products.CMFDiffTool.interfaces import IDiffTool
 from Products.CMFDiffTool.ChangeSet import BaseChangeSet
