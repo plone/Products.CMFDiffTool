@@ -40,6 +40,5 @@ def initialize(context):
 
     utils.ContentInit(ChangeSet.ChangeSet.meta_type,
                       content_types = contentClasses,
-                      permission = AddPortalContent,
                       extra_constructors = contentConstructors,
-                      fti = ChangeSet.factory_type_information).initialize(context)
+                      permission = AddPortalContent).initialize(context)

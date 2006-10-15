@@ -4,6 +4,9 @@ Changelog for CMFDiffTool
 
 CMFDiffTool 1.0 - Unreleased
 
+    - Product installation is now based on a GenericSetup extension profile.
+      [hannosch]
+
     - Code modernization for Python 2.4 / CMF 1.6.
       [hannosch]
 

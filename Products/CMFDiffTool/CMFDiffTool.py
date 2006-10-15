@@ -23,8 +23,6 @@ class CMFDiffTool(UniqueObject, SimpleItem):
     id = 'portal_diff'
     meta_type = 'CMF Diff Tool'
 
-    #_actions = ()
-
     security = ClassSecurityInfo()
 
     manage_options=(( {'label':'Configure', 'action':'manage_difftypes'},
@@ -40,11 +38,6 @@ class CMFDiffTool(UniqueObject, SimpleItem):
 
     def __init__(self):
         self._pt_diffs = {}
-
-
-    ##   ZMI methods
-    #security.declareProtected(ManagePortal, 'manage_overview')
-    #manage_overview = PageTemplateFile('zpt/explainCMFDiffTool', globals() )
 
     security.declareProtected(ManagePortal, 'manage_difftypes')
     manage_difftypes = PageTemplateFile('zpt/editCMFDiffTool', globals() )
@@ -156,7 +149,6 @@ class CMFDiffTool(UniqueObject, SimpleItem):
         cs = BaseChangeSet('Changes').__of__(self)
         cs.computeDiff(ob1, ob2, id1=id1, id2=id2)
         return aq_base(cs)
-
 
 
 def registerDiffType(klass):
