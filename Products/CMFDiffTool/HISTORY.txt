@@ -2,7 +2,7 @@ Changelog for CMFDiffTool
 
     (name of developer listed in brackets)
 
-CMFDiffTool 1.0 - Unreleased
+CMFDiffTool 0.3 2006-10-02
 
     - Product installation is now based on a GenericSetup extension profile.
       [hannosch]
