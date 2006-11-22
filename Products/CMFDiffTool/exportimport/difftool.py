@@ -11,6 +11,8 @@ class DiffToolXMLAdapter(XMLAdapterBase):
     """
     implements(IDiffTool)
 
+    name = 'diff_tool'
+
     def _exportNode(self):
         """Export the object as a DOM node.
         """
