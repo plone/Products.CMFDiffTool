@@ -1,0 +1,3 @@
+PROJECTNAME = 'CMFDiffTool'
+
+GLOBALS = globals()
