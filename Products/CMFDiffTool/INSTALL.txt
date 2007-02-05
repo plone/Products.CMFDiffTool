@@ -2,7 +2,6 @@ HOW TO INSTALL CMFDiffTool
 
 CMFDiffTool installs just as any other Plone product.
 
-
 Untar it in your Products directory with
 
 - tar -zxvf CMFDiffTool
@@ -27,6 +26,5 @@ For contentypes built with archetypes, there is a special diff that will
 examine all fields described by the Schema.  To enable it select your type,
 put 'any' in the field name input, and select 'Compound diff for AT types'
 for the Diff Type.
-
 
 Congratulations and happy diff'ing

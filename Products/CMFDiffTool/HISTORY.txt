@@ -4,9 +4,6 @@ Changelog for CMFDiffTool
 
 CMFDiffTool 0.3 2006-10-02
 
-    - Add install method to expose GenericSetup in portal_quickisntaller.
-      [davismr]
-
     - Product installation is now based on a GenericSetup extension profile.
       [hannosch]
 

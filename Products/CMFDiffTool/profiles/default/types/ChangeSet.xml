@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <object name="ChangeSet" meta_type="Factory-based Type Information"
-   xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+   i18n:domain="cmfdifftool" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  <property name="title" i18n:translate=""></property>
  <property name="description"
     i18n:translate="">A collection of changes between two objects</property>
