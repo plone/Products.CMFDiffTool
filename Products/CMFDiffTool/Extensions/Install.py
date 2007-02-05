@@ -65,8 +65,10 @@ def install(self):
 
     # setup defaults for plone 2.1 at content types
     migration = getToolByName(self, 'portal_migration', None)
-    
-    if migration is not None and migration.getInstanceVersion().strip().startswith('2.1'):
+    version_match = migration.getInstanceVersion().strip().startswith('2.1') \
+                    or migration.getInstanceVersion().strip().startswith('2.5')
+
+    if migration is not None and version_match:
         portal_types = getToolByName( self, 'portal_types')
         portal_diff  = getToolByName( self, 'portal_diff')
         for type_info in portal_types.objectValues():
