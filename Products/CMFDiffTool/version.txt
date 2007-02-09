@@ -1,1 +1,1 @@
-0.4-devel (SVN/UNRELEASED)
+0.3.1
