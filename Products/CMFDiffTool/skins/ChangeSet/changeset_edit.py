@@ -12,6 +12,4 @@ ob1 = context.restrictedTraverse(ob1_path)
 ob2 = context.restrictedTraverse(ob2_path)
 
 context.computeDiff(ob1, ob2)
-
-context.REQUEST.RESPONSE.redirect('.?portal_status_message=Differences computed')
-
+context.REQUEST.RESPONSE.redirect('.')
