@@ -9,7 +9,7 @@ from OFS.SimpleItem import SimpleItem
 from Globals import InitializeClass
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from AccessControl import ClassSecurityInfo
-from Products.CMFCore.CMFCorePermissions import View, ManagePortal
+from Products.CMFCore.permissions import View, ManagePortal
 import Acquisition
 from Acquisition import aq_base
 import zLOG

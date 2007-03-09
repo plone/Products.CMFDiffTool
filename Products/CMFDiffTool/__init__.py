@@ -3,7 +3,7 @@
 import sys
 from Products.CMFCore.DirectoryView import registerDirectory
 from Products.CMFCore import utils
-from Products.CMFCore import CMFCorePermissions
+from Products.CMFCore import permissions as CMFCorePermissions
 import CMFDiffTool
 import FieldDiff
 import TextDiff

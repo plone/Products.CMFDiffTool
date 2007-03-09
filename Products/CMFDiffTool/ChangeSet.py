@@ -18,7 +18,7 @@ from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from AccessControl import getSecurityManager, ClassSecurityInfo
 from ComputedAttribute import ComputedAttribute
 from Products.CMFCore.utils import getToolByName
-from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
+from Products.CMFCore.permissions import View, ModifyPortalContent
 from Products.CMFDefault.SkinnedFolder import SkinnedFolder
 from Products.CMFDefault.DublinCore import DefaultDublinCoreImpl
 from ListDiff import ListDiff
