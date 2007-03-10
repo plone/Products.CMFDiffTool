@@ -4,6 +4,7 @@
               handler="Products.CMFDiffTool.exportimport.difftool.importDiffTool"
               title="Diff Tool">
   <dependency step="toolset"/>
+  <dependency step="componentregistry"/>
     Import CMFDiffTool settings
  </import-step>
 </import-steps>
