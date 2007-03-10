@@ -1,8 +1,11 @@
+from zope.component import getUtility
+from zope.component import queryUtility
+
+from Products.CMFCore.interfaces import ITypesTool
 from Products.CMFDiffTool.interfaces import IDiffTool
 from Products.GenericSetup.utils import XMLAdapterBase
 from Products.GenericSetup.utils import importObjects
 from Products.GenericSetup.utils import exportObjects
-from Products.CMFCore.utils import getToolByName
 
 from zope.interface import implements
 
@@ -47,7 +50,7 @@ class DiffToolXMLAdapter(XMLAdapterBase):
 
     def _extractDiffToolSettings(self):
         node=self._doc.createElement("difftypes")
-        ttool = getToolByName(self.context, "portal_types")
+        ttool = getUtility(ITypesTool)
         for ptype in ttool.listContentTypes():
             diffs = self.context.getDiffForPortalType(ptype)
             if diffs:
@@ -66,7 +69,7 @@ def importDiffTool(context):
     """Import Factory Tool configuration.
     """
     site = context.getSite()
-    tool = getToolByName(site, 'portal_diff')
+    tool = getUtility(IDiffTool)
 
     importObjects(tool, '', context)
 
@@ -75,7 +78,7 @@ def exportDiffTool(context):
     """Export Factory Tool configuration.
     """
     site = context.getSite()
-    tool = getToolByName(site, 'portal_diff', None)
+    tool = queryUtility(IDiffTool)
     if tool is None:
         logger = context.getLogger("difftool")
         logger.info("Nothing to export.")
