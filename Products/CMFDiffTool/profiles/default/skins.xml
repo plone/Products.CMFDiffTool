@@ -3,7 +3,7 @@
    cookie_persistence="False" default_skin="Plone Default"
    request_varname="plone_skin">
  <object name="ChangeSet" meta_type="Filesystem Directory View"
-    directory="CMFDiffTool/skins/ChangeSet"/>
+    directory="Products.CMFDiffTool:skins/ChangeSet"/>
   <skin-path name="*">
   <layer name="ChangeSet" insert-after="custom"/>
  </skin-path>
