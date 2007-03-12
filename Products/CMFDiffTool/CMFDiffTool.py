@@ -10,6 +10,7 @@ from AccessControl import ClassSecurityInfo
 from Globals import InitializeClass
 from OFS.SimpleItem import SimpleItem
 from Products.CMFCore.permissions import ManagePortal
+from Products.CMFCore.utils import registerToolInterface
 from Products.CMFCore.utils import UniqueObject
 from Products.CMFDiffTool.interfaces.portal_diff import portal_diff as IDiffToolZ2
 from Products.CMFDiffTool.interfaces import IDiffTool
@@ -169,3 +170,4 @@ def unregisterDiffType(klass):
 
 
 InitializeClass(CMFDiffTool)
+registerToolInterface('portal_diff', IDiffTool)
