@@ -9,8 +9,6 @@
 
 import logging
 import transaction
-from zope.component import getUtility
-from zope.component import queryUtility
 from zope.interface import implements
 
 from AccessControl import ClassSecurityInfo
@@ -19,12 +17,11 @@ from Acquisition import aq_base
 from ComputedAttribute import ComputedAttribute
 from Globals import InitializeClass
 from OFS.CopySupport import CopyError
-from Products.CMFCore.interfaces import IURLTool
+from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.permissions import View, ModifyPortalContent
 from Products.CMFDefault.SkinnedFolder import SkinnedFolder
 from Products.CMFDefault.DublinCore import DefaultDublinCoreImpl
 from Products.CMFDiffTool.interfaces import IChangeSet
-from Products.CMFDiffTool.interfaces import IDiffTool
 from Products.CMFDiffTool.interfaces.IChangeSet import IChangeSet as IChangeSetZ2
 
 logger = logging.getLogger('CMFDiffTool')
@@ -116,11 +113,11 @@ class BaseChangeSet(Implicit):
         self._changed = []
         self._changesets = {}
 
-        purl = queryUtility(IURLTool)
+        purl = getToolByName(self, 'portal_url', None)
         if purl is not None:
             self.ob1_path = purl.getRelativeContentPath(ob1)
             self.ob2_path = purl.getRelativeContentPath(ob2)
-        diff_tool = getUtility(IDiffTool)
+        diff_tool = getToolByName(self, "portal_diff")
         self._diffs = diff_tool.computeDiff(ob1, ob2, id1=id1, id2=id2)
 
         if recursive and ob1.isPrincipiaFolderish and \
