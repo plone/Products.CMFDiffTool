@@ -2,6 +2,11 @@ Changelog for CMFDiffTool
 
     (name of developer listed in brackets)
 
+CMFFiffTool 0.3.3 2007-03-05
+
+  - Removed default config for ATCT types, it goes in Plone now
+    [alecm]
+    
 CMFFiffTool 0.3.2 2007-03-05
 
   - Added default config for ATCT types
