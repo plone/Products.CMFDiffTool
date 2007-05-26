@@ -11,11 +11,11 @@
     <body>
 
         <div metal:fill-slot="main">
-            <h1>
-                <span i18n:translate="">Diff between</span>
-                <span tal:content="options/obj1/getId" />
-                <span i18n:translate="">and</span>
-                <span tal:content="options/obj2/getId" />
+            <h1 i18n:translate="heading_diff_between">
+                Diff between
+                <span tal:content="options/obj1/getId" i18n:name="object1"/>
+                and
+                <span tal:content="options/obj2/getId" i18n:name="object2" />
             </h1>
         <div metal:define-macro="diff_view"
              tal:define="obj1 nocall:options/obj1;
