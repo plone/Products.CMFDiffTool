@@ -2,6 +2,11 @@ Changelog for CMFDiffTool
 
     (name of developer listed in brackets)
 
+CMFFiffTool 0.3.5
+
+  - Updated componentregisty.xml to new style.
+    [hannosch]
+
 CMFFiffTool 0.3.4 2007-06-08
 
   - Fixed i18n markup in at_changeset.pt.

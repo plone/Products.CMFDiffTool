@@ -4,6 +4,6 @@
  <utilities>
   <utility
      interface="Products.CMFDiffTool.interfaces.IDiffTool"
-     object="/portal_diff"/>
+     object="portal_diff"/>
  </utilities>
 </componentregistry>
