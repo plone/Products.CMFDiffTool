@@ -225,9 +225,14 @@ class ChangeSet(BaseChangeSet, SkinnedFolder, DefaultDublinCoreImpl):
     portal_type = "ChangeSet"
     security = ClassSecurityInfo()
 
-    __implements__ = (BaseChangeSet.__implements__ +
-                        SkinnedFolder.__implements__ +
-                        DefaultDublinCoreImpl.__implements__)
+    try:
+        __implements__ = (BaseChangeSet.__implements__ +
+                            SkinnedFolder.__implements__ +
+                            DefaultDublinCoreImpl.__implements__)
+    except TypeError:
+        # FFF for CMF trunk
+        __implements__ = (BaseChangeSet.__implements__ +
+                            (SkinnedFolder.__implements__,))
 
     def __init__(self, id, title=''):
         BaseChangeSet.__init__(self, id, title='')
