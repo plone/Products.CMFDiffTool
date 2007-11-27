@@ -124,10 +124,14 @@ class CMFDiffTool(UniqueObject, SimpleItem):
         IDifference interface"""
 
         # Try to get the portal type from obj1 first.  If that fails, use obj2
+        pt_name = ''
         try:
             pt_name = aq_base(ob1).portal_type
         except AttributeError:
-            pt_name = aq_base(ob2).portal_type
+            try:
+                pt_name = aq_base(ob2).portal_type
+            except AttributeError:
+                pass
 
         diff_map = self._pt_diffs.get(pt_name, {})
 

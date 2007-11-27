@@ -4,6 +4,10 @@ Changelog for CMFDiffTool
 
 CMFFiffTool 0.3.5
 
+  - Don't assume there's a portal_type for objects.
+    Fixes http://dev.plone.org/plone/ticket/7295
+    [alecm]
+
   - Fixed issue causing diffs to break for folders that switched between
     inside and outside ref modifiers.
     [alecm]
