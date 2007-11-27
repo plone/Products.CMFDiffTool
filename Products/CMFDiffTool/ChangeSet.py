@@ -115,8 +115,12 @@ class BaseChangeSet(Implicit):
 
         purl = getToolByName(self, 'portal_url', None)
         if purl is not None:
-            self.ob1_path = purl.getRelativeContentPath(ob1)
-            self.ob2_path = purl.getRelativeContentPath(ob2)
+            try:
+                self.ob1_path = purl.getRelativeContentPath(ob1)
+                self.ob2_path = purl.getRelativeContentPath(ob2)
+            except AttributeError:
+                # one or both of the objects may not have a path
+                return
         diff_tool = getToolByName(self, "portal_diff")
         self._diffs = diff_tool.computeDiff(ob1, ob2, id1=id1, id2=id2)
 

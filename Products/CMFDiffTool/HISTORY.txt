@@ -4,6 +4,10 @@ Changelog for CMFDiffTool
 
 CMFFiffTool 0.3.5
 
+  - Fixed issue causing diffs to break for folders that switched between
+    inside and outside ref modifiers.
+    [alecm]
+
   - Updated componentregisty.xml to new style.
     [hannosch]
 
