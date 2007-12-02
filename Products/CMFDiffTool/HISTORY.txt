@@ -2,7 +2,7 @@ Changelog for CMFDiffTool
 
     (name of developer listed in brackets)
 
-CMFFiffTool 0.3.5 2007-12-02
+CMFDiffTool 0.3.5 2007-12-02
 
   - Don't assume there's a portal_type for objects.
     Fixes http://dev.plone.org/plone/ticket/7295
@@ -18,17 +18,17 @@ CMFFiffTool 0.3.5 2007-12-02
   - Updated componentregisty.xml to new style.
     [hannosch]
 
-CMFFiffTool 0.3.4 2007-06-08
+CMFDiffTool 0.3.4 2007-06-08
 
   - Fixed i18n markup in at_changeset.pt.
     [hannosch]
 
-CMFFiffTool 0.3.3 2007-03-05
+CMFDiffTool 0.3.3 2007-03-05
 
   - Removed default config for ATCT types, it goes in Plone now
     [alecm]
     
-CMFFiffTool 0.3.2 2007-03-05
+CMFDiffTool 0.3.2 2007-03-05
 
   - Added default config for ATCT types
     [alecm]
