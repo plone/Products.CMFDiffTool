@@ -2,7 +2,7 @@ Changelog for CMFDiffTool
 
     (name of developer listed in brackets)
 
-CMFFiffTool 0.3.5
+CMFFiffTool 0.3.5 2007-12-02
 
   - Don't assume there's a portal_type for objects.
     Fixes http://dev.plone.org/plone/ticket/7295
@@ -11,6 +11,9 @@ CMFFiffTool 0.3.5
   - Fixed issue causing diffs to break for folders that switched between
     inside and outside ref modifiers.
     [alecm]
+
+  - Make ChangeSet compatible with CMF trunk.
+    [wiggy]
 
   - Updated componentregisty.xml to new style.
     [hannosch]
