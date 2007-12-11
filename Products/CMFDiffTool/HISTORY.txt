@@ -2,6 +2,11 @@ Changelog for CMFDiffTool
 
     (name of developer listed in brackets)
 
+CMFDiffTool 0.4 unreleased
+
+  - Added metadata.xml file to the profile.
+    [hannosch]
+
 CMFDiffTool 0.3.5 2007-12-02
 
   - Don't assume there's a portal_type for objects.
