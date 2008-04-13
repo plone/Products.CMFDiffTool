@@ -4,6 +4,9 @@ Changelog for CMFDiffTool
 
 CMFDiffTool 0.4 unreleased
 
+  - Added protection against missing diff_tool in the exportimport handler.
+    [hannosch]
+
   - Added metadata.xml file to the profile.
     [hannosch]
 

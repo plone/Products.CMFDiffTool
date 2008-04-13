@@ -66,9 +66,10 @@ def importDiffTool(context):
     """Import Factory Tool configuration.
     """
     site = context.getSite()
-    tool = getToolByName(site, 'portal_diff')
+    tool = getToolByName(site, 'portal_diff', None)
 
-    importObjects(tool, '', context)
+    if tool is not None:
+        importObjects(tool, '', context)
 
 
 def exportDiffTool(context):
