@@ -2,7 +2,7 @@ Changelog for CMFDiffTool
 
     (name of developer listed in brackets)
 
-CMFDiffTool 0.4 unreleased
+CMFDiffTool 0.3.6 2008-04-20
 
   - Added protection against missing diff_tool in the exportimport handler.
     [hannosch]
