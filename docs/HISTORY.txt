@@ -1,11 +1,12 @@
-Changelog for CMFDiffTool
+Changelog
+=========
 
-    (name of developer listed in brackets)
+1.0 (unreleased)
+----------------
 
-CMFDiffTool 0.4 unreleased
 
-
-CMFDiffTool 0.3.6 2008-04-20
+0.3.6 (2008-04-20)
+------------------
 
   - Added protection against missing diff_tool in the exportimport handler.
     [hannosch]
@@ -13,7 +14,9 @@ CMFDiffTool 0.3.6 2008-04-20
   - Added metadata.xml file to the profile.
     [hannosch]
 
-CMFDiffTool 0.3.5 2007-12-02
+
+0.3.5 (2007-12-02)
+------------------
 
   - Don't assume there's a portal_type for objects.
     Fixes http://dev.plone.org/plone/ticket/7295
@@ -29,36 +32,45 @@ CMFDiffTool 0.3.5 2007-12-02
   - Updated componentregisty.xml to new style.
     [hannosch]
 
-CMFDiffTool 0.3.4 2007-06-08
+
+0.3.4 (2007-06-08)
+------------------
 
   - Fixed i18n markup in at_changeset.pt.
     [hannosch]
 
-CMFDiffTool 0.3.3 2007-03-05
+
+0.3.3 (2007-03-05)
+------------------
 
   - Removed default config for ATCT types, it goes in Plone now
     [alecm]
-    
-CMFDiffTool 0.3.2 2007-03-05
+
+
+0.3.2 (2007-03-05)
+------------------
 
   - Added default config for ATCT types
     [alecm]
-    
-CMFDiffTool 0.3.1 2007-02-09
 
-    - Removed useless status message.
-      [hannosch]
 
-    - Added ZCML layer setup for tests
-      [alecm]
+0.3.1 (2007-02-09)
+------------------
 
-CMFDiffTool 0.3 2006-10-02
+  - Removed useless status message.
+    [hannosch]
 
-    - Product installation is now based on a GenericSetup extension profile.
-      [hannosch]
+  - Added ZCML layer setup for tests
+    [alecm]
 
-    - Code modernization for Python 2.4 / CMF 1.6.
-      [hannosch]
+0.3 (2006-10-02)
+----------------
 
-    - Initial version.
-      [brentmh]
+  - Product installation is now based on a GenericSetup extension profile.
+    [hannosch]
+
+  - Code modernization for Python 2.4 / CMF 1.6.
+    [hannosch]
+
+  - Initial version.
+    [brentmh]

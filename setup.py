@@ -6,8 +6,7 @@ version = '1.0'
 setup(name='Products.CMFDiffTool',
       version=version,
       description="Diff tool for Plone",
-      long_description="""\
-""",
+      long_description=open(os.path.join("docs", "HISTORY.txt")).read(),
       classifiers=[
         'Framework :: Plone',
         'Framework :: Zope2',
