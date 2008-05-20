@@ -12,7 +12,6 @@ from OFS.SimpleItem import SimpleItem
 from Products.CMFCore.permissions import ManagePortal
 from Products.CMFCore.utils import registerToolInterface
 from Products.CMFCore.utils import UniqueObject
-from Products.CMFDiffTool.interfaces.portal_diff import portal_diff as IDiffToolZ2
 from Products.CMFDiffTool.interfaces import IDiffTool
 from Products.CMFDiffTool.ChangeSet import BaseChangeSet
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
@@ -31,7 +30,6 @@ class CMFDiffTool(UniqueObject, SimpleItem):
                       ) + SimpleItem.manage_options
                     )
 
-    __implements__ = (IDiffToolZ2)
     implements(IDiffTool)
 
     ## Internal attributes

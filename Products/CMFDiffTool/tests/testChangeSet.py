@@ -19,8 +19,8 @@ class TestChangeSet(BaseTestCase.BaseTestCase):
     def testInterface(self):
         """Ensure that tool instances implement the portal_diff interface"""
         from Products.CMFDiffTool.interfaces.IChangeSet import IChangeSet
-        self.failUnless(IChangeSet.isImplementedByInstancesOf(ChangeSet))
-        self.failUnless(IChangeSet.isImplementedByInstancesOf(BaseChangeSet))
+        self.failUnless(IChangeSet.implementedBy(ChangeSet))
+        self.failUnless(IChangeSet.implementedBy(BaseChangeSet))
 
     def setupTestObjects(self):
         self.folder.invokeFactory('Document','doc1', title='My Title')

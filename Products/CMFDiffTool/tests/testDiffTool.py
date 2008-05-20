@@ -22,7 +22,7 @@ class TestDiffTool(BaseTestCase.BaseTestCase):
     def testInterface(self):
         """Ensure that tool instances implement the portal_diff interface"""
         from Products.CMFDiffTool.interfaces.portal_diff import portal_diff
-        self.failUnless(portal_diff.isImplementedBy(self.p_diff))
+        self.failUnless(portal_diff.providedBy(self.p_diff))
 
     def testRegisterDiffType(self):
         """Test registration of Diff types"""

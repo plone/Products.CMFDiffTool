@@ -19,7 +19,7 @@ class TestListDiff(ZopeTestCase.ZopeTestCase):
     def testInterface(self):
         """Ensure that tool instances implement the portal_diff interface"""
         from Products.CMFDiffTool.interfaces.portal_diff import IDifference
-        self.failUnless(IDifference.isImplementedByInstancesOf(ListDiff))
+        self.failUnless(IDifference.implementedBy(ListDiff))
     
     def testAttributeSame(self):
         """Test attribute with same value"""

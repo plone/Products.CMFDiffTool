@@ -22,7 +22,6 @@ from Products.CMFCore.permissions import View, ModifyPortalContent
 from Products.CMFDefault.SkinnedFolder import SkinnedFolder
 from Products.CMFDefault.DublinCore import DefaultDublinCoreImpl
 from Products.CMFDiffTool.interfaces import IChangeSet
-from Products.CMFDiffTool.interfaces.IChangeSet import IChangeSet as IChangeSetZ2
 
 logger = logging.getLogger('CMFDiffTool')
 
@@ -67,7 +66,6 @@ factory_type_information = (
 class BaseChangeSet(Implicit):
     """A ChangeSet represents the set of differences between two objects"""
 
-    __implements__ = (IChangeSetZ2,)
     implements(IChangeSet)
     # This should really not be needed just for same, we should use a method
     __allow_access_to_unprotected_subobjects__ = 1
@@ -228,15 +226,6 @@ class ChangeSet(BaseChangeSet, SkinnedFolder, DefaultDublinCoreImpl):
     meta_type = "Change Set"
     portal_type = "ChangeSet"
     security = ClassSecurityInfo()
-
-    try:
-        __implements__ = (BaseChangeSet.__implements__ +
-                            SkinnedFolder.__implements__ +
-                            DefaultDublinCoreImpl.__implements__)
-    except TypeError:
-        # FFF for CMF trunk
-        __implements__ = (BaseChangeSet.__implements__ +
-                            (SkinnedFolder.__implements__,))
 
     def __init__(self, id, title=''):
         BaseChangeSet.__init__(self, id, title='')

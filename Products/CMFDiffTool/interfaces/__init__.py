@@ -1,8 +1,6 @@
 # Interface definitions
 from zope.interface import Interface, Attribute
 
-# Zope2 BBB
-from Interface.bridge import createZope3Bridge
 
 class IDiffTool(Interface):
     """An interface to compute object differences via pluggable
@@ -126,8 +124,3 @@ class IChangeSet(Interface):
         """If the ChangeSet was computed recursively, returns the list
         of IDs of items that were removed"""
 
-import portal_diff
-from Products.CMFDiffTool.interfaces import IChangeSet as csmod
-createZope3Bridge(IDiffTool, portal_diff, 'portal_diff')
-createZope3Bridge(IDifference, portal_diff, 'IDifference')
-createZope3Bridge(IChangeSet, csmod, 'IChangeSet')

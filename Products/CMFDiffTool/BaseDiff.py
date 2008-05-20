@@ -8,13 +8,11 @@ from zope.interface import implements
 import Acquisition
 from Acquisition import aq_base
 from Globals import InitializeClass
-from Products.CMFDiffTool.interfaces.portal_diff import IDifference as IDifferenceZ2
 from Products.CMFDiffTool.interfaces import IDifference
 
 class BaseDiff:
     """Basic diff type"""
 
-    __implements__ = (IDifferenceZ2,)
     implements(IDifference)
     __allow_access_to_unprotected_subobjects__ = 1
     meta_type = "Base Diff"

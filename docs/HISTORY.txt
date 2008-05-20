@@ -4,6 +4,8 @@ Changelog
 1.0 (unreleased)
 ----------------
 
+  - Purged old Zope 2 Interface interfaces for Zope 2.12 compatibility.
+    [elro]
 
 0.3.6 (2008-04-20)
 ------------------
