@@ -7,6 +7,15 @@ Changelog
   - Purged old Zope 2 Interface interfaces for Zope 2.12 compatibility.
     [elro]
 
+
+0.4 (unreleased)
+----------------
+
+  - Added GS import step registration to the product. It was only registered
+    as part of the CMFPlone base profile.
+    [hannosch]
+
+
 0.3.6 (2008-04-20)
 ------------------
 
