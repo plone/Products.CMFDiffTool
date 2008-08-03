@@ -1,7 +1,7 @@
 import os
 from setuptools import setup, find_packages
 
-version = '1.0'
+version = '0.4'
 
 setup(name='Products.CMFDiffTool',
       version=version,
@@ -14,7 +14,7 @@ setup(name='Products.CMFDiffTool',
       keywords='Diff Plone',
       author='Brent Hendricks',
       author_email='plone-developers@lists.sourceforge.net',
-      url='http://svn.plone.org/svn/plone/plone.i18n',
+      url='http://svn.plone.org/svn/collective/Products.CMFDiffTool',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['Products'],
