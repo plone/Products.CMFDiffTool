@@ -1,7 +1,7 @@
 import os
 from setuptools import setup, find_packages
 
-version = '0.4'
+version = '0.4dev'
 
 setup(name='Products.CMFDiffTool',
       version=version,
@@ -22,5 +22,11 @@ setup(name='Products.CMFDiffTool',
       zip_safe=False,
       install_requires=[
         'setuptools',
+        'Products.CMFTestCase',
+        'Products.CMFCore',
+        'Products.CMFDefault',
+        'Products.GenericSetup',
+        'Products.PageTemplates',
+        'zope.interface',
       ],
       )
