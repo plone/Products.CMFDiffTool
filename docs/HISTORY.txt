@@ -1,15 +1,11 @@
 Changelog
 =========
 
-1.0 (unreleased)
+0.4 (2008-10-06)
 ----------------
 
-  - Purged old Zope 2 Interface interfaces for Zope 2.12 compatibility.
-    [elro]
-
-
-0.4 (unreleased)
-----------------
+  - Switch to egg-based releases.
+    [hannosch]
 
   - Added GS import step registration to the product. It was only registered
     as part of the CMFPlone base profile.
