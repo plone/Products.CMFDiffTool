@@ -26,7 +26,6 @@ setup(name='Products.CMFDiffTool',
         'Products.CMFCore',
         'Products.CMFDefault',
         'Products.GenericSetup',
-        'Products.PageTemplates',
         'zope.interface',
       ],
       )
