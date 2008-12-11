@@ -4,6 +4,9 @@ Changelog
 1.0 (unreleased)
 ----------------
 
+  - Use the real BadRequest exception instead of relying on a string exception.
+    [hannosch]
+
   - Purged old Zope 2 Interface interfaces for Zope 2.12 compatibility.
     [elro]
 

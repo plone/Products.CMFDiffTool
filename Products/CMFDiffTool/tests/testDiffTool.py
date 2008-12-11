@@ -2,6 +2,8 @@
 # CMFDiffTool tests
 #
 
+from zExceptions import BadRequest
+
 import BaseTestCase
 from Products.CMFDiffTool.CMFDiffTool import registerDiffType
 from Products.CMFDiffTool.CMFDiffTool import unregisterDiffType
@@ -67,13 +69,13 @@ class TestDiffTool(BaseTestCase.BaseTestCase):
         unregisterDiffType(DummyDiff2)
 
     def testSetDiffFieldNameFailure(self):
-        self.assertRaises('BadRequest', self.p_diff.setDiffField, 'Bob', 'title', 'Dummy Diff Type')
+        self.assertRaises(BadRequest, self.p_diff.setDiffField, 'Bob', 'title', 'Dummy Diff Type')
 
     def testSetDiffFieldBlankFieldFailure(self):
-        self.assertRaises('BadRequest', self.p_diff.setDiffField, 'Document', '', 'Dummy Diff Type')
+        self.assertRaises(BadRequest, self.p_diff.setDiffField, 'Document', '', 'Dummy Diff Type')
 
     def testSetDiffFieldInvalidDiffFailure(self):
-        self.assertRaises('BadRequest', self.p_diff.setDiffField, 'Document', 'title', 'NoDiff')
+        self.assertRaises(BadRequest, self.p_diff.setDiffField, 'Document', 'title', 'NoDiff')
 
     def beforeTearDown(self):
         # Undo changes that don't get rolled back (i.e. module level changes)

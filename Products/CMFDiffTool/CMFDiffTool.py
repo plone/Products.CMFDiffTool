@@ -9,6 +9,8 @@ from Acquisition import aq_base
 from AccessControl import ClassSecurityInfo
 from Globals import InitializeClass
 from OFS.SimpleItem import SimpleItem
+from zExceptions import BadRequest
+
 from Products.CMFCore.permissions import ManagePortal
 from Products.CMFCore.utils import registerToolInterface
 from Products.CMFCore.utils import UniqueObject
@@ -70,13 +72,13 @@ class CMFDiffTool(UniqueObject, SimpleItem):
     def setDiffField(self, pt_name, field, diff):
         """Set the diff type for 'field' on the portal type 'pt_name' to 'diff'"""
         if pt_name not in self.portal_types.listContentTypes():
-            raise 'BadRequest', "Error: invalid portal type"
+            raise BadRequest("Error: invalid portal type")
 
         elif not field:
-            raise 'BadRequest', "Error: no field specified"
+            raise BadRequest("Error: no field specified")
 
         elif diff not in self.listDiffTypes():
-            raise 'BadRequest', "Error: invalid diff type"
+            raise BadRequest("Error: invalid diff type")
 
         else:
             self._pt_diffs.setdefault(pt_name, {})[field] = diff
