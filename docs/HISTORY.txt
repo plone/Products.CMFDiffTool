@@ -4,87 +4,87 @@ Changelog
 1.0 (unreleased)
 ----------------
 
-  - Use the real BadRequest exception instead of relying on a string exception.
-    [hannosch]
+- Use the real BadRequest exception instead of relying on a string exception.
+  [hannosch]
 
-  - Purged old Zope 2 Interface interfaces for Zope 2.12 compatibility.
-    [elro]
+- Purged old Zope 2 Interface interfaces for Zope 2.12 compatibility.
+  [elro]
 
 
 0.4 (unreleased)
 ----------------
 
-  - Added GS import step registration to the product. It was only registered
-    as part of the CMFPlone base profile.
-    [hannosch]
+- Added GS import step registration to the product. It was only registered
+  as part of the CMFPlone base profile.
+  [hannosch]
 
 
 0.3.6 (2008-04-20)
 ------------------
 
-  - Added protection against missing diff_tool in the exportimport handler.
-    [hannosch]
+- Added protection against missing diff_tool in the exportimport handler.
+  [hannosch]
 
-  - Added metadata.xml file to the profile.
-    [hannosch]
+- Added metadata.xml file to the profile.
+  [hannosch]
 
 
 0.3.5 (2007-12-02)
 ------------------
 
-  - Don't assume there's a portal_type for objects.
-    Fixes http://dev.plone.org/plone/ticket/7295
-    [alecm]
+- Don't assume there's a portal_type for objects.
+  Fixes http://dev.plone.org/plone/ticket/7295
+  [alecm]
 
-  - Fixed issue causing diffs to break for folders that switched between
-    inside and outside ref modifiers.
-    [alecm]
+- Fixed issue causing diffs to break for folders that switched between
+  inside and outside ref modifiers.
+  [alecm]
 
-  - Make ChangeSet compatible with CMF trunk.
-    [wiggy]
+- Make ChangeSet compatible with CMF trunk.
+  [wiggy]
 
-  - Updated componentregisty.xml to new style.
-    [hannosch]
+- Updated componentregisty.xml to new style.
+  [hannosch]
 
 
 0.3.4 (2007-06-08)
 ------------------
 
-  - Fixed i18n markup in at_changeset.pt.
-    [hannosch]
+- Fixed i18n markup in at_changeset.pt.
+  [hannosch]
 
 
 0.3.3 (2007-03-05)
 ------------------
 
-  - Removed default config for ATCT types, it goes in Plone now
-    [alecm]
+- Removed default config for ATCT types, it goes in Plone now
+  [alecm]
 
 
 0.3.2 (2007-03-05)
 ------------------
 
-  - Added default config for ATCT types
-    [alecm]
+- Added default config for ATCT types
+  [alecm]
 
 
 0.3.1 (2007-02-09)
 ------------------
 
-  - Removed useless status message.
-    [hannosch]
+- Removed useless status message.
+  [hannosch]
 
-  - Added ZCML layer setup for tests
-    [alecm]
+- Added ZCML layer setup for tests
+  [alecm]
 
 0.3 (2006-10-02)
 ----------------
 
-  - Product installation is now based on a GenericSetup extension profile.
-    [hannosch]
+- Product installation is now based on a GenericSetup extension profile.
+  [hannosch]
 
-  - Code modernization for Python 2.4 / CMF 1.6.
-    [hannosch]
+- Code modernization for Python 2.4 / CMF 1.6.
+  [hannosch]
 
-  - Initial version.
-    [brentmh]
+- Initial version.
+  [brentmh]
