@@ -7,7 +7,7 @@ from zope.interface import implements
 
 import Acquisition
 from Acquisition import aq_base
-from Globals import InitializeClass
+from App.class_init import InitializeClass
 from Products.CMFDiffTool.interfaces import IDifference
 
 class BaseDiff:

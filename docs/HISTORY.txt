@@ -4,6 +4,10 @@ Changelog
 1.0 (unreleased)
 ----------------
 
+- Declare package dependencies and fixed deprecation warnings for use
+  of Globals.
+  [hannosch]
+
 - Use the real BadRequest exception instead of relying on a string exception.
   [hannosch]
 

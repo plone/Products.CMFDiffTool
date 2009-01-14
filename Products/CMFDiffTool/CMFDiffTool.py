@@ -7,7 +7,7 @@ from zope.interface import implements
 
 from Acquisition import aq_base
 from AccessControl import ClassSecurityInfo
-from Globals import InitializeClass
+from App.class_init import InitializeClass
 from OFS.SimpleItem import SimpleItem
 from zExceptions import BadRequest
 

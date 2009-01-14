@@ -1,5 +1,5 @@
 import difflib
-from Globals import InitializeClass
+from App.class_init import InitializeClass
 from Products.CMFDiffTool.FieldDiff import FieldDiff
 
 class TextDiff(FieldDiff):

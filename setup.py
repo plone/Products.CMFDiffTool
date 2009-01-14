@@ -20,12 +20,19 @@ setup(name='Products.CMFDiffTool',
       namespace_packages=['Products'],
       include_package_data=True,
       zip_safe=False,
+      extras_require=dict(
+        test=[
+            'Products.CMFTestCase',
+        ]
+      ),
       install_requires=[
         'setuptools',
-        'Products.CMFTestCase',
+        'zope.interface',
         'Products.CMFCore',
         'Products.CMFDefault',
         'Products.GenericSetup',
-        'zope.interface',
+        # 'Acquisition',
+        # 'transaction',
+        # 'Zope2',
       ],
       )

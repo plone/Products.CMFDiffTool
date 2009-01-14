@@ -1,5 +1,5 @@
 import difflib
-from Globals import InitializeClass
+from App.class_init import InitializeClass
 from Products.CMFDiffTool.BaseDiff import BaseDiff, _getValue
 
 class FieldDiff(BaseDiff):

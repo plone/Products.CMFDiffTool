@@ -1,4 +1,4 @@
-from Globals import InitializeClass
+from App.class_init import InitializeClass
 from Products.CMFDiffTool.TextDiff import TextDiff
 from Products.CMFDiffTool.libs import htmldiff
 

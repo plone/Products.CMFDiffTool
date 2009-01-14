@@ -15,7 +15,7 @@ from AccessControl import ClassSecurityInfo
 from Acquisition import Implicit
 from Acquisition import aq_base
 from ComputedAttribute import ComputedAttribute
-from Globals import InitializeClass
+from App.class_init import InitializeClass
 from OFS.CopySupport import CopyError
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.permissions import View, ModifyPortalContent
