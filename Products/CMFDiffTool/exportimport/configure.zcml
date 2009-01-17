@@ -1,6 +1,6 @@
 <configure
    xmlns="http://namespaces.zope.org/zope"
-   xmlns:five="http://namespaces.zope.org/five"
+   xmlns:genercisetup="http://namespaces.zope.org/genercisetup"
    i18n_domain="cmf"
    >
 
