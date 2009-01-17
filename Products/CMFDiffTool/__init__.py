@@ -1,21 +1,17 @@
 """Initialize CMFDiffTool Product"""
 
-import sys
-from Products.CMFCore.DirectoryView import registerDirectory
 from Products.CMFCore import utils
 from Products.CMFCore.permissions import AddPortalContent
 
-import Products.CMFDiffTool.CMFDiffTool
-import Products.CMFDiffTool.FieldDiff
-import Products.CMFDiffTool.TextDiff
-import Products.CMFDiffTool.ListDiff
-import Products.CMFDiffTool.BinaryDiff
-import Products.CMFDiffTool.ChangeSet
-import Products.CMFDiffTool.CMFDTHtmlDiff
-import Products.CMFDiffTool.ATCompoundDiff
+from Products.CMFDiffTool import CMFDiffTool
+from Products.CMFDiffTool import FieldDiff
+from Products.CMFDiffTool import TextDiff
+from Products.CMFDiffTool import ListDiff
+from Products.CMFDiffTool import BinaryDiff
+from  Products.CMFDiffTool import ChangeSet
+from Products.CMFDiffTool import CMFDTHtmlDiff
+from Products.CMFDiffTool import ATCompoundDiff
 
-this_module = sys.modules[ __name__ ]
-product_globals = globals()
 tools = ( CMFDiffTool.CMFDiffTool,)
 
 contentConstructors = (ChangeSet.manage_addChangeSet,)
