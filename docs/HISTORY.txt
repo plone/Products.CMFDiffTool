@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0 (unreleased)
+2.0 (unreleased)
 ----------------
 
 - Declare package dependencies and fixed deprecation warnings for use
