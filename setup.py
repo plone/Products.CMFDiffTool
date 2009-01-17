@@ -1,7 +1,7 @@
 import os
 from setuptools import setup, find_packages
 
-version = '0.4.1dev'
+version = '1.0'
 
 setup(name='Products.CMFDiffTool',
       version=version,
@@ -9,7 +9,6 @@ setup(name='Products.CMFDiffTool',
       long_description=open(os.path.join("docs", "HISTORY.txt")).read(),
       classifiers=[
         'Framework :: Plone',
-        'Framework :: Zope2',
       ],
       keywords='Diff Plone',
       author='Brent Hendricks',
