@@ -22,7 +22,7 @@ setup(name='Products.CMFDiffTool',
       install_requires=[
         'setuptools',
         'Products.CMFTestCase',
-        'Products.CMFCore',
+        'Products.CMFCore >=2.1',
         'Products.CMFDefault',
         'Products.GenericSetup >=1.4.0',
         'zope.interface',

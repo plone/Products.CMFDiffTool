@@ -4,8 +4,12 @@ Changelog
 1.0 - UNRELEASED
 ---------------
 
+- Move CMF skin layer registration to zcml.
+  [wichert]
+
 - Move GenericSetup step registration to zcml.
   [wichert]
+
 
 0.4 (2008-10-06)
 ----------------

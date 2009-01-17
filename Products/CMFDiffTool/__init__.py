@@ -21,10 +21,6 @@ tools = ( CMFDiffTool.CMFDiffTool,)
 contentConstructors = (ChangeSet.manage_addChangeSet,)
 contentClasses = (ChangeSet.ChangeSet,)
 
-# Make the skins available as DirectoryViews
-registerDirectory('skins', globals())
-registerDirectory('skins/ChangeSet', globals())
-
 CMFDiffTool.registerDiffType(BinaryDiff.BinaryDiff)
 CMFDiffTool.registerDiffType(FieldDiff.FieldDiff)
 CMFDiffTool.registerDiffType(ListDiff.ListDiff)
