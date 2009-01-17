@@ -24,7 +24,7 @@ setup(name='Products.CMFDiffTool',
         'Products.CMFTestCase',
         'Products.CMFCore',
         'Products.CMFDefault',
-        'Products.GenericSetup',
+        'Products.GenericSetup >=1.4.0',
         'zope.interface',
       ],
       )
