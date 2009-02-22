@@ -3,7 +3,6 @@
 #
 
 import BaseTestCase
-from Products.CMFDiffTool.ChangeSet import ChangeSet
 from Products.CMFDiffTool.ChangeSet import BaseChangeSet
 from Acquisition import aq_base
 
@@ -18,8 +17,7 @@ class TestChangeSet(BaseTestCase.BaseTestCase):
 
     def testInterface(self):
         """Ensure that tool instances implement the portal_diff interface"""
-        from Products.CMFDiffTool.interfaces.IChangeSet import IChangeSet
-        self.failUnless(IChangeSet.implementedBy(ChangeSet))
+        from Products.CMFDiffTool.interfaces import IChangeSet
         self.failUnless(IChangeSet.implementedBy(BaseChangeSet))
 
     def setupTestObjects(self):

@@ -4,6 +4,9 @@ Changelog
 2.0 (unreleased)
 ----------------
 
+- Removed the persistent version of the changeset type.
+  [hannosch]
+
 - Declare package dependencies and fixed deprecation warnings for use
   of Globals.
   [hannosch]

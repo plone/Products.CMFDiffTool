@@ -8,60 +8,16 @@
 # GNU General Public License (GPL).  See LICENSE.txt for details
 
 import logging
-import transaction
 from zope.interface import implements
 
 from AccessControl import ClassSecurityInfo
 from Acquisition import Implicit
 from Acquisition import aq_base
 from ComputedAttribute import ComputedAttribute
-from App.class_init import InitializeClass
-from OFS.CopySupport import CopyError
 from Products.CMFCore.utils import getToolByName
-from Products.CMFCore.permissions import View, ModifyPortalContent
-from Products.CMFDefault.SkinnedFolder import SkinnedFolder
-from Products.CMFDefault.DublinCore import DefaultDublinCoreImpl
 from Products.CMFDiffTool.interfaces import IChangeSet
 
 logger = logging.getLogger('CMFDiffTool')
-
-def manage_addChangeSet(self, id, title='', REQUEST=None):
-    """Creates a new ChangeSet object """
-    id=str(id)
-    if not id:
-        raise "Bad Request", "Please specify an ID."
-
-    self=self.this()
-    cs = ChangeSet(id, title)
-    self._setObject(id, cs)
-
-    if REQUEST is not None:
-        REQUEST['RESPONSE'].redirect(self.absolute_url()+'/manage_main')
-
-
-factory_type_information = (
-    {'id': 'ChangeSet',
-     'content_icon': 'changeset.png',
-     'meta_type': 'Change Set',
-     'description': ('A collection of changes between two objects'),
-     'product': 'CMFDiffTool',
-     'global_allow':0,
-     'factory': 'manage_addChangeSet',
-     'filter_content_types' : 0,
-     'immediate_view': 'changeset_edit_form',
-     'actions': ({'id': 'view',
-                  'name': 'View Changes',
-                  'action': 'changeset_view',
-                  'permissions': (View,),
-                  'visible':1},
-                 {'id': 'edit',
-                  'name': 'Edit Change set',
-                  'action': 'changeset_edit_form',
-                  'permissions': (ModifyPortalContent,),
-                  'visible':1},
-                 )
-     },
-    )
 
 class BaseChangeSet(Implicit):
     """A ChangeSet represents the set of differences between two objects"""
@@ -219,45 +175,3 @@ class BaseChangeSet(Implicit):
         """If the ChangeSet was computed recursively, returns the list
         of IDs of items that were removed"""
         return list(self._removed)
-
-
-class ChangeSet(BaseChangeSet, SkinnedFolder, DefaultDublinCoreImpl):
-    """A persistent skinnable contentish Change Set"""
-    meta_type = "Change Set"
-    portal_type = "ChangeSet"
-    security = ClassSecurityInfo()
-
-    def __init__(self, id, title=''):
-        BaseChangeSet.__init__(self, id, title='')
-        DefaultDublinCoreImpl.__init__(self)
-
-    def __getitem__(self, key):
-        SkinnedFolder.__getitem__(self, key)
-
-    def computeDiff(self, ob1, ob2, recursive=1, exclude=[], id1=None, id2=None):
-        self.manage_delObjects(self.objectIds())
-        BaseChangeSet.computeDiff(self, ob1, ob2, recursive, exclude, id1, id2)
-        if recursive and ob1.isPrincipiaFolderish:
-            # Clone any added subobjects
-            for id in self._added:
-                ob = ob2[id]
-                logger.log(logging.DEBUG, "ChangeSet: cloning %s (%s)" % (id, ob))
-                try:
-                    self.manage_clone(ob, id)
-                except CopyError:
-                    # If one of the objects isn't actually local to the ZODB
-                    # (i.e. it is a version in some other repository), this
-                    # will fail
-                    pass
-
-        self._p_changed = 1
-
-    # Override _addSubSet to add persistent sub changesets
-    def _addSubSet(self, id, ob1, ob2, exclude, id1, id2):
-        self.manage_addProduct['CMFDiffTool'].manage_addChangeSet(id,
-                                                  title='Changes to: %s' % id)
-        transaction.savepoint(optimistic=True)
-        self[id].computeDiff(ob1[id], ob2[id], exclude=exclude, id1=id1, id2=id2)
-
-
-InitializeClass(ChangeSet)
