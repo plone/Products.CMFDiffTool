@@ -1,6 +1,7 @@
 """Initialize CMFDiffTool Product"""
 
-from Products.CMFCore import utils
+from Products.CMFCore.utils import ContentInit
+from Products.CMFCore.utils import ToolInit
 from Products.CMFCore.permissions import AddPortalContent
 
 from Products.CMFDiffTool import CMFDiffTool
@@ -25,12 +26,12 @@ CMFDiffTool.registerDiffType(CMFDTHtmlDiff.CMFDTHtmlDiff)
 CMFDiffTool.registerDiffType(ATCompoundDiff.ATCompoundDiff)
 
 def initialize(context):
-    utils.ToolInit('CMF Diff Tool',
-                    tools = tools,
-                    icon='tool.gif' 
-                    ).initialize( context )
+    ToolInit('CMF Diff Tool',
+             tools = tools,
+             icon='tool.gif' 
+             ).initialize( context )
 
-    utils.ContentInit(ChangeSet.ChangeSet.meta_type,
-                      content_types = contentClasses,
-                      extra_constructors = contentConstructors,
-                      permission = AddPortalContent).initialize(context)
+    ContentInit(ChangeSet.ChangeSet.meta_type,
+                content_types = contentClasses,
+                extra_constructors = contentConstructors,
+                permission = AddPortalContent).initialize(context)
