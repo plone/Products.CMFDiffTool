@@ -1,7 +1,7 @@
 import os
 from setuptools import setup, find_packages
 
-version = '1.0'
+version = '0.5'
 
 setup(name='Products.CMFDiffTool',
       version=version,

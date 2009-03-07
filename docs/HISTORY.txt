@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.0 - UNRELEASED
----------------
+0.5b1 - March 7, 2009
+---------------------
 
 - Move CMF skin layer registration to zcml.
   [wichert]
