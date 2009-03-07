@@ -1,6 +1,9 @@
 import difflib
 from App.class_init import InitializeClass
+
 from Products.CMFDiffTool.FieldDiff import FieldDiff
+from Products.CMFDiffTool.utils import safe_utf8
+
 
 class TextDiff(FieldDiff):
     """Text difference"""
@@ -14,15 +17,22 @@ class TextDiff(FieldDiff):
 
     def unified_diff(self):
         """Return a unified diff"""
-        a = [str(i) for i in self._parseField(self.oldValue)]
-        b = [str(i) for i in self._parseField(self.newValue)]
+        a = [safe_utf8(i) for i in self._parseField(self.oldValue)]
+        b = [safe_utf8(i) for i in self._parseField(self.newValue)]
         return '\n'.join(difflib.unified_diff(a, b, self.id1, self.id2))
 
     def html_diff(self, context=True, wrapcolumn=40):
         """Return an HTML table showing differences"""
-        a = [str(i) for i in self._parseField(self.oldValue)]
-        b = [str(i) for i in self._parseField(self.newValue)]
+        # difflib is not Unicode-aware, so we need to force everything to
+        # utf-8 manually
+        a = [safe_utf8(i) for i in self._parseField(self.oldValue)]
+        b = [safe_utf8(i) for i in self._parseField(self.newValue)]
         vis_diff = difflib.HtmlDiff(wrapcolumn=wrapcolumn)
-        return vis_diff.make_table(a, b, self.id1, self.id2, context=context)
+        diff = vis_diff.make_table(
+            a, b,
+            safe_utf8(self.id1),
+            safe_utf8(self.id2),
+            context=context)
+        return unicode(diff, 'utf-8')
 
 InitializeClass(TextDiff)

@@ -2,13 +2,26 @@ Changelog
 =========
 
 2.0 (unreleased)
-----------------
+---------------
+
+- Move CMF skin layer registration to zcml.
+  [wichert]
+
+- Move GenericSetup step registration to zcml.
+  [wichert]
 
 - Removed the persistent version of the changeset type.
   [hannosch]
 
+- Switch to egg-based releases.
+  [hannosch]
+
 - Declare package dependencies and fixed deprecation warnings for use
   of Globals.
+  [hannosch]
+
+- Added GS import step registration to the product. It was only registered
+  as part of the CMFPlone base profile.
   [hannosch]
 
 - Use the real BadRequest exception instead of relying on a string exception.
@@ -93,5 +106,11 @@ Changelog
 - Code modernization for Python 2.4 / CMF 1.6.
   [hannosch]
 
+<<<<<<< .working
 - Initial version.
   [brentmh]
+=======
+- Initial version.
+  [brentmh]
+
+>>>>>>> .merge-right.r81464

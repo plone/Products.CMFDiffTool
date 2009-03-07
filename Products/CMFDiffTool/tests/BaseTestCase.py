@@ -1,6 +1,8 @@
 # BaseTestCase
 
-from Products.CMFTestCase.ctc import *
+from Products.CMFTestCase.ctc import CMFTestCase
+from Products.CMFTestCase.ctc import setupCMFSite
+from Products.CMFTestCase.ctc import installProduct
 
 installProduct('CMFDiffTool')
 
