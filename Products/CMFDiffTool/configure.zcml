@@ -1,8 +1,6 @@
 <configure xmlns="http://namespaces.zope.org/zope"
            xmlns:cmf="http://namespaces.zope.org/cmf" >
 
-  <cmf:registerDirectory name="skins" directory="skins" recursive="True" />
-
   <include package=".exportimport" />
 
   <include file="profiles.zcml"/>
