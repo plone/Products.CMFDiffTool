@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from Globals import InitializeClass
 from Products.CMFDiffTool.interfaces.portal_diff import IDifference
 from Products.CMFDiffTool.TextDiff import TextDiff

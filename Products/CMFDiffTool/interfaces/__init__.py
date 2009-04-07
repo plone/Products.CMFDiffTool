@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Interface definitions
 from zope.interface import Interface, Attribute
 

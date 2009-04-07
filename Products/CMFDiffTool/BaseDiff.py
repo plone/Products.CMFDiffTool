@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """CMFDiffTool.py
 
    Calculate differences between content objects

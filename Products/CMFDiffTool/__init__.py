@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Initialize CMFDiffTool Product"""
 
 from Products.CMFCore.utils import ContentInit

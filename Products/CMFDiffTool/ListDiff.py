@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from Globals import InitializeClass
 from Products.CMFDiffTool.FieldDiff import FieldDiff
 

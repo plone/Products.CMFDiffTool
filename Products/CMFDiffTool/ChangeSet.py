@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #
 # ChangeSet.py - Zope object representing the differences between
 # objects
