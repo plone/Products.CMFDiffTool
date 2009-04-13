@@ -4,6 +4,9 @@ Changelog
 2.0 (unreleased)
 ---------------
 
+- Add encoding declaration in python files
+  [encolpe]
+
 - Move CMF skin layer registration to zcml.
   [wichert]
 
