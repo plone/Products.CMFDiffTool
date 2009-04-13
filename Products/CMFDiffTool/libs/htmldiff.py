@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 htmldiff.py
 (C) Ian Bicking <ianb@colorstudy.com>

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # BaseTestCase
 
 from Products.CMFTestCase.ctc import CMFTestCase

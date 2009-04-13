@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from Products.CMFDiffTool.interfaces import IDiffTool
 from Products.GenericSetup.utils import XMLAdapterBase
 from Products.GenericSetup.utils import importObjects

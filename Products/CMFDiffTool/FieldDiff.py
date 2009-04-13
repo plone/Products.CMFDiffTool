@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import difflib
 from App.class_init import InitializeClass
 from Products.CMFDiffTool.BaseDiff import BaseDiff, _getValue
