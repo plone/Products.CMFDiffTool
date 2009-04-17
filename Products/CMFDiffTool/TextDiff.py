@@ -34,6 +34,6 @@ class TextDiff(FieldDiff):
             safe_utf8(self.id1),
             safe_utf8(self.id2),
             context=context)
-        return unicode(diff, 'utf-8')
+        return diff
 
 InitializeClass(TextDiff)

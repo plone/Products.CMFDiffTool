@@ -4,6 +4,8 @@ Changelog
 0.5 - UNRELEASED
 ----------------
 
+- Fix #9108: EncodingDecodeError in TextDiff.html_diff
+  [encolpe]
 
 
 0.5b1 - March 7, 2009
