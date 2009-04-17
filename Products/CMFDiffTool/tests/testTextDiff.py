@@ -14,9 +14,9 @@ class A:
         return "method कामसूत्र"
 
 class B:
-    attribute = "karôshi"
+    attribute = "過労死"
     def method(self):
-        return "method karôshi"
+        return "method 過労死"
 
 class TestTextDiff(ZopeTestCase.ZopeTestCase):
     """Test the TextDiff class"""
@@ -77,7 +77,7 @@ class TestTextDiff(ZopeTestCase.ZopeTestCase):
         """Test text diff output with different value"""
         a = A()
         b = B()
-        expected = "- कामसूत्र\n+ karôshi"
+        expected = "- कामसूत्र\n+ 過労死"
         fd = TextDiff(a, b, 'attribute')
         self.assertEqual(fd.ndiff(), expected)
 
@@ -92,7 +92,7 @@ class TestTextDiff(ZopeTestCase.ZopeTestCase):
 @@ -1,1 +1,1 @@
 
 -कामसूत्र
-+karôshi"""
++過労死"""
         fd = TextDiff(a, b, 'attribute')
         self.assertEqual(fd.unified_diff(), expected)
 
@@ -107,7 +107,7 @@ class TestTextDiff(ZopeTestCase.ZopeTestCase):
         <colgroup></colgroup> <colgroup></colgroup> <colgroup></colgroup>
         <thead><tr><th class="diff_next"><br /></th><th colspan="2" class="diff_header">None</th><th class="diff_next"><br /></th><th colspan="2" class="diff_header">None</th></tr></thead>
         <tbody>
-            <tr><td class="diff_next" id="difflib_chg_to0__0"><a href="#difflib_chg_to0__top">t</a></td><td class="diff_header" id="from0_1">1</td><td nowrap="nowrap"><span class="diff_sub">\xe0\xa4\x95\xe0\xa4\xbe\xe0\xa4\xae\xe0\xa4\xb8\xe0\xa5\x82\xe0\xa4\xa4\xe0\xa5\x8d\xe0\xa4\xb0</span></td><td class="diff_next"><a href="#difflib_chg_to0__top">t</a></td><td class="diff_header" id="to0_1">1</td><td nowrap="nowrap"><span class="diff_add">kar\xc3\xb4shi</span></td></tr>
+            <tr><td class="diff_next" id="difflib_chg_to0__0"><a href="#difflib_chg_to0__top">t</a></td><td class="diff_header" id="from0_1">1</td><td nowrap="nowrap"><span class="diff_sub">कामसूत्र</span></td><td class="diff_next"><a href="#difflib_chg_to0__top">t</a></td><td class="diff_header" id="to0_1">1</td><td nowrap="nowrap"><span class="diff_add">過労死</span></td></tr>
         </tbody>
     </table>"""
         fd = TextDiff(a, b, 'attribute')
