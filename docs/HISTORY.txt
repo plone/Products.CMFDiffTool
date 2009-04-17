@@ -4,6 +4,9 @@ Changelog
 2.0 (unreleased)
 ---------------
 
+- Fix #9108: EncodingDecodeError in TextDiff.html_diff
+  [encolpe]
+
 - Add encoding declaration in python files
   [encolpe]
 
