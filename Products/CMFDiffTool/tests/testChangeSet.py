@@ -3,6 +3,8 @@
 # CMFDiffTool tests
 #
 
+from Products.CMFCore.utils import getToolByName
+
 import BaseTestCase
 from Products.CMFDiffTool.ChangeSet import BaseChangeSet
 from Acquisition import aq_base
@@ -11,7 +13,7 @@ class TestChangeSet(BaseTestCase.BaseTestCase):
     """Tests for ChangeSet objects"""
 
     def afterSetUp(self):
-        self.p_diff = self.portal.portal_diff
+        self.p_diff = getToolByName(self.portal, 'portal_diff')
         cs = BaseChangeSet('my_changeset')
         # ChangeSet needs an acquisition wrapper
         self.cs = cs.__of__(self.portal)
@@ -25,7 +27,7 @@ class TestChangeSet(BaseTestCase.BaseTestCase):
         self.folder.invokeFactory('Document','doc1', title='My Title')
         self.folder.manage_pasteObjects(
                                      self.folder.manage_copyObjects(['doc1']))
-        self.portal.portal_diff.setDiffField('Document', 'Title', 'Field Diff')
+        self.p_diff.setDiffField('Document', 'Title', 'Field Diff')
 
     def setupTestFolders(self):
         self.folder.invokeFactory('Folder','folder1', title='My Folder Title')
@@ -34,8 +36,8 @@ class TestChangeSet(BaseTestCase.BaseTestCase):
         self.folder.folder1.invokeFactory('Document','doc3', title='My Title3')
         self.folder.manage_pasteObjects(
                                   self.folder.manage_copyObjects(['folder1']))
-        self.portal.portal_diff.setDiffField('Document', 'Title', 'Field Diff')
-        self.portal.portal_diff.setDiffField('Folder', 'title', 'Field Diff')
+        self.p_diff.setDiffField('Document', 'Title', 'Field Diff')
+        self.p_diff.setDiffField('Folder', 'title', 'Field Diff')
 
     def testChangeSetUnchanged(self):
         self.setupTestObjects()

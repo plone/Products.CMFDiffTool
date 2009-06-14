@@ -4,6 +4,9 @@ Changelog
 2.0 (unreleased)
 ---------------
 
+- Use new-style utility setup for portal_diff instead of the toolset handling.
+  [hannosch]
+
 - Added the z3c.autoinclude entry point so this package is automatically loaded
   on Plone 3.3 and above.
   [hannosch]

@@ -3,7 +3,8 @@
  <adapters/>
  <utilities>
   <utility
-     interface="Products.CMFDiffTool.interfaces.IDiffTool"
-     object="portal_diff"/>
+    factory="Products.CMFDiffTool.CMFDiffTool.CMFDiffTool"
+    id="portal_diff"
+    interface="Products.CMFDiffTool.interfaces.IDiffTool"/>
  </utilities>
 </componentregistry>

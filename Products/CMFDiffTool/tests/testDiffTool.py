@@ -3,6 +3,7 @@
 # CMFDiffTool tests
 #
 
+from Products.CMFCore.utils import getToolByName
 from zExceptions import BadRequest
 
 import BaseTestCase
@@ -19,7 +20,7 @@ class TestDiffTool(BaseTestCase.BaseTestCase):
     """Test the portal_diff tool"""
 
     def afterSetUp(self):
-        self.p_diff = self.portal.portal_diff
+        self.p_diff = getToolByName(self.portal, 'portal_diff')
         registerDiffType(DummyDiff)
 
     def testInterface(self):
