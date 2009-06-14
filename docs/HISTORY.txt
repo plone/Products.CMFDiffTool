@@ -4,6 +4,10 @@ Changelog
 2.0 (unreleased)
 ---------------
 
+- Added the z3c.autoinclude entry point so this package is automatically loaded
+  on Plone 3.3 and above.
+  [hannosch]
+
 - Fix #9108: EncodingDecodeError in TextDiff.html_diff
   [encolpe]
 

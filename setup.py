@@ -33,4 +33,8 @@ setup(name='Products.CMFDiffTool',
         'Acquisition',
         'Zope2',
       ],
+      entry_points="""
+      [z3c.autoinclude.plugin]
+      target = plone
+      """,
       )
