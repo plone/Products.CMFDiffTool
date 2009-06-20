@@ -47,8 +47,10 @@ class ATCompoundDiff:
         for field in fields:
             klass = field['klass']
             diff = klass(obj1, obj2, field['accessor'], id1=self.id1,
-                              id2=self.id2, field_label=field['label'],
-                              schemata=field['schemata'])
+                         id2=self.id2,
+                         field_name=field['name'],
+                         field_label=field['label'],
+                         schemata=field['schemata'])
             diff_list.append(diff)
         return diff_list
 
