@@ -4,6 +4,9 @@ Changelog
 2.0 (unreleased)
 ---------------
 
+- Adjusted interface test to zope.interface-style interfaces.
+  [hannosch]
+
 - Use new-style utility setup for portal_diff instead of the toolset handling.
   [hannosch]
 
