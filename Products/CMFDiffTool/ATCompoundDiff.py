@@ -74,7 +74,7 @@ class ATCompoundDiff:
                     is_primary = getattr(field, 'primary' , False)
                     label = field.widget.Label(obj1)
                     diff_type = AT_FIELD_MAPPING[field.type]
-                    if IDifference.providedBy(diff_type):
+                    if IDifference.implementedBy(diff_type):
                         fields.append({'name':field.getName(),
                                     'accessor':field.accessor,
                                     'klass':diff_type,
