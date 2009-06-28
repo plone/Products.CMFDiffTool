@@ -34,6 +34,12 @@ Changelog
 - Purged old Zope 2 Interface interfaces for Zope 2.12 compatibility.
   [elro]
 
+0.5.1 - unreleased
+------------------
+
+- Fix #9092 and prepare 0.5.1 release.
+  [alecm]
+
 0.5 - 2009-05-16
 ----------------
 

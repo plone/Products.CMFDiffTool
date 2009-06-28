@@ -19,10 +19,10 @@ class BaseDiff:
     meta_type = "Base Diff"
     
     def __init__(self, obj1, obj2, field, id1=None, id2=None,
-                 field_label=None,schemata=None):
+                 field_name=None, field_label=None,schemata=None):
         self.field = field
-        self.oldValue = _getValue(obj1, field)
-        self.newValue = _getValue(obj2, field)
+        self.oldValue = _getValue(obj1, field, field_name)
+        self.newValue = _getValue(obj2, field, field_name)
         self.same = (self.oldValue == self.newValue)
         if not id1 and hasattr(obj1, 'getId'):
             id1 = obj1.getId()
@@ -40,14 +40,16 @@ class BaseDiff:
     def applyChanges(self, ob):
         """Update the specified object with the difference"""
         pass
-    
 
-def _getValue(ob, field):
+
+def _getValue(ob, field, field_name):
     # Check for the attribute without acquisition.  If it's there,
     # grab it *with* acquisition, so things like ComputedAttribute
     # will work
-    if hasattr(aq_base(ob), field):
+    if field and hasattr(aq_base(ob), field):
         value = getattr(ob, field)
+    elif field_name and  hasattr(aq_base(ob), field_name):
+        value = getattr(ob, field_name, None)
     else:
         raise AttributeError, field
 
