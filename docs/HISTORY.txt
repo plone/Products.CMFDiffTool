@@ -14,22 +14,10 @@ Changelog
   on Plone 3.3 and above.
   [hannosch]
 
-- Fix #9108: EncodingDecodeError in TextDiff.html_diff
-  [encolpe]
-
 - Add encoding declaration in python files
   [encolpe]
 
-- Move CMF skin layer registration to zcml.
-  [wichert]
-
-- Move GenericSetup step registration to zcml.
-  [wichert]
-
 - Removed the persistent version of the changeset type.
-  [hannosch]
-
-- Switch to egg-based releases.
   [hannosch]
 
 - Declare package dependencies and fixed deprecation warnings for use
@@ -46,9 +34,28 @@ Changelog
 - Purged old Zope 2 Interface interfaces for Zope 2.12 compatibility.
   [elro]
 
+0.5 - May 16, 2009
+------------------
 
-0.4 (unreleased)
+- Fix #9108: EncodingDecodeError in TextDiff.html_diff
+  [encolpe]
+
+
+0.5b1 - March 7, 2009
+---------------------
+
+- Move CMF skin layer registration to zcml.
+  [wichert]
+
+- Move GenericSetup step registration to zcml.
+  [wichert]
+
+
+0.4 (2008-10-06)
 ----------------
+
+- Switch to egg-based releases.
+  [hannosch]
 
 - Added GS import step registration to the product. It was only registered
   as part of the CMFPlone base profile.
