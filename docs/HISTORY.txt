@@ -34,15 +34,14 @@ Changelog
 - Purged old Zope 2 Interface interfaces for Zope 2.12 compatibility.
   [elro]
 
-0.5 - May 16, 2009
-------------------
+0.5 - 2009-05-16
+----------------
 
 - Fix #9108: EncodingDecodeError in TextDiff.html_diff
   [encolpe]
 
-
-0.5b1 - March 7, 2009
----------------------
+0.5b1 - 2009-03-07
+------------------
 
 - Move CMF skin layer registration to zcml.
   [wichert]
@@ -50,8 +49,7 @@ Changelog
 - Move GenericSetup step registration to zcml.
   [wichert]
 
-
-0.4 (2008-10-06)
+0.4 - 2008-10-06
 ----------------
 
 - Switch to egg-based releases.
@@ -61,8 +59,7 @@ Changelog
   as part of the CMFPlone base profile.
   [hannosch]
 
-
-0.3.6 (2008-04-20)
+0.3.6 - 2008-04-20
 ------------------
 
 - Added protection against missing diff_tool in the exportimport handler.
@@ -71,8 +68,7 @@ Changelog
 - Added metadata.xml file to the profile.
   [hannosch]
 
-
-0.3.5 (2007-12-02)
+0.3.5 - 2007-12-02
 ------------------
 
 - Don't assume there's a portal_type for objects.
@@ -89,29 +85,25 @@ Changelog
 - Updated componentregisty.xml to new style.
   [hannosch]
 
-
-0.3.4 (2007-06-08)
+0.3.4 - 2007-06-08
 ------------------
 
 - Fixed i18n markup in at_changeset.pt.
   [hannosch]
 
-
-0.3.3 (2007-03-05)
+0.3.3 - 2007-03-05
 ------------------
 
 - Removed default config for ATCT types, it goes in Plone now
   [alecm]
 
-
-0.3.2 (2007-03-05)
+0.3.2 - 2007-03-05
 ------------------
 
 - Added default config for ATCT types
   [alecm]
 
-
-0.3.1 (2007-02-09)
+0.3.1 - 2007-02-09
 ------------------
 
 - Removed useless status message.
@@ -120,7 +112,7 @@ Changelog
 - Added ZCML layer setup for tests
   [alecm]
 
-0.3 (2006-10-02)
+0.3 - 2006-10-02
 ----------------
 
 - Product installation is now based on a GenericSetup extension profile.
@@ -129,11 +121,6 @@ Changelog
 - Code modernization for Python 2.4 / CMF 1.6.
   [hannosch]
 
-<<<<<<< .working
-- Initial version.
-  [brentmh]
-=======
 - Initial version.
   [brentmh]
 
->>>>>>> .merge-right.r81464
