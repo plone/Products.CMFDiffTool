@@ -2,8 +2,7 @@ Changelog
 =========
 
 2.0 (unreleased)
----------------
-
+----------------
 - Adjusted interface test to zope.interface-style interfaces.
   [hannosch]
 
@@ -34,10 +33,14 @@ Changelog
 - Purged old Zope 2 Interface interfaces for Zope 2.12 compatibility.
   [elro]
 
-0.5.1 - unreleased
+0.5.2 - 2009-07-08
 ------------------
+- Fix #9355: Support generalized schema extension for AT fields.
+  [alecm]
 
-- Fix #9092 and prepare 0.5.1 release.
+0.5.1 - 2009-06-19
+------------------
+- Fix #9092: Support archetypes schema extension for ATCompoundDiff.
   [alecm]
 
 0.5 - 2009-05-16
