@@ -42,6 +42,12 @@ class ATCompoundDiff:
     def __getitem__(self, index):
         return self._diffs[index]
 
+    def __len__(self):
+        return len(self._diffs)
+
+    def __iter__(self):
+        return iter(self._diffs)
+
     def generateSubDiffs(self, fields, obj1, obj2):
         diff_list = []
         for field in fields:

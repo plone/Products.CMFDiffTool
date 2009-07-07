@@ -1,8 +1,15 @@
 Changelog
 =========
 
-0.5 - UNRELEASED
-----------------
+0.5.2 -July 08, 2009
+---------------------
+- Fix #9355: Support generalized schema extension for AT fields.
+  [alecm]
+
+0.5.1 - June 19, 2009
+---------------------
+- Fix #9092: Support archetypes schema extension for ATCompoundDiff.
+  [alecm]
 
 
 0.5 - May 16, 2009

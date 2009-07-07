@@ -36,7 +36,8 @@ class BaseDiff:
         self.schemata = schemata or 'default'
 
     def testChanges(self, ob):
-        """Test the specified object to determine if the change set will apply without errors"""
+        """Test the specified object to determine if the change set
+        will apply without errors"""
         pass
 
     def applyChanges(self, ob):
@@ -50,8 +51,12 @@ def _getValue(ob, field, field_name):
     # will work
     if field and hasattr(aq_base(ob), field):
         value = getattr(ob, field)
-    elif field_name and  hasattr(aq_base(ob), field_name):
-        value = getattr(ob, field_name, None)
+    elif hasattr(aq_base(ob), 'getField'):
+        # Archetypes with an adapter extended schema needs special handling
+        field = ob.getField(field_name)
+        if field is None:
+            raise AttributeError, field
+        value = field.getAccessor(ob)
     else:
         raise AttributeError, field
 
