@@ -3,6 +3,9 @@ Changelog
 
 2.0 (unreleased)
 ----------------
+- Use unicode in diff generation, now that python difflib supports it.
+  [alecm]
+
 - Adjusted interface test to zope.interface-style interfaces.
   [hannosch]
 
