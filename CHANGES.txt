@@ -1,9 +1,10 @@
 Changelog
 =========
 
-2.0 (unreleased)
-----------------
-- Use unicode in diff generation, now that python difflib supports it.
+2.0a1 - 2009-11-14
+------------------
+
+- Use unicode in diff generation, now that Python's difflib supports it.
   [alecm]
 
 - Adjusted interface test to zope.interface-style interfaces.

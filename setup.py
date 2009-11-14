@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
-import os
 from setuptools import setup, find_packages
 
-version = '2.0'
+version = '2.0a1'
 
 setup(name='Products.CMFDiffTool',
       version=version,
       description="Diff tool for Plone",
-      long_description=open(os.path.join("docs", "HISTORY.txt")).read(),
+      long_description=open("README.txt").read() + "\n" +
+                       open("CHANGES.txt").read(),
       classifiers=[
-        'Framework :: Plone',
-      ],
+        "Framework :: Plone",
+        ],
       keywords='Diff Plone',
       author='Brent Hendricks',
       author_email='plone-developers@lists.sourceforge.net',
