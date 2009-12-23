@@ -22,6 +22,7 @@ setup(name='Products.CMFDiffTool',
       zip_safe=False,
       extras_require=dict(
         test=[
+            'zope.component',
             'Products.CMFTestCase',
         ]
       ),

@@ -4,6 +4,8 @@ Changelog
 2.0b1 - Unreleased
 ------------------
 
+- Added missing test dependency.
+  [hannosch]
 
 2.0a1 - 2009-11-14
 ------------------
