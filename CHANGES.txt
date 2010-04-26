@@ -4,6 +4,9 @@ Changelog
 2.0b2 - unreleased
 ------------------
 
+- Added blob support to ATCompoundDiff.
+  [davidblewett]
+
 
 2.0b1 - 2009-12-27
 ------------------
