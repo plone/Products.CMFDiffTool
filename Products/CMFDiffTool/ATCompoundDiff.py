@@ -9,7 +9,7 @@ from Products.CMFDiffTool.CMFDTHtmlDiff import CMFDTHtmlDiff
 
 
 AT_FIELD_MAPPING = {'text': 'variable_text',
-                    'string': FieldDiff,
+                    'string': 'variable_text',
                     'datetime': FieldDiff,
                     'file': 'variable_binary',
                     'image': BinaryDiff,

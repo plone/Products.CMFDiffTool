@@ -4,6 +4,9 @@ Changelog
 2.0b2 - unreleased
 ------------------
 
+- Added inline diff view for simple text fields.
+  [alecm]
+
 
 2.0b1 - 2009-12-27
 ------------------

@@ -35,4 +35,12 @@ class TextDiff(FieldDiff):
                                              context=context))
         return diff
 
+    def inline_diff(self):
+        """Simple inline diff that just assumes that the text has been
+        completely replaced."""
+        if self.oldValue != self.newValue:
+            return '<div class="InlineDiff"><del>%s</del><ins>%s</ins></div>'%(
+                self.newValue, self.oldValue)
+
+
 InitializeClass(TextDiff)
