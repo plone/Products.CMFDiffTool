@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0b2 - unreleased
+2.0b2 - 2010-04-28
 ------------------
 
 - Added inline diff view for simple text fields.
