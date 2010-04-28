@@ -7,6 +7,9 @@ Changelog
 - Added inline diff view for simple text fields.
   [alecm]
 
+- Added blob support to ATCompoundDiff.
+  [davidblewett]
+
 
 2.0b1 - 2009-12-27
 ------------------
