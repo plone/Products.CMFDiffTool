@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.0b3 - unreleased
+------------------
+
+- Fix test failure as a result of string field diff assignment change.
+  [alecm]
+
 2.0b2 - 2010-04-28
 ------------------
 

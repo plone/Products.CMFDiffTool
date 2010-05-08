@@ -32,7 +32,7 @@ class TestATCompoundDiff(BaseTestCase.ATBaseTestCase):
             elif field.label == 'label_short_name':
                 self.assertEqual(field.oldValue, 'extended-document')
                 self.assertEqual(field.newValue, 'extended-document2')
-                self.assertEqual(field.meta_type, 'Field Diff')
+                self.assertEqual(field.meta_type, 'Lines Diff')
             # The dates will be different, but everything else should
             # be the same
             elif field.label not in ('label_creation_date',
