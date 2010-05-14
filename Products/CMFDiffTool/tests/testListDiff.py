@@ -2,10 +2,10 @@
 #
 # CMFDiffTool tests
 #
-
+from os import linesep
 from Testing import ZopeTestCase
 from Products.CMFDiffTool.ListDiff import ListDiff
-        
+
 _marker = []
 
 class A:
@@ -21,7 +21,7 @@ class TestListDiff(ZopeTestCase.ZopeTestCase):
         """Ensure that tool instances implement the portal_diff interface"""
         from Products.CMFDiffTool.interfaces.portal_diff import IDifference
         self.failUnless(IDifference.implementedBy(ListDiff))
-    
+
     def testAttributeSame(self):
         """Test attribute with same value"""
         a = A()
@@ -49,19 +49,20 @@ class TestListDiff(ZopeTestCase.ZopeTestCase):
         diff = ListDiff(a, b, 'attribute')
         expected = [('equal', 0, 3, 0, 3) ,('insert', 3, 3, 3, 4)]
         self.assertEqual(diff.getLineDiffs(), expected)
-        
+
     def testSameText(self):
         """Test text diff output with no diff"""
         a = A()
         diff = ListDiff(a, a, 'attribute')
-        expected = "  1\n  2\n  3"
+        expected = "  1%(linesep)s  2%(linesep)s  3" % {'linesep': linesep}
         self.assertEqual(diff.ndiff(), expected)
 
     def testDiffText(self):
         """Test text diff output with no diff"""
         a = A()
         b = B()
-        expected = "  1\n  2\n  3\n+ 4"
+        expected = "  1%(linesep)s  2%(linesep)s  3%(linesep)s+ 4" % \
+                   {'linesep': linesep}
         diff = ListDiff(a, b, 'attribute')
         self.assertEqual(diff.ndiff(), expected)
 

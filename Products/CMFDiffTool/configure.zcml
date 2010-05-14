@@ -1,8 +1,12 @@
 <configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:i18n="http://namespaces.zope.org/i18n"
            xmlns:cmf="http://namespaces.zope.org/cmf" >
 
   <include package=".exportimport" />
 
   <include file="profiles.zcml"/>
+
+  <!-- Translations -->
+  <i18n:registerTranslations directory="locales" />
 
 </configure>

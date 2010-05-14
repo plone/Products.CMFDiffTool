@@ -13,8 +13,10 @@ class CMFDTHtmlDiff(TextDiff):
 
     def inline_diff(self):
         """Return a specialized diff for HTML"""
-        a = '\n'.join(self._parseField(self.oldValue))
-        b = '\n'.join(self._parseField(self.newValue))
+        a = '\n'.join(self._parseField(self.oldValue,
+                                       filename=self.oldFilename))
+        b = '\n'.join(self._parseField(self.newValue,
+                                       filename=self.newFilename))
         return htmldiff.htmldiff(a, b)
 
 InitializeClass(CMFDTHtmlDiff)

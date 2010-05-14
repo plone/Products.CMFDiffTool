@@ -2,7 +2,7 @@
 #
 # CMFDiffTool tests
 #
-
+from os import linesep
 from Products.CMFCore.utils import getToolByName
 
 import BaseTestCase
@@ -53,7 +53,8 @@ class TestChangeSet(BaseTestCase.BaseTestCase):
         diffs = self.cs.getDiffs()
         self.assertEqual(len(diffs), 1)
         self.failIf(diffs[0].same)
-        self.assertEqual(diffs[0].ndiff(), '- My Title\n+ My New Title')
+        self.assertEqual(diffs[0].ndiff(),
+                         '- My Title%s+ My New Title' % linesep)
 
     def testChangeSetFolderUnchanged(self):
         self.setupTestFolders()
@@ -76,7 +77,8 @@ class TestChangeSet(BaseTestCase.BaseTestCase):
         diffs = self.cs.getDiffs()
         self.assertEqual(len(diffs), 1)
         self.failIf(diffs[0].same)
-        self.assertEqual(diffs[0].ndiff(), '- My Folder Title\n+ My New Title')
+        self.assertEqual(diffs[0].ndiff(),
+                         '- My Folder Title%s+ My New Title' % linesep)
         self.failIf(self.cs._added)
         self.failIf(self.cs._removed)
         sub_cs = self.cs.getSubDiffs()
@@ -107,7 +109,7 @@ class TestChangeSet(BaseTestCase.BaseTestCase):
             if sub_cs[i].getId() == 'doc1':
                 self.failIf(sub_diffs[0].same)
                 self.assertEqual(sub_diffs[0].ndiff(),
-                                                '- My Title1\n+ My New Title')
+                                 '- My Title1%s+ My New Title' % linesep)
             else:
                 self.failUnless(sub_diffs[0].same)
 
@@ -200,7 +202,8 @@ class TestChangeSet(BaseTestCase.BaseTestCase):
         diffs = self.cs.getDiffs()
         self.assertEqual(len(diffs), 1)
         self.failIf(diffs[0].same)
-        self.assertEqual(diffs[0].ndiff(), '- My Folder Title\n+ My New Title')
+        self.assertEqual(diffs[0].ndiff(),
+                         '- My Folder Title%s+ My New Title' % linesep)
         self.assertEqual(list(self.cs._added), ['doc4'])
         self.assertEqual(list(self.cs._removed), ['doc2'])
         sub_cs = self.cs.getSubDiffs()
@@ -214,7 +217,7 @@ class TestChangeSet(BaseTestCase.BaseTestCase):
             if sub_cs[i].getId() == 'doc3':
                 self.failIf(sub_diffs[0].same)
                 self.assertEqual(sub_diffs[0].ndiff(),
-                                                '- My Title3\n+ My New Title')
+                                 '- My Title3%s+ My New Title' % linesep)
             else:
                 self.failUnless(sub_diffs[0].same)
         # XXX we need an explicit way of noting reorders

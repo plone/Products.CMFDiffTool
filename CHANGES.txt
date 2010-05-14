@@ -4,6 +4,13 @@ Changelog
 2.0b3 - unreleased
 ------------------
 
+- Added filename to BinaryDiff, TextDiff and CMFDTHtmlDiff.
+  Added i18n support for filename.
+  Updated code + test cases to use os.linesep instead of hard-coding them.
+  Updated TextDiff to use the splitlines string method instead of
+  splitting on a hard-coded value.
+  [davidblewett]
+
 - Fix test failure as a result of string field diff assignment change.
   [alecm]
 

@@ -24,7 +24,7 @@ class IDiffTool(Interface):
         """Returns a dictionary where each key is an attribute or
         method on the given portal type, and the value is the name of
         a difference type."""
-    
+
     def computeDiff(ob1, ob2):
         """Compute the differences from ob1 to ob2 (ie. ob2 - ob1).
 
@@ -35,7 +35,7 @@ class IDiffTool(Interface):
     def createChangeSet(ob1, ob2):
         """Returns a ChangeSet object that represents the differences
         between ob1 and ob2 (ie. ob2 - ob1) ."""
-    
+
 
 
 class IDifference(Interface):
@@ -47,6 +47,8 @@ class IDifference(Interface):
     same = Attribute('same', 'True if the fields are the "same" (whatever that means for this difference)')
     oldValue = Attribute('oldValue', 'The old field value being compared')
     newValue = Attribute('newValue', 'The new field value being compared')
+    oldFilename = Attribute('oldFilename', 'The old filename for the field being compared')
+    newFilename = Attribute('newFilename', 'The new filename for the field being compared')
 
     def testChanges(ob):
         """Test the specified object to determine if the change set will apply cleanly.
@@ -56,6 +58,10 @@ class IDifference(Interface):
 
     def applyChanges(ob):
         """Update the specified object with the difference"""
+
+    def filenameTitle(self, filename):
+        """Translate the filename leading text
+        """
 
 
 class IStringDifference(IDifference):
@@ -73,14 +79,14 @@ class IStringDifference(IDifference):
 
 ##     def getCharDiffs():
 ##         """Return a list of character differences on a line-by-line basis.
-        
+
 ##         For every line in the field being compared, return a list of
 ##         character differences """
 
 
 class IChangeSet(Interface):
     """And interface representing all of the differences between two objects"""
-    
+
     same = Attribute('same', 'True if the fields are the "same"')
 
     def computeDiff(ob1, ob2, recursive=1, exclude=[]):
@@ -100,7 +106,7 @@ class IChangeSet(Interface):
 
     def applyChanges(ob):
         """Apply the computed changes to the specified object"""
-        
+
     def getDiffs():
         """Returns the list of differences between the two objects.
 

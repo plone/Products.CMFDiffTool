@@ -2,7 +2,7 @@
 #
 # CMFDiffTool tests
 #
-
+from os import linesep
 from Testing import ZopeTestCase
 from Products.CMFDiffTool.TextDiff import TextDiff
         
@@ -77,7 +77,7 @@ class TestTextDiff(ZopeTestCase.ZopeTestCase):
         """Test text diff output with different value"""
         a = A()
         b = B()
-        expected = "- कामसूत्र\n+ 過労死"
+        expected = "- कामसूत्र%s+ 過労死" % linesep
         fd = TextDiff(a, b, 'attribute')
         self.assertEqual(fd.ndiff(), expected)
 

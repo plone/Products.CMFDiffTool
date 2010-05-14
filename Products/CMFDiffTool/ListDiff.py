@@ -8,7 +8,7 @@ class ListDiff(FieldDiff):
 
     meta_type = "List Diff"
 
-    def _parseField(self, value):
+    def _parseField(self, value, filename=None):
         """Parse a field value in preparation for diffing"""
         # Return the list as is for diffing
         return value

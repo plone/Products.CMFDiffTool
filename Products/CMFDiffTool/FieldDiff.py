@@ -8,15 +8,21 @@ class FieldDiff(BaseDiff):
 
     meta_type = "Field Diff"
 
-    def _parseField(self, value):
+    def _parseField(self, value, filename=None):
         """Parse a field value in preparation for diffing"""
-        # Since we only want to compare a single field, make a
-        # one-item list out of it
-        return [value]
+        if filename is None:
+            # Since we only want to compare a single field, make a
+            # one-item list out of it
+            return [value]
+        else:
+            return [
+                self.filenameTitle(filename),
+                value
+            ]
 
     def getLineDiffs(self):
-        a = self._parseField(self.oldValue)
-        b = self._parseField(self.newValue)        
+        a = self._parseField(self.oldValue, filename=self.oldFilename)
+        b = self._parseField(self.newValue, filename=self.newFilename)
         return difflib.SequenceMatcher(None, a, b).get_opcodes()
 
     def testChanges(self, ob):
@@ -24,7 +30,7 @@ class FieldDiff(BaseDiff):
         value = _getValue(ob, self.field)
         if not self.same and value != self.oldValue:
             raise ValueError, ("Conflict Error during merge", self.field, value, self.oldValue)
-        
+
     def applyChanges(self, ob):
         """Update the specified object with the difference"""
         # Simplistic update
@@ -35,8 +41,8 @@ class FieldDiff(BaseDiff):
     def ndiff(self):
         """Return a textual diff"""
         r=[]
-        a = self._parseField(self.oldValue)
-        b = self._parseField(self.newValue)        
+        a = self._parseField(self.oldValue, filename=self.oldFilename)
+        b = self._parseField(self.newValue, filename=self.newFilename)
         for tag, alo, ahi, blo, bhi in self.getLineDiffs():
             if tag == 'replace':
                 plain_replace(a, alo, ahi, b, blo, bhi, r)

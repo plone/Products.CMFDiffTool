@@ -2,10 +2,10 @@
 #
 # CMFDiffTool tests
 #
-
+from os import linesep
 from Testing import ZopeTestCase
 from Products.CMFDiffTool.FieldDiff import FieldDiff
-        
+
 _marker = []
 
 class A:
@@ -25,7 +25,7 @@ class TestFieldDiff(ZopeTestCase.ZopeTestCase):
         """Ensure that tool instances implement the portal_diff interface"""
         from Products.CMFDiffTool.interfaces.portal_diff import IDifference
         self.failUnless(IDifference.implementedBy(FieldDiff))
-    
+
     def testAttributeSame(self):
         """Test attribute with same value"""
         a = A()
@@ -66,7 +66,7 @@ class TestFieldDiff(ZopeTestCase.ZopeTestCase):
         fd = FieldDiff(a, b, 'attribute')
         expected = [('replace', 0, 1, 0, 1)]
         self.assertEqual(fd.getLineDiffs(), expected)
-        
+
     def testSameText(self):
         """Test text diff output with same value"""
         a = A()
@@ -77,7 +77,7 @@ class TestFieldDiff(ZopeTestCase.ZopeTestCase):
         """Test text diff output with different value"""
         a = A()
         b = B()
-        expected = "- value\n+ different value"
+        expected = "- value%s+ different value" % linesep
         fd = FieldDiff(a, b, 'attribute')
         self.assertEqual(fd.ndiff(), expected)
 
