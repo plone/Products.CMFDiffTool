@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0b3 - unreleased
+2.0b3 - 2010-05-20
 ------------------
 
 - Added filename to BinaryDiff, TextDiff and CMFDTHtmlDiff.
