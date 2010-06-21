@@ -20,6 +20,8 @@ class TextDiff(FieldDiff):
 
     def _parseField(self, value, filename=None):
         """Parse a field value in preparation for diffing"""
+        if value is None:
+            value = ''
         if filename is None:
             # Split the text into a list for diffs
             return value.splitlines()
@@ -57,10 +59,16 @@ class TextDiff(FieldDiff):
                                     filename=self.oldFilename)
         new_attr = self._parseField(self.newValue,
                                     filename=self.newFilename)
-        old_fname = old_attr.pop(0)
-        new_fname = new_attr.pop(0)
-        a = linesep.join(old_attr)
-        b = linesep.join(new_attr)
+        if old_attr:
+            old_fname = old_attr.pop(0)
+        else:
+            old_fname = None
+        if new_attr:
+            new_fname = new_attr.pop(0)
+        else:
+            new_fname = None
+        a = linesep.join(old_attr or [])
+        b = linesep.join(new_attr or [])
         html = []
         if old_fname != new_fname:
             html.append(
