@@ -1,13 +1,25 @@
 Changelog
 =========
 
+2.0b4 - unreleased
+------------------
+
+- Make TextDiff more defensive in parsing.
+  [davidblewett]
+
 2.0b3 - 2010-05-20
 ------------------
 
 - Added filename to BinaryDiff, TextDiff and CMFDTHtmlDiff.
-  Added i18n support for filename.
-  Updated code + test cases to use os.linesep instead of hard-coding them.
-  Updated TextDiff to use the splitlines string method instead of
+  [davidblewett]
+
+- Added i18n support for filename.
+  [davidblewett]
+
+- Updated code + test cases to use os.linesep instead of hard-coding them.
+  [davidblewett]
+
+- Updated TextDiff to use the splitlines string method instead of
   splitting on a hard-coded value.
   [davidblewett]
 
@@ -165,4 +177,5 @@ Changelog
 
 - Initial version.
   [brentmh]
+
 
