@@ -4,7 +4,9 @@ Changelog
 2.0b4 - unreleased
 ------------------
 
-- Make TextDiff more defensive in parsing.
+- Make TextDiff more defensive in parsing. This fixes
+  http://dev.plone.org/plone/ticket/10716 and
+  http://dev.plone.org/plone/ticket/10737.
   [davidblewett]
 
 2.0b3 - 2010-05-20
