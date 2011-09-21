@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-#
-# CMFDiffTool tests
-#
+
 from os import linesep
+import sys
+
 from Testing import ZopeTestCase
 from Products.CMFDiffTool.TextDiff import TextDiff
-        
+
 _marker = []
+
 
 class A:
     attribute = "कामसूत्र"
@@ -85,7 +86,17 @@ class TestTextDiff(ZopeTestCase.ZopeTestCase):
         """Test text diff output with different value"""
         a = A()
         b = B()
-        expected = """--- None 
+        if sys.version_info[:2] >= (2, 7):
+            expected = """--- None
+
++++ None
+
+@@ -1 +1 @@
+
+-कामसूत्र
++過労死"""
+        else:
+            expected = """--- None 
 
 +++ None 
 
