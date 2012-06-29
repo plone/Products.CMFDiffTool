@@ -56,10 +56,13 @@ class BaseChangeSet(Implicit):
     same = ComputedAttribute(_isSame)
 
     security.declarePublic('computeDiff')
-    def computeDiff(self, ob1, ob2, recursive=1, exclude=[], id1=None, id2=None):
+    def computeDiff(self, ob1, ob2, recursive=1, exclude=None, id1=None, id2=None):
         """Compute the differences from ob1 to ob2 (ie. ob2 - ob1).
 
         The results can be accessed through getDiffs()"""
+
+        if exclude is None:
+            exclude = []
 
         # Reset state
         self._diffs = []
