@@ -89,7 +89,7 @@ class IChangeSet(Interface):
 
     same = Attribute('same', 'True if the fields are the "same"')
 
-    def computeDiff(ob1, ob2, recursive=1, exclude=[]):
+    def computeDiff(ob1, ob2, recursive=1, exclude=None):
         """Compute the differences from ob1 to ob2 (ie. ob2 - ob1).
 
         If resursive is 1, compute differences between subobjects of
