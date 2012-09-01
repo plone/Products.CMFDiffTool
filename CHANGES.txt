@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.1 - unreleased
+2.0.1 (2012-09-01)
 ------------------
 
 - Adjust test assertions to match new diff output in Python 2.7.
