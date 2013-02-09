@@ -24,6 +24,8 @@ setup(name='Products.CMFDiffTool',
         test=[
             'zope.component',
             'Products.CMFTestCase',
+            'plone.namedfile',
+            'plone.app.dexterity',
         ]
       ),
       install_requires=[
