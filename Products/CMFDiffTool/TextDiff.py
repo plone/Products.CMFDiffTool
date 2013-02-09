@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 import difflib
 from os import linesep
+
 from App.class_init import InitializeClass
+from zope.component.hooks import getSite
 
 from Products.CMFDiffTool.FieldDiff import FieldDiff
 from Products.CMFDiffTool.utils import safe_unicode, safe_utf8
+from Products.CMFDiffTool import CMFDiffToolMessageFactory as _
 
 
 class TextDiff(FieldDiff):
@@ -82,5 +85,26 @@ class TextDiff(FieldDiff):
         if html:
             return linesep.join(html)
 
-
 InitializeClass(TextDiff)
+
+
+class AsTextDiff(TextDiff):
+    """
+    Specialization of `TextDiff` that converts any value to text in order to
+    provide an inline diff visualization. Also translated (i18n) the
+    strings `True` and `False`.
+    """
+
+    def _parseField(self, value, filename=None):
+        if value is None:
+            value = ''
+
+        # In tests translation is not available, so we account for this
+        # case here.
+        translate = getattr(getSite(), 'translate', None)
+        if translate is not None:
+            value = translate(_(value))
+
+        return TextDiff._parseField(self, str(value), filename)
+
+InitializeClass(AsTextDiff)
