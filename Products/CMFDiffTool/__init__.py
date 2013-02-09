@@ -14,14 +14,34 @@ from Products.CMFDiffTool import BinaryDiff
 from Products.CMFDiffTool import CMFDTHtmlDiff
 from Products.CMFDiffTool import ATCompoundDiff
 
-tools = ( CMFDiffTool.CMFDiffTool,)
-
 CMFDiffTool.registerDiffType(BinaryDiff.BinaryDiff)
 CMFDiffTool.registerDiffType(FieldDiff.FieldDiff)
 CMFDiffTool.registerDiffType(ListDiff.ListDiff)
 CMFDiffTool.registerDiffType(TextDiff.TextDiff)
+CMFDiffTool.registerDiffType(TextDiff.AsTextDiff)
 CMFDiffTool.registerDiffType(CMFDTHtmlDiff.CMFDTHtmlDiff)
 CMFDiffTool.registerDiffType(ATCompoundDiff.ATCompoundDiff)
+
+# Soft plone.namedfile dependency
+try:
+    from Products.CMFDiffTool import namedfile
+except ImportError:
+    pass
+else:
+    CMFDiffTool.registerDiffType(namedfile.NamedFileBinaryDiff)
+    CMFDiffTool.registerDiffType(namedfile.NamedFileListDiff)
+
+# Soft Dexterity dependency
+try:
+    from Products.CMFDiffTool import dexteritydiff
+    from Products.CMFDiffTool import choicediff
+except ImportError:
+    pass
+else:
+    CMFDiffTool.registerDiffType(choicediff.ChoiceDiff)
+    CMFDiffTool.registerDiffType(dexteritydiff.DexterityCompoundDiff)
+
+tools = ( CMFDiffTool.CMFDiffTool,)
 
 def initialize(context):
     ToolInit('CMF Diff Tool',
