@@ -19,4 +19,12 @@ class CMFDTHtmlDiff(TextDiff):
                                        filename=self.newFilename))
         return htmldiff.htmldiff(a, b)
 
+    def _parseField(self, value, filename=None):
+        """Use the field's raw value if available."""
+        if value is None:
+            value = ''
+        else:
+            value = getattr(value, 'raw', value)
+        return TextDiff._parseField(self, value, filename)
+
 InitializeClass(CMFDTHtmlDiff)
