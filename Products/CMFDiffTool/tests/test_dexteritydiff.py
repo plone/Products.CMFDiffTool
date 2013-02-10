@@ -41,7 +41,7 @@ class DexterityDiffTestCase(PloneTestCase.FunctionalTestCase):
         diffs = DexterityCompoundDiff(obj1, obj2, 'any')
         for d in diffs:
             self.assertTrue(IDifference.providedBy(d))
-            self.assertNotIn(d.field, EXCLUDED_FIELDS)
+            self.assertFalse(d.field in EXCLUDED_FIELDS)
             if d.field in ['title', 'description', 'text']:
                 self.assertFalse(
                     d.same, 'Field %s should be different.' % d.field)
