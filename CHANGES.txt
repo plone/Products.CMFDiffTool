@@ -4,7 +4,7 @@ Changelog
 2.0.2 (unreleased)
 ------------------
 
-- Merge Rafael Oliveira's (@rafaelbco) plone.namedfile support from
+- Merge Rafael Oliveira's (@rafaelbco) Dexterity support from
   collective.dexteritydiff.
   [rpatterson]
 
