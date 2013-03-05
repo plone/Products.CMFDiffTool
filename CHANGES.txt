@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.2 (unreleased)
+2.0.2 (2013-03-05)
 ------------------
 
 - Merge Rafael Oliveira's (@rafaelbco) Dexterity support from
