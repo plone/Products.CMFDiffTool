@@ -1,47 +1,52 @@
 # -*- coding: utf-8 -*-
 # BaseTestCase
 
-from Products.CMFTestCase.ctc import CMFTestCase
-from Products.CMFTestCase.ctc import setupCMFSite
-from Products.CMFTestCase.ctc import installProduct
+from plone.app.testing.bbb import PloneTestCase
+from plone.app.testing import PLONE_FIXTURE
+from plone.app.testing import PloneSandboxLayer
+from plone.app.testing import applyProfile
+from plone.testing import z2
 
-setupCMFSite(extension_profiles=['Products.CMFDiffTool:CMFDiffTool'])
 
-class BaseTestCase(CMFTestCase):
+class CMFDiffToolBaseSandboxLayer(PloneSandboxLayer):
+
+    defaultBases = (PLONE_FIXTURE, )
+
+    def setupPloneSite(self, portal):
+        applyProfile(portal, 'Products.CMFDiffTool:CMFDiffTool')
+
+
+CMFDiffToolBaseLayer = CMFDiffToolBaseSandboxLayer()
+
+class BaseTestCase(PloneTestCase):
     """This is a stub now, but in case you want to try
        something fancy on Your Branch (tm), put it here.
     """
 
-
-try:
-    from archetypes import schemaextender
-    HAS_AT_SCHEMA_EXTENDER = True
-except ImportError:
-    HAS_AT_SCHEMA_EXTENDER = False
-try:
-    from Products.Five import fiveconfigure, zcml
-    from Products.PloneTestCase import PloneTestCase as ptc
-    from Products.PloneTestCase.layer import PloneSite
-    HAS_PLONE = True
-except ImportError:
-    HAS_PLONE = False
-
-if HAS_PLONE:
-    class CMFDiffToolLayer(PloneSite):
-        @classmethod
-        def setUp(cls):
-            """Set up additional products and ZCML required to test
-            this product.
-            """
-            ptc.setupPloneSite()
-            installProduct('CMFDiffTool')
-            if HAS_AT_SCHEMA_EXTENDER:
-                zcml.load_config('configure.zcml', schemaextender)
-            PloneSite.setUp()
+    layer = CMFDiffToolBaseLayer
 
 
-    class ATBaseTestCase(ptc.PloneTestCase):
+class CMFDiffToolSandboxLayer(PloneSandboxLayer):
+
+    defaultBases = (PLONE_FIXTURE, )
+
+    def setUpZope(self, app, configurationContext):
+        z2.installProduct(app, 'CMFDiffTool')
+
+    def setUpPloneSite(self, portal):
+        """Set up additional products and ZCML required to test
+        this product.
         """
-        For tests that need archetypes
-        """
-        layer = CMFDiffToolLayer
+        try:
+            from archetypes import schemaextender
+            self.loadZCML(package=schemaextender)
+        except ImportError:
+            pass
+
+CMFDiffToolLayer = CMFDiffToolSandboxLayer()
+
+class ATBaseTestCase(PloneTestCase):
+    """
+    For tests that need archetypes
+    """
+    layer = CMFDiffToolLayer

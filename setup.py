@@ -10,6 +10,7 @@ setup(name='Products.CMFDiffTool',
                        open("CHANGES.txt").read(),
       classifiers=[
         "Framework :: Plone",
+        "Framework :: Plone :: 5.0",
         ],
       keywords='Diff Plone',
       author='Brent Hendricks',
@@ -23,7 +24,7 @@ setup(name='Products.CMFDiffTool',
       extras_require=dict(
         test=[
             'zope.component',
-            'Products.CMFTestCase',
+            'plone.app.testing',
             'plone.namedfile',
             'plone.app.dexterity',
         ]

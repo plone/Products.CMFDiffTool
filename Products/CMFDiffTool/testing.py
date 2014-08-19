@@ -5,8 +5,8 @@ from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope.component import getSiteManager
 from zope.schema.interfaces import IVocabularyFactory
 
-from collective.testcaselayer import ptc
-from collective.testcaselayer import common
+from plone.app.testing import PLONE_FIXTURE
+from plone.app.testing import PloneSandboxLayer
 
 TEST_CONTENT_TYPE_ID = 'TestContentType'
 
@@ -23,15 +23,16 @@ def vocabulary_factory(context):
     return VOCABULARY
 
 
-class PackageLayer(ptc.BasePTCLayer):
+class PackageLayer(PloneSandboxLayer):
 
-    def afterSetUp(self):
+    defaultBases = (PLONE_FIXTURE, )
+
+    def setupPloneSite(self, portal):
         import Products.CMFDiffTool
         import plone.app.dexterity
         self.loadZCML('configure.zcml', package=Products.CMFDiffTool)
         self.loadZCML('configure.zcml', package=plone.app.dexterity)
 
-        portal = self.portal
         types_tool = getToolByName(portal, 'portal_types')
 
         sm = getSiteManager(portal)
@@ -83,4 +84,4 @@ class PackageLayer(ptc.BasePTCLayer):
         )
         types_tool._setObject(TEST_CONTENT_TYPE_ID, fti)
 
-package_layer = PackageLayer([common.common_layer])
+package_layer = PackageLayer()

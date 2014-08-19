@@ -1,13 +1,13 @@
+from plone.app.testing.bbb import PloneTestCase
 from plone.namedfile.file import NamedFile
 
 from Products.CMFDiffTool.interfaces import IDifference
 from Products.CMFDiffTool import namedfile
 
-from Products.PloneTestCase import PloneTestCase
 from Products.CMFDiffTool import testing
 
 
-class BinaryDiffTestCase(PloneTestCase.FunctionalTestCase):
+class BinaryDiffTestCase(PloneTestCase):
 
     layer = testing.package_layer
 

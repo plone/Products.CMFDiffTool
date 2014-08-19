@@ -5,14 +5,14 @@ from zope.globalrequest import setRequest
 from plone.namedfile import NamedFile
 from Products.CMFDiffTool.interfaces import IDifference
 
-from Products.PloneTestCase import PloneTestCase
+from plone.app.testing.bbb import PloneTestCase
 
 from Products.CMFDiffTool import testing
 from Products.CMFDiffTool.dexteritydiff import DexterityCompoundDiff
 from Products.CMFDiffTool.dexteritydiff import EXCLUDED_FIELDS
 
 
-class DexterityDiffTestCase(PloneTestCase.FunctionalTestCase):
+class DexterityDiffTestCase(PloneTestCase):
 
     layer = testing.package_layer
 

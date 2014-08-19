@@ -1,12 +1,12 @@
+from plone.app.testing.bbb import PloneTestCase
 from Products.CMFDiffTool.choicediff import ChoiceDiff
 from Products.CMFDiffTool.choicediff import title_or_value
 from Products.CMFDiffTool.interfaces import IDifference
 
-from Products.PloneTestCase import PloneTestCase
 from Products.CMFDiffTool import testing
 
 
-class ChoiceDiffTestCase(PloneTestCase.FunctionalTestCase):
+class ChoiceDiffTestCase(PloneTestCase):
 
     layer = testing.package_layer
 
