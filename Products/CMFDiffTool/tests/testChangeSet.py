@@ -5,11 +5,11 @@
 from os import linesep
 from Products.CMFCore.utils import getToolByName
 
-import BaseTestCase
+from .BaseTestCase import BaseTestCase
 from Products.CMFDiffTool.ChangeSet import BaseChangeSet
 from Acquisition import aq_base
 
-class TestChangeSet(BaseTestCase.BaseTestCase):
+class TestChangeSet(BaseTestCase):
     """Tests for ChangeSet objects"""
 
     def afterSetUp(self):
@@ -221,11 +221,3 @@ class TestChangeSet(BaseTestCase.BaseTestCase):
             else:
                 self.failUnless(sub_diffs[0].same)
         # XXX we need an explicit way of noting reorders
-
-
-def test_suite():
-    import unittest
-    suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestChangeSet))
-    return suite
-

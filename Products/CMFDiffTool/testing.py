@@ -5,8 +5,11 @@ from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope.component import getSiteManager
 from zope.schema.interfaces import IVocabularyFactory
 
-from plone.app.testing import PLONE_FIXTURE
+from plone.app.testing.bbb import PTC_FIXTURE
 from plone.app.testing import PloneSandboxLayer
+from plone.app.testing import FunctionalTesting
+from plone.app.testing import applyProfile
+from plone.testing import z2
 
 TEST_CONTENT_TYPE_ID = 'TestContentType'
 
@@ -23,16 +26,20 @@ def vocabulary_factory(context):
     return VOCABULARY
 
 
-class PackageLayer(PloneSandboxLayer):
+class DXLayer(PloneSandboxLayer):
 
-    defaultBases = (PLONE_FIXTURE, )
+    defaultBases = (PTC_FIXTURE, )
 
-    def setupPloneSite(self, portal):
-        import Products.CMFDiffTool
-        import plone.app.dexterity
-        self.loadZCML('configure.zcml', package=Products.CMFDiffTool)
-        self.loadZCML('configure.zcml', package=plone.app.dexterity)
+#    def setUpZope(self, app, configurationContext):
+#        import plone.app.dexterity
+#        self.loadZCML(name='meta.zcml', package=plone.app.dexterity)
+#        self.loadZCML(package=plone.app.dexterity)
 
+    def setUpPloneSite(self, portal):
+        """Set up additional products and ZCML required to test
+        this product.
+        """
+        # setup dexterity
         types_tool = getToolByName(portal, 'portal_types')
 
         sm = getSiteManager(portal)
@@ -84,4 +91,27 @@ class PackageLayer(PloneSandboxLayer):
         )
         types_tool._setObject(TEST_CONTENT_TYPE_ID, fti)
 
-package_layer = PackageLayer()
+
+PACKAGE_DX_FIXTURE = DXLayer()
+
+
+class ATLayer(PloneSandboxLayer):
+
+    defaultBases = (PTC_FIXTURE, )
+
+    def setUpZope(self, app, configurationContext):
+        # setup schema extender if available
+        try:
+            from archetypes import schemaextender
+            self.loadZCML(package=schemaextender)
+        except ImportError:
+            pass
+
+PACKAGE_AT_FIXTURE = ATLayer()
+
+CMFDiffToolLayer = FunctionalTesting(
+    bases=(PTC_FIXTURE,), name="Products.CMFDiffTool:functional")
+CMFDiffToolDXLayer = FunctionalTesting(
+    bases=(PACKAGE_DX_FIXTURE,), name="Products.CMFDiffTool.DX:functional")
+CMFDiffToolATLayer = FunctionalTesting(
+    bases=(PACKAGE_AT_FIXTURE,), name="Products.CMFDiffTool.AT:functional")

@@ -9,8 +9,11 @@ setup(name='Products.CMFDiffTool',
       long_description=open("README.txt").read() + "\n" +
                        open("CHANGES.txt").read(),
       classifiers=[
+        "Development Status :: 5 - Production/Stable",
+        "Programming Language :: Python :: 2.7",
         "Framework :: Plone",
         "Framework :: Plone :: 5.0",
+        "Topic :: Internet :: WWW/HTTP",
         ],
       keywords='Diff Plone',
       author='Brent Hendricks',

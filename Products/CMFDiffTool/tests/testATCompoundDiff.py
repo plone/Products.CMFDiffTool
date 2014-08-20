@@ -2,11 +2,11 @@ from zope.interface import alsoProvides, noLongerProvides
 from Products.ATContentTypes.content.document import ATDocument
 from Products.CMFDiffTool.ATCompoundDiff import ATCompoundDiff
 
-import BaseTestCase
+from .BaseTestCase import BaseATTestCase
 from zope.component import adapts, provideAdapter
 from Products.Archetypes import atapi
 
-class TestATCompoundDiff(BaseTestCase.ATBaseTestCase):
+class TestATCompoundDiff(BaseATTestCase):
     """Test the portal_diff tool"""
 
     def testCompoundDiff(self):

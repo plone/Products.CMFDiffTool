@@ -82,11 +82,3 @@ class TestDiffTool(BaseTestCase.BaseTestCase):
     def beforeTearDown(self):
         # Undo changes that don't get rolled back (i.e. module level changes)
         unregisterDiffType(DummyDiff)
-
-
-def test_suite():
-    import unittest
-    suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestDiffTool))
-    return suite
-

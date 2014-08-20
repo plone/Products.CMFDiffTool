@@ -1,4 +1,4 @@
-from plone.app.testing.bbb import PloneTestCase
+from .BaseTestCase import BaseDXTestCase
 from Products.CMFDiffTool.choicediff import ChoiceDiff
 from Products.CMFDiffTool.choicediff import title_or_value
 from Products.CMFDiffTool.interfaces import IDifference
@@ -6,9 +6,7 @@ from Products.CMFDiffTool.interfaces import IDifference
 from Products.CMFDiffTool import testing
 
 
-class ChoiceDiffTestCase(PloneTestCase):
-
-    layer = testing.package_layer
+class ChoiceDiffTestCase(BaseDXTestCase):
 
     def afterSetUp(self):
         self.loginAsPortalOwner()
