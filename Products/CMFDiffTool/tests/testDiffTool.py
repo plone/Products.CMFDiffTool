@@ -6,7 +6,6 @@
 from Products.CMFCore.utils import getToolByName
 from zExceptions import BadRequest
 
-import BaseTestCase
 from Products.CMFDiffTool.CMFDiffTool import registerDiffType
 from Products.CMFDiffTool.CMFDiffTool import unregisterDiffType
 
@@ -16,14 +15,28 @@ class DummyDiff:
 class DummyDiff2:
     meta_type = "Second Dummy Diff Type"
 
-from plone.app.testing.bbb import PloneTestCase
+from unittest import TestCase
+from plone.app.testing import PLONE_INTEGRATION_TESTING
 
-class TestDiffTool(PloneTestCase):
+class TestDiffTool(TestCase):
     """Test the portal_diff tool"""
 
-    def afterSetUp(self):
-        self.p_diff = getToolByName(self.portal, 'portal_diff')
+    layer = PLONE_INTEGRATION_TESTING
+
+    def setUp(self):
+        self.p_diff = getToolByName(self.layer['portal'], 'portal_diff')
+
+        # patch portal_types to list `Document` in the listContentTypes
+        # a plausability check is done in the `setDiffForPortalType` method
+        # but we have no content registry
+        portal_types = getToolByName(self.layer['portal'], 'portal_types')
+        self._old_listContentTypes = portal_types.listContentTypes
+        portal_types.listContentTypes = lambda: ['Document']
         registerDiffType(DummyDiff)
+
+    def tearDown(self):
+        portal_types = getToolByName(self.layer['portal'], 'portal_types')
+        portal_types.listContentTypes = self._old_listContentTypes
 
     def testInterface(self):
         """Ensure that tool instances implement the portal_diff interface"""

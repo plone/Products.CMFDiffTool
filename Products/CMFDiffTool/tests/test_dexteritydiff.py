@@ -1,7 +1,5 @@
 from datetime import date
 
-from zope.globalrequest import setRequest
-
 from plone.namedfile import NamedFile
 from Products.CMFDiffTool.interfaces import IDifference
 
@@ -16,7 +14,6 @@ from Products.CMFDiffTool import testing
 class DexterityDiffTestCase(BaseDXTestCase):
 
     def afterSetUp(self):
-        #setRequest(self.portal.REQUEST)
         self.loginAsPortalOwner()
 
     def test_should_diff(self):
