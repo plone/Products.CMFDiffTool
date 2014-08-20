@@ -67,11 +67,3 @@ class TestListDiff(ZopeTestCase.ZopeTestCase):
         self.assertEqual(diff.ndiff(), expected)
 
         # FIXME: need tests for other kinds of diffs
-
-
-def test_suite():
-    import unittest
-    suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestListDiff))
-    return suite
-

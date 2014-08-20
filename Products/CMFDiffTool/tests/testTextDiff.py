@@ -123,9 +123,3 @@ class TestTextDiff(ZopeTestCase.ZopeTestCase):
     </table>"""
         fd = TextDiff(a, b, 'attribute')
         self.assertEqual(fd.html_diff(), expected)
-
-def test_suite():
-    import unittest
-    suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestTextDiff))
-    return suite

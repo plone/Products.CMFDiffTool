@@ -80,9 +80,3 @@ class TestFieldDiff(ZopeTestCase.ZopeTestCase):
         expected = "- value%s+ different value" % linesep
         fd = FieldDiff(a, b, 'attribute')
         self.assertEqual(fd.ndiff(), expected)
-
-def test_suite():
-    import unittest
-    suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestFieldDiff))
-    return suite
