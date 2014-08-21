@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from setuptools import setup, find_packages
 
-version = '2.1.1.dev0'
+version = '3.0.dev0'
 
 setup(name='Products.CMFDiffTool',
       version=version,
@@ -30,6 +30,7 @@ setup(name='Products.CMFDiffTool',
             'plone.app.testing',
             'plone.namedfile',
             'plone.app.dexterity',
+            'plone.app.contenttypes',
         ]
       ),
       install_requires=[
