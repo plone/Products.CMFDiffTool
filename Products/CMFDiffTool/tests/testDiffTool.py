@@ -25,6 +25,8 @@ class TestDiffTool(TestCase):
 
     def setUp(self):
         self.p_diff = getToolByName(self.layer['portal'], 'portal_diff')
+        # clear pt_diff registry
+        self.p_diff._pt_diffs = {}
 
         # patch portal_types to list `Document` in the listContentTypes
         # a plausability check is done in the `setDiffForPortalType` method
