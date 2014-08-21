@@ -6,6 +6,7 @@ from .BaseTestCase import BaseATTestCase
 from zope.component import adapts, provideAdapter
 from Products.Archetypes import atapi
 
+
 class TestATCompoundDiff(BaseATTestCase):
     """Test the portal_diff tool"""
 
@@ -50,8 +51,10 @@ class TestATCompoundDiff(BaseATTestCase):
         class HighlightedField(ExtensionField, atapi.StringField):
             def get(self, instance, **kwargs):
                 return IHighlighted.providedBy(instance)
+
             def getRaw(self, instance, **kwargs):
                 return self.get(instance, **kwargs)
+
             def set(self, instance, value, **kwargs):
                 if value and not IHighlighted.providedBy(instance):
                     alsoProvides(instance, IHighlighted)

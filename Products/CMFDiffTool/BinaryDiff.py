@@ -4,6 +4,7 @@ from App.class_init import InitializeClass
 from Products.CMFDiffTool.BaseDiff import _getValue
 from Products.CMFDiffTool.FieldDiff import FieldDiff
 
+
 class BinaryDiff(FieldDiff):
     """Simple binary difference"""
 
@@ -53,4 +54,3 @@ class BinaryDiff(FieldDiff):
             return linesep.join(html)
 
 InitializeClass(BinaryDiff)
-

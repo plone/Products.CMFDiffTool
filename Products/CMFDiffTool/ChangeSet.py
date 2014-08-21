@@ -20,6 +20,7 @@ from Products.CMFDiffTool.interfaces import IChangeSet
 
 logger = logging.getLogger('CMFDiffTool')
 
+
 class BaseChangeSet(Implicit):
     """A ChangeSet represents the set of differences between two objects"""
 
@@ -41,6 +42,7 @@ class BaseChangeSet(Implicit):
         self.recursive = 0
 
     security.declarePublic('getId')
+
     def getId(self):
         """ChangeSet id"""
         return self.id
@@ -56,6 +58,7 @@ class BaseChangeSet(Implicit):
     same = ComputedAttribute(_isSame)
 
     security.declarePublic('computeDiff')
+
     def computeDiff(self, ob1, ob2, recursive=1, exclude=None, id1=None, id2=None):
         """Compute the differences from ob1 to ob2 (ie. ob2 - ob1).
 
@@ -120,6 +123,7 @@ class BaseChangeSet(Implicit):
         self._changesets[id] = aq_base(cs)
 
     security.declarePublic('testChanges')
+
     def testChanges(self, ob):
         """Test the specified object to determine if the change set will apply without errors"""
         for d in self._diffs:
@@ -131,6 +135,7 @@ class BaseChangeSet(Implicit):
             cs.testChanges(child)
 
     security.declarePublic('applyChanges')
+
     def applyChanges(self, ob):
         """Apply the change set to the specified object"""
         for d in self._diffs:
@@ -149,6 +154,7 @@ class BaseChangeSet(Implicit):
             cs.applyChanges(child)
 
     security.declarePublic('getDiffs')
+
     def getDiffs(self):
         """Returns the list differences between the two objects.
 
@@ -156,6 +162,7 @@ class BaseChangeSet(Implicit):
         return self._diffs
 
     security.declarePublic('getSubDiffs')
+
     def getSubDiffs(self):
         """If the ChangeSet was computed recursively, returns a list
            of ChangeSet objects representing subjects differences
@@ -166,6 +173,7 @@ class BaseChangeSet(Implicit):
         return [self[id] for id in self._changed]
 
     security.declarePublic('getAddedItems')
+
     def getAddedItems(self):
         """If the ChangeSet was computed recursively, returns the list
         of IDs of items that were added.
@@ -175,6 +183,7 @@ class BaseChangeSet(Implicit):
         return list(self._added)
 
     security.declarePublic('getRemovedItems')
+
     def getRemovedItems(self):
         """If the ChangeSet was computed recursively, returns the list
         of IDs of items that were removed"""

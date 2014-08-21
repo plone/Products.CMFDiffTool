@@ -8,15 +8,20 @@ from Products.CMFDiffTool.FieldDiff import FieldDiff
 
 _marker = []
 
+
 class A:
     attribute = "value"
+
     def method(self):
         return "method value"
 
+
 class B:
     attribute = "different value"
+
     def method(self):
         return "different method value"
+
 
 class TestFieldDiff(ZopeTestCase.ZopeTestCase):
     """Test the FieldDiff class"""

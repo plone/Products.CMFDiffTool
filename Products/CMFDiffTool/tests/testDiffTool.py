@@ -9,14 +9,17 @@ from zExceptions import BadRequest
 from Products.CMFDiffTool.CMFDiffTool import registerDiffType
 from Products.CMFDiffTool.CMFDiffTool import unregisterDiffType
 
+
 class DummyDiff:
     meta_type = "Dummy Diff Type"
+
 
 class DummyDiff2:
     meta_type = "Second Dummy Diff Type"
 
 from unittest import TestCase
 from plone.app.testing import PLONE_INTEGRATION_TESTING
+
 
 class TestDiffTool(TestCase):
     """Test the portal_diff tool"""
@@ -54,14 +57,14 @@ class TestDiffTool(TestCase):
 
     def testSetDiff(self):
         """Test setDiffForPortalType() method"""
-        d = {'field1':'TestDiff', 'field2':'Dummy Diff Type'}
+        d = {'field1': 'TestDiff', 'field2': 'Dummy Diff Type'}
         self.p_diff.setDiffForPortalType('Document', d)
         self.assertEqual(self.p_diff.getDiffForPortalType('Document'), d)
 
     def testSetDiffReplaces(self):
         """Test that setDiffForPortalType() replaces old data"""
-        d1 = {'field1':'TestDiff', 'field2':'Dummy Diff Type'}
-        d2 = {'field3':'Dummy Diff Type'}
+        d1 = {'field1': 'TestDiff', 'field2': 'Dummy Diff Type'}
+        d2 = {'field3': 'Dummy Diff Type'}
         self.p_diff.setDiffForPortalType('Document', d1)
         self.p_diff.setDiffForPortalType('Document', d2)
         self.assertEqual(self.p_diff.getDiffForPortalType('Document'), d2)
@@ -70,13 +73,13 @@ class TestDiffTool(TestCase):
         """Test setDiffField method"""
         self.p_diff.setDiffField('Document', 'title', 'Dummy Diff Type')
         self.assertEqual(self.p_diff.getDiffForPortalType('Document'),
-                         {'title':'Dummy Diff Type'})
+                         {'title': 'Dummy Diff Type'})
 
     def testMultipleSetDiffField(self):
         """Test setDiffField method adding a second field to one content type"""
         self.p_diff.setDiffField('Document', 'title', 'Dummy Diff Type')
         self.p_diff.setDiffField('Document', 'description', 'Dummy Diff Type')
-        d = {'title':'Dummy Diff Type', 'description':'Dummy Diff Type'}
+        d = {'title': 'Dummy Diff Type', 'description': 'Dummy Diff Type'}
         self.assertEqual(self.p_diff.getDiffForPortalType('Document'), d)
 
     def testReplaceSetDiffField(self):
@@ -84,7 +87,7 @@ class TestDiffTool(TestCase):
         registerDiffType(DummyDiff2)
         self.p_diff.setDiffField('Document', 'title', 'Dummy Diff Type')
         self.p_diff.setDiffField('Document', 'title', 'Second Dummy Diff Type')
-        d = {'title':'Second Dummy Diff Type'}
+        d = {'title': 'Second Dummy Diff Type'}
         self.assertEqual(self.p_diff.getDiffForPortalType('Document'), d)
         unregisterDiffType(DummyDiff2)
 

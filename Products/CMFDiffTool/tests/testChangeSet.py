@@ -32,16 +32,16 @@ class TestChangeSet(TestCase):
         self.assertTrue(IChangeSet.implementedBy(BaseChangeSet))
 
     def setupTestObjects(self):
-        self.folder.invokeFactory('Document','doc1', title='My Title')
+        self.folder.invokeFactory('Document', 'doc1', title='My Title')
         self.folder.manage_pasteObjects(
                                      self.folder.manage_copyObjects(['doc1']))
         self.p_diff.setDiffField('Document', 'Title', 'Field Diff')
 
     def setupTestFolders(self):
-        self.folder.invokeFactory('Folder','folder1', title='My Folder Title')
-        self.folder.folder1.invokeFactory('Document','doc1', title='My Title1')
-        self.folder.folder1.invokeFactory('Document','doc2', title='My Title2')
-        self.folder.folder1.invokeFactory('Document','doc3', title='My Title3')
+        self.folder.invokeFactory('Folder', 'folder1', title='My Folder Title')
+        self.folder.folder1.invokeFactory('Document', 'doc1', title='My Title1')
+        self.folder.folder1.invokeFactory('Document', 'doc2', title='My Title2')
+        self.folder.folder1.invokeFactory('Document', 'doc3', title='My Title3')
         self.folder.manage_pasteObjects(
                                   self.folder.manage_copyObjects(['folder1']))
         self.p_diff.setDiffField('Document', 'Title', 'Field Diff')
@@ -142,7 +142,7 @@ class TestChangeSet(TestCase):
 
     def testChangeSetFolderDocAdded(self):
         self.setupTestFolders()
-        self.folder.copy_of_folder1.invokeFactory('Document','doc4',
+        self.folder.copy_of_folder1.invokeFactory('Document', 'doc4',
                                                          title='My Doc Title')
         self.cs.computeDiff(self.folder.folder1, self.folder.copy_of_folder1)
         diffs = self.cs.getDiffs()
@@ -161,7 +161,7 @@ class TestChangeSet(TestCase):
 
     def testChangeSetFolderReordered(self):
         self.setupTestFolders()
-        if hasattr(aq_base(self.folder.copy_of_folder1),'moveObjectsToTop'):
+        if hasattr(aq_base(self.folder.copy_of_folder1), 'moveObjectsToTop'):
             self.folder.copy_of_folder1.moveObjectsToTop(['doc3'])
         elif hasattr(aq_base(self.folder.copy_of_folder1),
                                                         'moveObjectsByDelta'):
@@ -188,7 +188,7 @@ class TestChangeSet(TestCase):
     def testChangeSetFolderComplex(self):
         self.setupTestFolders()\
         # Add a new sub object
-        self.folder.copy_of_folder1.invokeFactory('Document','doc4',
+        self.folder.copy_of_folder1.invokeFactory('Document', 'doc4',
                                                          title='My Doc Title')
         # Delete a sub object
         self.folder.copy_of_folder1.manage_delObjects('doc2')
@@ -197,7 +197,7 @@ class TestChangeSet(TestCase):
         # Change the folder itself
         self.folder.copy_of_folder1.setTitle('My New Title')
         # Move the changed object
-        if hasattr(aq_base(self.folder.copy_of_folder1),'moveObjectsToTop'):
+        if hasattr(aq_base(self.folder.copy_of_folder1), 'moveObjectsToTop'):
             self.folder.copy_of_folder1.moveObjectsToTop(['doc3'])
         elif hasattr(aq_base(self.folder.copy_of_folder1),
                                                         'moveObjectsByDelta'):

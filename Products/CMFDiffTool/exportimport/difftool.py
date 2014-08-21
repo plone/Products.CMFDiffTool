@@ -7,6 +7,7 @@ from Products.CMFCore.utils import getToolByName
 
 from zope.interface import implements
 
+
 class DiffToolXMLAdapter(XMLAdapterBase):
     """In- and exporter for DiffTool.
     """
@@ -17,7 +18,7 @@ class DiffToolXMLAdapter(XMLAdapterBase):
     def _exportNode(self):
         """Export the object as a DOM node.
         """
-        node=self._doc.createElement("object")
+        node = self._doc.createElement("object")
         node.appendChild(self._extractDiffToolSettings())
 
         self._logger.info("DiffTool settings exported.")
@@ -45,18 +46,17 @@ class DiffToolXMLAdapter(XMLAdapterBase):
                         fields[name] = diff
                         self.context.setDiffForPortalType(ptype, fields)
 
-
     def _extractDiffToolSettings(self):
-        node=self._doc.createElement("difftypes")
+        node = self._doc.createElement("difftypes")
         ttool = getToolByName(self.context, "portal_types")
         for ptype in ttool.listContentTypes():
             diffs = self.context.getDiffForPortalType(ptype)
             if diffs:
-                child=self._doc.createElement("type")
+                child = self._doc.createElement("type")
                 child.setAttribute("portal_type", ptype)
                 node.appendChild(child)
             for field_name, diff in diffs.items():
-                field=self._doc.createElement("field")
+                field = self._doc.createElement("field")
                 field.setAttribute("name", field_name)
                 field.setAttribute("difftype", diff)
                 child.appendChild(field)

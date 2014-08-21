@@ -29,7 +29,6 @@ def vocabulary_factory(context):
 class DXLayer(PloneSandboxLayer):
 
     defaultBases = (PTC_FIXTURE, )
-
 #    def setUpZope(self, app, configurationContext):
 #        import plone.app.dexterity
 #        self.loadZCML(name='meta.zcml', package=plone.app.dexterity)
@@ -91,7 +90,6 @@ class DXLayer(PloneSandboxLayer):
         )
         types_tool._setObject(TEST_CONTENT_TYPE_ID, fti)
 
-
 PACKAGE_DX_FIXTURE = DXLayer()
 
 
@@ -110,8 +108,8 @@ class ATLayer(PloneSandboxLayer):
 PACKAGE_AT_FIXTURE = ATLayer()
 
 CMFDiffToolLayer = FunctionalTesting(
-    bases=(PTC_FIXTURE,), name="Products.CMFDiffTool:functional")
+    bases=(PTC_FIXTURE, ), name="Products.CMFDiffTool:functional")
 CMFDiffToolDXLayer = FunctionalTesting(
-    bases=(PACKAGE_DX_FIXTURE,), name="Products.CMFDiffTool.DX:functional")
+    bases=(PACKAGE_DX_FIXTURE, ), name="Products.CMFDiffTool.DX:functional")
 CMFDiffToolATLayer = FunctionalTesting(
-    bases=(PACKAGE_AT_FIXTURE,), name="Products.CMFDiffTool.AT:functional")
+    bases=(PACKAGE_AT_FIXTURE, ), name="Products.CMFDiffTool.AT:functional")

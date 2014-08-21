@@ -7,8 +7,7 @@ class IDiffTool(Interface):
     """An interface to compute object differences via pluggable
        difference engine"""
 
-    id = Attribute('id','Must be set to "portal_diff"')
-
+    id = Attribute('id', 'Must be set to "portal_diff"')
 
     def listDiffTypes():
         """List the names of the available difference types"""
@@ -35,7 +34,6 @@ class IDiffTool(Interface):
     def createChangeSet(ob1, ob2):
         """Returns a ChangeSet object that represents the differences
         between ob1 and ob2 (ie. ob2 - ob1) ."""
-
 
 
 class IDifference(Interface):
@@ -83,7 +81,6 @@ class IStringDifference(IDifference):
 ##         For every line in the field being compared, return a list of
 ##         character differences """
 
-
 class IChangeSet(Interface):
     """And interface representing all of the differences between two objects"""
 
@@ -130,4 +127,3 @@ class IChangeSet(Interface):
     def getRemovedItems():
         """If the ChangeSet was computed recursively, returns the list
         of IDs of items that were removed"""
-
