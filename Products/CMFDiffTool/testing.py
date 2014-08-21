@@ -29,10 +29,6 @@ def vocabulary_factory(context):
 class DXLayer(PloneSandboxLayer):
 
     defaultBases = (PTC_FIXTURE, )
-#    def setUpZope(self, app, configurationContext):
-#        import plone.app.dexterity
-#        self.loadZCML(name='meta.zcml', package=plone.app.dexterity)
-#        self.loadZCML(package=plone.app.dexterity)
 
     def setUpPloneSite(self, portal):
         """Set up additional products and ZCML required to test
