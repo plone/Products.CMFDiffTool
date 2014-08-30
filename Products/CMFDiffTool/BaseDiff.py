@@ -13,6 +13,7 @@ from App.class_init import InitializeClass
 from Products.CMFDiffTool.interfaces import IDifference
 from Products.CMFDiffTool import CMFDiffToolMessageFactory as _
 
+
 class BaseDiff:
     """Basic diff type"""
 
@@ -21,7 +22,7 @@ class BaseDiff:
     meta_type = "Base Diff"
 
     def __init__(self, obj1, obj2, field, id1=None, id2=None,
-                 field_name=None, field_label=None,schemata=None):
+                 field_name=None, field_label=None, schemata=None):
         self.field = field
         self.oldValue = _getValue(obj1, field, field_name)
         self.newValue = _getValue(obj2, field, field_name)

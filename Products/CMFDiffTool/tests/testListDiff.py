@@ -8,11 +8,14 @@ from Products.CMFDiffTool.ListDiff import ListDiff
 
 _marker = []
 
+
 class A:
     attribute = [1, 2, 3]
 
+
 class B:
     attribute = [1, 2, 3, 4]
+
 
 class TestListDiff(ZopeTestCase.ZopeTestCase):
     """Test the ListDiff class"""
@@ -47,7 +50,7 @@ class TestListDiff(ZopeTestCase.ZopeTestCase):
         a = A()
         b = B()
         diff = ListDiff(a, b, 'attribute')
-        expected = [('equal', 0, 3, 0, 3) ,('insert', 3, 3, 3, 4)]
+        expected = [('equal', 0, 3, 0, 3), ('insert', 3, 3, 3, 4)]
         self.assertEqual(diff.getLineDiffs(), expected)
 
     def testSameText(self):
@@ -67,11 +70,3 @@ class TestListDiff(ZopeTestCase.ZopeTestCase):
         self.assertEqual(diff.ndiff(), expected)
 
         # FIXME: need tests for other kinds of diffs
-
-
-def test_suite():
-    import unittest
-    suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestListDiff))
-    return suite
-

@@ -1,14 +1,10 @@
+from .BaseTestCase import BaseTestCase
 from Products.CMFCore.utils import getToolByName
 
-from Products.PloneTestCase import PloneTestCase
-
 from Products.CMFDiffTool.dexteritydiff import DexterityCompoundDiff
-from Products.CMFDiffTool import testing
 
 
-class InstallTestCase(PloneTestCase.FunctionalTestCase):
-
-    layer = testing.package_layer
+class InstallTestCase(BaseTestCase):
 
     def test_compound_diff_type_should_be_registered(self):
         diff_tool = getToolByName(self.portal, 'portal_diff')

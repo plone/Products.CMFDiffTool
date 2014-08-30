@@ -11,13 +11,17 @@ _marker = []
 
 class A:
     attribute = "कामसूत्र"
+
     def method(self):
         return "method कामसूत्र"
 
+
 class B:
     attribute = "過労死"
+
     def method(self):
         return "method 過労死"
+
 
 class TestTextDiff(ZopeTestCase.ZopeTestCase):
     """Test the TextDiff class"""
@@ -67,7 +71,7 @@ class TestTextDiff(ZopeTestCase.ZopeTestCase):
         fd = TextDiff(a, b, 'attribute')
         expected = [('replace', 0, 1, 0, 1)]
         self.assertEqual(fd.getLineDiffs(), expected)
-        
+
     def testSameText(self):
         """Test text diff output with same value"""
         a = A()
@@ -123,9 +127,3 @@ class TestTextDiff(ZopeTestCase.ZopeTestCase):
     </table>"""
         fd = TextDiff(a, b, 'attribute')
         self.assertEqual(fd.html_diff(), expected)
-
-def test_suite():
-    import unittest
-    suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestTextDiff))
-    return suite

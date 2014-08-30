@@ -3,6 +3,7 @@ import difflib
 from App.class_init import InitializeClass
 from Products.CMFDiffTool.BaseDiff import BaseDiff, _getValue
 
+
 class FieldDiff(BaseDiff):
     """Text difference"""
 
@@ -40,7 +41,7 @@ class FieldDiff(BaseDiff):
 
     def ndiff(self):
         """Return a textual diff"""
-        r=[]
+        r = []
         a = self._parseField(self.oldValue, filename=self.oldFilename)
         b = self._parseField(self.newValue, filename=self.newFilename)
         for tag, alo, ahi, blo, bhi in self.getLineDiffs():
@@ -58,9 +59,11 @@ class FieldDiff(BaseDiff):
 
 InitializeClass(FieldDiff)
 
+
 def dump(tag, x, lo, hi, r):
     for i in xrange(lo, hi):
-        r.append(tag +' ' + str(x[i]))
+        r.append(tag + ' ' + str(x[i]))
+
 
 def plain_replace(a, alo, ahi, b, blo, bhi, r):
     assert alo < ahi and blo < bhi

@@ -41,10 +41,11 @@ else:
     CMFDiffTool.registerDiffType(choicediff.ChoiceDiff)
     CMFDiffTool.registerDiffType(dexteritydiff.DexterityCompoundDiff)
 
-tools = ( CMFDiffTool.CMFDiffTool,)
+tools = (CMFDiffTool.CMFDiffTool, )
+
 
 def initialize(context):
     ToolInit('CMF Diff Tool',
-             tools = tools,
+             tools=tools,
              icon='tool.gif'
-             ).initialize( context )
+             ).initialize(context)

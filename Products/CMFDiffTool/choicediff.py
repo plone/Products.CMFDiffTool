@@ -52,6 +52,7 @@ class ChoiceDiff(AsTextDiff):
     the vocabulary associated with the field in order to provide an
     user-friendlier inline diff to the user.
     """
+
     def __init__(self, obj1, obj2, field, id1=None, id2=None, field_name=None,
                  field_label=None, schemata=None):
         AsTextDiff.__init__(self, obj1, obj2, field, id1, id2, field_name,

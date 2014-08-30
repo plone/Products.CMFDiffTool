@@ -1,15 +1,13 @@
+from .BaseTestCase import BaseDXTestCase
 from plone.namedfile.file import NamedFile
 
 from Products.CMFDiffTool.interfaces import IDifference
 from Products.CMFDiffTool import namedfile
 
-from Products.PloneTestCase import PloneTestCase
 from Products.CMFDiffTool import testing
 
 
-class BinaryDiffTestCase(PloneTestCase.FunctionalTestCase):
-
-    layer = testing.package_layer
+class BinaryDiffTestCase(BaseDXTestCase):
 
     def test_should_detect_different_filename(self):
         self.loginAsPortalOwner()

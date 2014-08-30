@@ -8,15 +8,20 @@ from Products.CMFDiffTool.FieldDiff import FieldDiff
 
 _marker = []
 
+
 class A:
     attribute = "value"
+
     def method(self):
         return "method value"
 
+
 class B:
     attribute = "different value"
+
     def method(self):
         return "different method value"
+
 
 class TestFieldDiff(ZopeTestCase.ZopeTestCase):
     """Test the FieldDiff class"""
@@ -80,9 +85,3 @@ class TestFieldDiff(ZopeTestCase.ZopeTestCase):
         expected = "- value%s+ different value" % linesep
         fd = FieldDiff(a, b, 'attribute')
         self.assertEqual(fd.ndiff(), expected)
-
-def test_suite():
-    import unittest
-    suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestFieldDiff))
-    return suite

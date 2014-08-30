@@ -23,10 +23,10 @@ FIELDS_AND_DIFF_TYPES_RELATION = [
     (FILE_FIELD_TYPES, NamedFileBinaryDiff),
     ((Iterable, Container), ListDiff),
     ((Date, Datetime, Time), AsTextDiff),
-    ((Bool,), AsTextDiff),
-    ((Choice,), ChoiceDiff),
+    ((Bool, ), AsTextDiff),
+    ((Choice, ), ChoiceDiff),
     ((Text, Bytes), TextDiff),
-    ((RichText,), CMFDTHtmlDiff),
+    ((RichText, ), CMFDTHtmlDiff),
 ]
 
 """

@@ -1,14 +1,12 @@
+from .BaseTestCase import BaseDXTestCase
 from Products.CMFDiffTool.choicediff import ChoiceDiff
 from Products.CMFDiffTool.choicediff import title_or_value
 from Products.CMFDiffTool.interfaces import IDifference
 
-from Products.PloneTestCase import PloneTestCase
 from Products.CMFDiffTool import testing
 
 
-class ChoiceDiffTestCase(PloneTestCase.FunctionalTestCase):
-
-    layer = testing.package_layer
+class ChoiceDiffTestCase(BaseDXTestCase):
 
     def afterSetUp(self):
         self.loginAsPortalOwner()

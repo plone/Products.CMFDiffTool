@@ -1,23 +1,19 @@
 from datetime import date
 
-from zope.globalrequest import setRequest
-
 from plone.namedfile import NamedFile
 from Products.CMFDiffTool.interfaces import IDifference
 
-from Products.PloneTestCase import PloneTestCase
+from .BaseTestCase import BaseDXTestCase
 
-from Products.CMFDiffTool import testing
 from Products.CMFDiffTool.dexteritydiff import DexterityCompoundDiff
 from Products.CMFDiffTool.dexteritydiff import EXCLUDED_FIELDS
 
+from Products.CMFDiffTool import testing
 
-class DexterityDiffTestCase(PloneTestCase.FunctionalTestCase):
 
-    layer = testing.package_layer
+class DexterityDiffTestCase(BaseDXTestCase):
 
     def afterSetUp(self):
-        setRequest(self.portal.REQUEST)
         self.loginAsPortalOwner()
 
     def test_should_diff(self):

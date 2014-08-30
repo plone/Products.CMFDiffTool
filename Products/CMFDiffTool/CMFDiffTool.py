@@ -28,8 +28,8 @@ class CMFDiffTool(UniqueObject, SimpleItem):
 
     security = ClassSecurityInfo()
 
-    manage_options=(( {'label':'Configure', 'action':'manage_difftypes'},
-                      {'label':'Overview', 'action':'manage_overview'},
+    manage_options = (({'label': 'Configure', 'action': 'manage_difftypes'},
+                      {'label': 'Overview', 'action': 'manage_overview'},
                       ) + SimpleItem.manage_options
                     )
 
@@ -42,8 +42,7 @@ class CMFDiffTool(UniqueObject, SimpleItem):
         self._pt_diffs = {}
 
     security.declareProtected(ManagePortal, 'manage_difftypes')
-    manage_difftypes = PageTemplateFile('zpt/editCMFDiffTool', globals() )
-
+    manage_difftypes = PageTemplateFile('zpt/editCMFDiffTool', globals())
 
     def manage_editDiffFields(self, updates, REQUEST=None):
         """Edit the portal type fields"""
@@ -57,18 +56,17 @@ class CMFDiffTool(UniqueObject, SimpleItem):
             self.setDiffField(r.pt_name, r.field, r.diff)
 
         self._p_changed = 1
-        
+
         if REQUEST:
             return self.manage_difftypes(manage_tabs_message="Diff mappings updated")
 
-
     security.declareProtected(ManagePortal, 'listDiffTypes')
+
     def manage_addDiffField(self, pt_name, field, diff, REQUEST=None):
         """Add a new diff field from the ZMI"""
         self.setDiffField(pt_name, field, diff)
         if REQUEST:
             return self.manage_difftypes(manage_tabs_message="Field added")
-        
         
     def setDiffField(self, pt_name, field, diff):
         """Set the diff type for 'field' on the portal type 'pt_name' to 'diff'"""
@@ -85,14 +83,15 @@ class CMFDiffTool(UniqueObject, SimpleItem):
             self._pt_diffs.setdefault(pt_name, {})[field] = diff
             self._p_changed = 1
 
-
     ## Interface fulfillment ##
     security.declareProtected(ManagePortal, 'listDiffTypes')
+
     def listDiffTypes(self):
         """List the names of the registered difference types"""
         return self._difftypes.keys()
 
     security.declareProtected(ManagePortal, 'getDiffType')
+
     def getDiffType(self, diff):
         """Return a class corresponding to the specified diff type.
         Instances of the class will implement the IDifference
@@ -100,6 +99,7 @@ class CMFDiffTool(UniqueObject, SimpleItem):
         return self._difftypes.get(diff, None)
 
     security.declareProtected(ManagePortal, 'setDiffForPortalType')
+
     def setDiffForPortalType(self, pt_name, mapping):
         """Set the difference type(self, s) for the specific portal type
 
@@ -111,6 +111,7 @@ class CMFDiffTool(UniqueObject, SimpleItem):
         self._p_changed = 1
 
     security.declareProtected(ManagePortal, 'getDiffForPortalType')
+
     def getDiffForPortalType(self, pt_name):
         """Returns a dictionary where each key is an attribute or
         method on the given portal type, and the value is the name of
@@ -119,6 +120,7 @@ class CMFDiffTool(UniqueObject, SimpleItem):
         return self._pt_diffs.get(pt_name, {}).copy()
 
     security.declarePublic('computeDiff')
+
     def computeDiff(self, ob1, ob2, id1=None, id2=None):
         """Compute the differences between two objects and return the
         results as a list.  Each object in the list will implement the
@@ -148,6 +150,7 @@ class CMFDiffTool(UniqueObject, SimpleItem):
         return diffs
 
     security.declarePublic('createChangeSet')
+
     def createChangeSet(self, ob1, ob2, id1=None, id2=None):
         """Returns a ChangeSet object that represents the differences
         between ob1 and ob2 (ie. ob2 - ob1) ."""
@@ -165,6 +168,7 @@ def registerDiffType(klass):
 
     CMFDiffTool._difftypes[klass.meta_type] = klass
 
+
 def unregisterDiffType(klass):
     """Register a class for computing differences.
 
@@ -172,7 +176,6 @@ def unregisterDiffType(klass):
     interface."""
 
     del CMFDiffTool._difftypes[klass.meta_type]
-
 
 InitializeClass(CMFDiffTool)
 registerToolInterface('portal_diff', IDiffTool)

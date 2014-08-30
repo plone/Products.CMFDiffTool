@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from setuptools import setup, find_packages
 
-version = '2.1.1.dev0'
+version = '3.0.dev0'
 
 setup(name='Products.CMFDiffTool',
       version=version,
@@ -9,7 +9,11 @@ setup(name='Products.CMFDiffTool',
       long_description=open("README.txt").read() + "\n" +
                        open("CHANGES.txt").read(),
       classifiers=[
+        "Development Status :: 5 - Production/Stable",
+        "Programming Language :: Python :: 2.7",
         "Framework :: Plone",
+        "Framework :: Plone :: 5.0",
+        "Topic :: Internet :: WWW/HTTP",
         ],
       keywords='Diff Plone',
       author='Brent Hendricks',
@@ -23,9 +27,10 @@ setup(name='Products.CMFDiffTool',
       extras_require=dict(
         test=[
             'zope.component',
-            'Products.CMFTestCase',
+            'plone.app.testing',
             'plone.namedfile',
             'plone.app.dexterity',
+            'plone.app.contenttypes',
         ]
       ),
       install_requires=[
