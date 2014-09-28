@@ -2,15 +2,12 @@
 #
 # CMFDiffTool tests
 #
-from os import linesep
-from Products.CMFCore.utils import getToolByName
-
-from Products.CMFDiffTool.ChangeSet import BaseChangeSet
 from Acquisition import aq_base
-
-from unittest import TestCase
-
+from Products.CMFCore.utils import getToolByName
+from Products.CMFDiffTool.ChangeSet import BaseChangeSet
+from os import linesep
 from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FUNCTIONAL_TESTING
+from unittest import TestCase
 
 
 class TestChangeSet(TestCase):
@@ -34,16 +31,34 @@ class TestChangeSet(TestCase):
     def setupTestObjects(self):
         self.folder.invokeFactory('Document', 'doc1', title='My Title')
         self.folder.manage_pasteObjects(
-                                     self.folder.manage_copyObjects(['doc1']))
+            self.folder.manage_copyObjects(['doc1'])
+        )
         self.p_diff.setDiffField('Document', 'Title', 'Field Diff')
 
     def setupTestFolders(self):
-        self.folder.invokeFactory('Folder', 'folder1', title='My Folder Title')
-        self.folder.folder1.invokeFactory('Document', 'doc1', title='My Title1')
-        self.folder.folder1.invokeFactory('Document', 'doc2', title='My Title2')
-        self.folder.folder1.invokeFactory('Document', 'doc3', title='My Title3')
+        self.folder.invokeFactory(
+            'Folder',
+            'folder1',
+            title='My Folder Title'
+        )
+        self.folder.folder1.invokeFactory(
+            'Document',
+            'doc1',
+            title='My Title1'
+        )
+        self.folder.folder1.invokeFactory(
+            'Document',
+            'doc2',
+            title='My Title2'
+        )
+        self.folder.folder1.invokeFactory(
+            'Document',
+            'doc3',
+            title='My Title3'
+        )
         self.folder.manage_pasteObjects(
-                                  self.folder.manage_copyObjects(['folder1']))
+            self.folder.manage_copyObjects(['folder1'])
+        )
         self.p_diff.setDiffField('Document', 'Title', 'Field Diff')
         self.p_diff.setDiffField('Folder', 'title', 'Field Diff')
 
@@ -142,8 +157,10 @@ class TestChangeSet(TestCase):
 
     def testChangeSetFolderDocAdded(self):
         self.setupTestFolders()
-        self.folder.copy_of_folder1.invokeFactory('Document', 'doc4',
-                                                         title='My Doc Title')
+        self.folder.copy_of_folder1.invokeFactory(
+            'Document', 'doc4',
+            title='My Doc Title'
+        )
         self.cs.computeDiff(self.folder.folder1, self.folder.copy_of_folder1)
         diffs = self.cs.getDiffs()
         self.assertEqual(len(diffs), 1)
@@ -163,8 +180,10 @@ class TestChangeSet(TestCase):
         self.setupTestFolders()
         if hasattr(aq_base(self.folder.copy_of_folder1), 'moveObjectsToTop'):
             self.folder.copy_of_folder1.moveObjectsToTop(['doc3'])
-        elif hasattr(aq_base(self.folder.copy_of_folder1),
-                                                        'moveObjectsByDelta'):
+        elif hasattr(
+            aq_base(self.folder.copy_of_folder1),
+            'moveObjectsByDelta'
+        ):
             self.folder.copy_of_folder1.moveObjectsByDelta(['doc3'], -3)
         else:
             # We don't have an orderable folder give up
@@ -186,10 +205,13 @@ class TestChangeSet(TestCase):
         # XXX we need an explicit way of noting reorders
 
     def testChangeSetFolderComplex(self):
-        self.setupTestFolders()\
+        self.setupTestFolders()
         # Add a new sub object
-        self.folder.copy_of_folder1.invokeFactory('Document', 'doc4',
-                                                         title='My Doc Title')
+        self.folder.copy_of_folder1.invokeFactory(
+            'Document',
+            'doc4',
+            title='My Doc Title'
+        )
         # Delete a sub object
         self.folder.copy_of_folder1.manage_delObjects('doc2')
         # Change one object
@@ -199,8 +221,10 @@ class TestChangeSet(TestCase):
         # Move the changed object
         if hasattr(aq_base(self.folder.copy_of_folder1), 'moveObjectsToTop'):
             self.folder.copy_of_folder1.moveObjectsToTop(['doc3'])
-        elif hasattr(aq_base(self.folder.copy_of_folder1),
-                                                        'moveObjectsByDelta'):
+        elif hasattr(
+            aq_base(self.folder.copy_of_folder1),
+            'moveObjectsByDelta'
+        ):
             self.folder.copy_of_folder1.moveObjectsByDelta(['doc3'], -3)
         else:
             # We don't have an orderable folder give up

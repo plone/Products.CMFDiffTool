@@ -1,15 +1,14 @@
-#coding=utf8
-from plone.dexterity.fti import DexterityFTI
+# -*- coding: utf-8 -*-
 from Products.CMFCore.utils import getToolByName
-from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
+from plone.app.testing import FunctionalTesting
+from plone.app.testing import PloneSandboxLayer
+from plone.app.testing.bbb import PTC_FIXTURE
+from plone.dexterity.fti import DexterityFTI
 from zope.component import getSiteManager
 from zope.schema.interfaces import IVocabularyFactory
+from zope.schema.vocabulary import SimpleTerm
+from zope.schema.vocabulary import SimpleVocabulary
 
-from plone.app.testing.bbb import PTC_FIXTURE
-from plone.app.testing import PloneSandboxLayer
-from plone.app.testing import FunctionalTesting
-from plone.app.testing import applyProfile
-from plone.testing import z2
 
 TEST_CONTENT_TYPE_ID = 'TestContentType'
 
