@@ -6,6 +6,8 @@ Changelog
 
 - Ported tests to plone.app.testing
   [tomgross]
+- Fix _getValue() bug for dexterity behaviour empty fields.
+  [sdelcourt] 
 
 
 2.1 (2013-05-26)
