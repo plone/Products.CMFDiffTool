@@ -8,8 +8,6 @@ from zope.schema.interfaces import IVocabularyFactory
 from plone.app.testing.bbb import PTC_FIXTURE
 from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import FunctionalTesting
-from plone.app.testing import applyProfile
-from plone.testing import z2
 
 TEST_CONTENT_TYPE_ID = 'TestContentType'
 
@@ -52,6 +50,7 @@ class DXLayer(PloneSandboxLayer):
                 'plone.app.versioningbehavior.behaviors.IVersionable',
                 'plone.app.dexterity.behaviors.metadata.IBasic',
                 'plone.app.dexterity.behaviors.metadata.IRelatedItems',
+                'plone.app.contenttypes.behaviors.collection.ICollection',
             ),
             model_source='''
             <model xmlns="http://namespaces.plone.org/supermodel/schema">

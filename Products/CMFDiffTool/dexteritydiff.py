@@ -119,7 +119,7 @@ class DexterityCompoundDiff(object):
         return diff_type(
             obj1,
             obj2,
-            field,
+            field.getName(),
             id1=self.id1,
             id2=self.id2,
             field_name=field.getName(),

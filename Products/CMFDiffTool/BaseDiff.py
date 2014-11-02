@@ -72,10 +72,8 @@ def _getValue(ob, field, field_name, convert_to_str=True):
     # Check for the attribute without acquisition.  If it's there,
     # grab it *with* acquisition, so things like ComputedAttribute
     # will work
-    if field_name and hasattr(aq_base(ob), field_name):
-        value = getattr(ob, field_name)
-    elif IDexterityContent.providedBy(ob):
-        return field.default
+    if IDexterityContent.providedBy(ob) and field:
+        value = getattr(ob, field, None)
     elif field and hasattr(aq_base(ob), field):
         value = getattr(ob, field)
     elif hasattr(aq_base(ob), 'getField'):
