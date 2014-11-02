@@ -13,6 +13,8 @@ from App.class_init import InitializeClass
 from Products.CMFDiffTool.interfaces import IDifference
 from Products.CMFDiffTool import CMFDiffToolMessageFactory as _
 
+from plone.dexterity.interfaces import IDexterityContent
+
 
 class BaseDiff:
     """Basic diff type"""
@@ -70,7 +72,11 @@ def _getValue(ob, field, field_name, convert_to_str=True):
     # Check for the attribute without acquisition.  If it's there,
     # grab it *with* acquisition, so things like ComputedAttribute
     # will work
-    if field and hasattr(aq_base(ob), field):
+    if field_name and hasattr(aq_base(ob), field_name):
+        value = getattr(ob, field_name)
+    elif IDexterityContent.providedBy(ob):
+        return field.default
+    elif field and hasattr(aq_base(ob), field):
         value = getattr(ob, field)
     elif hasattr(aq_base(ob), 'getField'):
         # Archetypes with an adapter extended schema needs special handling
