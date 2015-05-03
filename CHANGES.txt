@@ -4,7 +4,11 @@ Changelog
 3.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Prevent ``AttributeError`` issue when performing diff
+  on Dexterity contents. Close `#330`__.
+  [keul, cekk]
+
+__ https://github.com/plone/Products.CMFPlone/issues/330
 
 
 3.0.0 (2015-03-08)
