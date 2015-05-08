@@ -70,6 +70,7 @@ class DexterityCompoundDiff(object):
     def __init__(self, obj1, obj2, field, id1=None, id2=None):
         self.id1 = id1 or obj1.getId()
         self.id2 = id2 or obj2.getId()
+        self.obj1 = obj1
         self._diffs = self._diff(obj1, obj2)
 
     def __getitem__(self, index):
@@ -174,6 +175,7 @@ class DexterityCompoundDiff(object):
         Return: a list of field names in order.
         """
         auto_fields = AutoFields()
+        auto_fields.context = self.obj1 # See issue #330
         auto_fields.schema = schema
         auto_fields.request = getRequest()
         auto_fields.mode = INPUT_MODE
