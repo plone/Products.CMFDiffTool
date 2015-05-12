@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.0.1 (unreleased)
+3.0.1 (2015-05-12)
 ------------------
 
 - Prevent ``AttributeError`` issue when performing diff
