@@ -105,6 +105,6 @@ class AsTextDiff(TextDiff):
         if translate is not None:
             value = translate(_(value))
 
-        return TextDiff._parseField(self, str(value), filename)
+        return TextDiff._parseField(self, safe_unicode(value), filename)
 
 InitializeClass(AsTextDiff)
