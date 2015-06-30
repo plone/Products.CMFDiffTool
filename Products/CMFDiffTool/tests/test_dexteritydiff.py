@@ -85,3 +85,23 @@ class DexterityDiffTestCase(BaseDXTestCase):
                 inline_diff = d.inline_diff()
                 self.assertTrue(inline_diff)
                 self.assertTrue(obj2.files[0].filename in inline_diff)
+
+    def test_should_provide_diff_for_behaviors_fields(self):
+        self.portal.invokeFactory(
+            testing.TEST_CONTENT_TYPE_ID,
+            'obj1',
+            date=date(2001, 1, 1),
+        )
+        obj1 = self.portal['obj1']
+
+        self.portal.invokeFactory(
+            testing.TEST_CONTENT_TYPE_ID,
+            'obj2',
+            date=date(2001, 1, 2),
+        )
+        obj2 = self.portal['obj2']
+
+        diffs = DexterityCompoundDiff(obj1, obj2, 'any')
+        fields = [d.field for d in diffs]
+        self.assertIn('title', fields)
+        self.assertIn('description', fields)
