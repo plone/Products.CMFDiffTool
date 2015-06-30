@@ -4,7 +4,8 @@ Changelog
 2.1.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Provide diff for dexterity behaviors' fields.
+  [cedricmessiant]
 
 
 2.1 (2013-05-26)
