@@ -57,7 +57,7 @@ the list. If a match is not found then a fall back is used.
 """
 
 # TODO: provide an easier way to exclude fields.
-EXCLUDED_FIELDS = ('modification_date', 'changeNote')
+EXCLUDED_FIELDS = ('modification_date', 'IVersionable.changeNote')
 """Names of fields not to compare."""
 
 
