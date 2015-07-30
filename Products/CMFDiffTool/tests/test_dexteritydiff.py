@@ -107,5 +107,5 @@ class DexterityDiffTestCase(PloneTestCase.FunctionalTestCase):
 
         diffs = DexterityCompoundDiff(obj1, obj2, 'any')
         fields = [d.field for d in diffs]
-        self.assertIn('title', fields)
-        self.assertIn('description', fields)
+        self.assertTrue('title' in fields)
+        self.assertTrue('description' in fields)
