@@ -5,6 +5,7 @@ from z3c.form.interfaces import INPUT_MODE
 
 from plone.app.textfield import RichText
 from plone.autoform.base import AutoFields
+from plone.dexterity.browser.edit import DefaultEditForm
 
 from Products.CMFDiffTool.TextDiff import AsTextDiff
 from Products.CMFDiffTool.namedfile import NamedFileBinaryDiff
@@ -56,7 +57,7 @@ the list. If a match is not found then a fall back is used.
 """
 
 # TODO: provide an easier way to exclude fields.
-EXCLUDED_FIELDS = ('modification_date', 'changeNote')
+EXCLUDED_FIELDS = ('modification_date', 'IVersionable.changeNote')
 """Names of fields not to compare."""
 
 
@@ -88,26 +89,15 @@ class DexterityCompoundDiff(object):
 
         Return: a sequence of `IDifference` objects.
         """
-        (default_schema, additional_schemata) = get_schemas(obj1)
-        diffs = self._diff_schema(obj1, obj2, default_schema, 'default')
 
-        for schema in additional_schemata:
-            diffs.extend(self._diff_schema(obj1, obj2, schema, 'metadata'))
+        diffs = []
+        for field, field_name in self._compute_fields_order(obj1):
+            if field_name not in EXCLUDED_FIELDS:
+                schema_name = '.' in field_name and \
+                    field_name.split('.')[0] or 'default'
+                diffs.append(self._diff_field(obj1, obj2, field, schema_name))
 
         return diffs
-
-    def _diff_schema(self, obj1, obj2, schema, schema_name):
-        """
-        Compute the differences between 2 objects in respect to the given
-        schema interface.
-
-        Return: a sequence of `IDifference` objects.
-        """
-        return [
-            self._diff_field(obj1, obj2, schema[name], schema_name)
-            for name in self._compute_fields_order(schema)
-            if name not in EXCLUDED_FIELDS
-        ]
 
     def _diff_field(self, obj1, obj2, field, schema_name):
         """
@@ -166,18 +156,13 @@ class DexterityCompoundDiff(object):
 
         return None
 
-    def _compute_fields_order(self, schema):
+    def _compute_fields_order(self, obj):
         """
-        Given a `schema` interface compute the field ordering the way
-        `plone.autoform` does, i.e taking into account `plone.directives.form`
-        ordering directives.
+        Given a content, compute the field ordering the way the edit form does.
 
-        Return: a list of field names in order.
+        Return: a list of tuples (field, field name) in order.
         """
-        auto_fields = AutoFields()
-        auto_fields.context = self.obj1 # See issue #330
-        auto_fields.schema = schema
-        auto_fields.request = getRequest()
-        auto_fields.mode = INPUT_MODE
-        auto_fields.updateFieldsFromSchemata()
-        return auto_fields.fields
+        form = DefaultEditForm(obj, getRequest())
+        form.portal_type = obj.portal_type
+        form.updateFields()
+        return [(form.fields[name].field, name) for name in form.fields]

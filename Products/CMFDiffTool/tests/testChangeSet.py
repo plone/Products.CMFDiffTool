@@ -35,7 +35,6 @@ class TestChangeSet(TestCase):
         self.folder.invokeFactory('Document', 'doc1', title='My Title')
         self.folder.manage_pasteObjects(
                                      self.folder.manage_copyObjects(['doc1']))
-        self.p_diff.setDiffField('Document', 'Title', 'Field Diff')
 
     def setupTestFolders(self):
         self.folder.invokeFactory('Folder', 'folder1', title='My Folder Title')
@@ -44,46 +43,46 @@ class TestChangeSet(TestCase):
         self.folder.folder1.invokeFactory('Document', 'doc3', title='My Title3')
         self.folder.manage_pasteObjects(
                                   self.folder.manage_copyObjects(['folder1']))
-        self.p_diff.setDiffField('Document', 'Title', 'Field Diff')
-        self.p_diff.setDiffField('Folder', 'title', 'Field Diff')
 
     def testChangeSetUnchanged(self):
         self.setupTestObjects()
         self.cs.computeDiff(self.folder.doc1, self.folder.copy_of_doc1)
         diffs = self.cs.getDiffs()
-        self.assertEqual(len(diffs), 2)
-        self.assertTrue(diffs[1].same)
+        self.assertEqual(len(diffs), 3)
+        self.assertTrue(diffs[0].same)
 
     def testChangeSetChanged(self):
         self.setupTestObjects()
         self.folder.copy_of_doc1.setTitle('My New Title')
         self.cs.computeDiff(self.folder.doc1, self.folder.copy_of_doc1)
         diffs = self.cs.getDiffs()
-        self.assertEqual(len(diffs), 2)
-        self.failIf(diffs[1].same)
-        self.assertEqual(diffs[1].ndiff(),
+        self.assertEqual(len(diffs), 3)
+        self.failIf(diffs[0].same)
+        self.assertEqual(diffs[0].ndiff(),
                          '- My Title%s+ My New Title' % linesep)
 
     def testChangeSetFolderUnchanged(self):
         self.setupTestFolders()
         self.cs.computeDiff(self.folder.folder1, self.folder.copy_of_folder1)
         diffs = self.cs.getDiffs()
-        self.assertEqual(len(diffs), 1)
+        self.assertEqual(len(diffs), 2)
         self.assertTrue(diffs[0].same)
         sub_cs = self.cs.getSubDiffs()
         self.assertEqual(len(sub_cs), 3)
         for i in range(len(sub_cs)):
             self.assertTrue(isinstance(sub_cs[i], BaseChangeSet))
             sub_diffs = sub_cs[i].getDiffs()
-            self.assertEqual(len(sub_diffs), 2)
+            self.assertEqual(len(sub_diffs), 3)
             self.assertTrue(sub_cs[0].same)
+            self.assertTrue(sub_cs[1].same)
+            self.assertTrue(sub_cs[2].same)
 
     def testChangeSetFolderChanged(self):
         self.setupTestFolders()
         self.folder.copy_of_folder1.setTitle('My New Title')
         self.cs.computeDiff(self.folder.folder1, self.folder.copy_of_folder1)
         diffs = self.cs.getDiffs()
-        self.assertEqual(len(diffs), 1)
+        self.assertEqual(len(diffs), 2)
         self.failIf(diffs[0].same)
         self.assertEqual(diffs[0].ndiff(),
                          '- My Folder Title%s+ My New Title' % linesep)
@@ -95,16 +94,17 @@ class TestChangeSet(TestCase):
         for i in range(len(sub_cs)):
             self.assertTrue(isinstance(sub_cs[i], BaseChangeSet))
             sub_diffs = sub_cs[i].getDiffs()
-            self.assertEqual(len(sub_diffs), 2)
-            self.assertTrue(sub_diffs[1].same)
+            self.assertEqual(len(sub_diffs), 3)
+            self.assertTrue(sub_diffs[0].same)
 
     def testChangeSetFolderDocChanged(self):
         self.setupTestFolders()
         self.folder.copy_of_folder1.doc1.setTitle('My New Title')
         self.cs.computeDiff(self.folder.folder1, self.folder.copy_of_folder1)
         diffs = self.cs.getDiffs()
-        self.assertEqual(len(diffs), 1)
+        self.assertEqual(len(diffs), 2)
         self.assertTrue(diffs[0].same)
+        self.assertTrue(diffs[1].same)
         self.failIf(self.cs._added)
         self.failIf(self.cs._removed)
         sub_cs = self.cs.getSubDiffs()
@@ -112,22 +112,23 @@ class TestChangeSet(TestCase):
         for i in range(len(sub_cs)):
             self.assertTrue(isinstance(sub_cs[i], BaseChangeSet))
             sub_diffs = sub_cs[i].getDiffs()
-            self.assertEqual(len(sub_diffs), 2)
+            self.assertEqual(len(sub_diffs), 3)
             # doc1 has changed
             if sub_cs[i].getId() == 'doc1':
-                self.failIf(sub_diffs[1].same)
-                self.assertEqual(sub_diffs[1].ndiff(),
+                self.failIf(sub_diffs[0].same)
+                self.assertEqual(sub_diffs[0].ndiff(),
                                  '- My Title1%s+ My New Title' % linesep)
             else:
-                self.assertTrue(sub_diffs[1].same)
+                self.assertTrue(sub_diffs[0].same)
 
     def testChangeSetFolderDocRemoved(self):
         self.setupTestFolders()
         self.folder.copy_of_folder1.manage_delObjects('doc1')
         self.cs.computeDiff(self.folder.folder1, self.folder.copy_of_folder1)
         diffs = self.cs.getDiffs()
-        self.assertEqual(len(diffs), 1)
+        self.assertEqual(len(diffs), 2)
         self.assertTrue(diffs[0].same)
+        self.assertTrue(diffs[1].same)
         sub_cs = self.cs.getSubDiffs()
         # We only have two potentially changed objects
         self.assertEqual(len(sub_cs), 2)
@@ -135,8 +136,8 @@ class TestChangeSet(TestCase):
         for i in range(len(sub_cs)):
             self.assertTrue(isinstance(sub_cs[i], BaseChangeSet))
             sub_diffs = sub_cs[i].getDiffs()
-            self.assertEqual(len(sub_diffs), 2)
-            self.assertTrue(sub_diffs[1].same)
+            self.assertEqual(len(sub_diffs), 3)
+            self.assertTrue(sub_diffs[0].same)
         self.failIf(self.cs._added)
         self.assertEqual(list(self.cs._removed), ['doc1'])
 
@@ -146,16 +147,17 @@ class TestChangeSet(TestCase):
                                                          title='My Doc Title')
         self.cs.computeDiff(self.folder.folder1, self.folder.copy_of_folder1)
         diffs = self.cs.getDiffs()
-        self.assertEqual(len(diffs), 1)
+        self.assertEqual(len(diffs), 2)
         self.assertTrue(diffs[0].same)
+        self.assertTrue(diffs[1].same)
         sub_cs = self.cs.getSubDiffs()
         self.assertEqual(len(sub_cs), 3)
         # The sub diffs should show no changes
         for i in range(len(sub_cs)):
             self.assertTrue(isinstance(sub_cs[i], BaseChangeSet))
             sub_diffs = sub_cs[i].getDiffs()
-            self.assertEqual(len(sub_diffs), 2)
-            self.assertTrue(sub_diffs[1].same)
+            self.assertEqual(len(sub_diffs), 3)
+            self.assertTrue(sub_diffs[0].same)
         self.failIf(self.cs._removed)
         self.assertEqual(list(self.cs._added), ['doc4'])
 
@@ -171,7 +173,7 @@ class TestChangeSet(TestCase):
             return
         self.cs.computeDiff(self.folder.folder1, self.folder.copy_of_folder1)
         diffs = self.cs.getDiffs()
-        self.assertEqual(len(diffs), 1)
+        self.assertEqual(len(diffs), 2)
         self.assertTrue(diffs[0].same)
         self.failIf(self.cs._added)
         self.failIf(self.cs._removed)
@@ -181,8 +183,8 @@ class TestChangeSet(TestCase):
         for i in range(len(sub_cs)):
             self.assertTrue(isinstance(sub_cs[i], BaseChangeSet))
             sub_diffs = sub_cs[i].getDiffs()
-            self.assertEqual(len(sub_diffs), 2)
-            self.assertTrue(sub_diffs[1].same)
+            self.assertEqual(len(sub_diffs), 3)
+            self.assertTrue(sub_diffs[0].same)
         # XXX we need an explicit way of noting reorders
 
     def testChangeSetFolderComplex(self):
@@ -208,7 +210,7 @@ class TestChangeSet(TestCase):
 
         self.cs.computeDiff(self.folder.folder1, self.folder.copy_of_folder1)
         diffs = self.cs.getDiffs()
-        self.assertEqual(len(diffs), 1)
+        self.assertEqual(len(diffs), 2)
         self.failIf(diffs[0].same)
         self.assertEqual(diffs[0].ndiff(),
                          '- My Folder Title%s+ My New Title' % linesep)
@@ -221,10 +223,10 @@ class TestChangeSet(TestCase):
         for i in range(len(sub_cs)):
             self.assertTrue(isinstance(sub_cs[i], BaseChangeSet))
             sub_diffs = sub_cs[i].getDiffs()
-            self.assertEqual(len(sub_diffs), 2)
+            self.assertEqual(len(sub_diffs), 3)
             if sub_cs[i].getId() == 'doc3':
-                self.failIf(sub_diffs[1].same)
-                self.assertEqual(sub_diffs[1].ndiff(),
+                self.failIf(sub_diffs[0].same)
+                self.assertEqual(sub_diffs[0].ndiff(),
                                  '- My Title3%s+ My New Title' % linesep)
             else:
                 self.assertTrue(sub_diffs[1].same)

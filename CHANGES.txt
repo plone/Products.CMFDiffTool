@@ -4,6 +4,9 @@ Changelog
 3.0.2 (unreleased)
 ------------------
 
+- Provide diff for dexterity behaviors' fields.
+  [cedricmessiant]
+
 - Fix bug with encoding in TextDiff.
   [cedricmessiant]
 
