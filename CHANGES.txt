@@ -4,6 +4,10 @@ Changelog
 3.0.2 (unreleased)
 ------------------
 
+- Fixed UnicodeDecodeError in dump/ndiff.
+  Issue https://github.com/plone/Products.CMFPlone/issues/820
+  [maurits]
+
 - Provide diff for dexterity behaviors' fields.
   [cedricmessiant]
 

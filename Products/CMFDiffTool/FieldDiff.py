@@ -62,7 +62,7 @@ InitializeClass(FieldDiff)
 
 def dump(tag, x, lo, hi, r):
     for i in xrange(lo, hi):
-        r.append(tag + ' ' + str(x[i]))
+        r.append(tag + ' %s' % x[i])
 
 
 def plain_replace(a, alo, ahi, b, blo, bhi, r):
