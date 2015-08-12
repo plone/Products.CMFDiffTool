@@ -24,6 +24,12 @@ class B:
         return "different method value"
 
 
+class U:
+    attribute = u"\xfcnicode value"
+    def method(self):
+        return u"different method val\xfce"
+
+
 class TestFieldDiff(ZopeTestCase.ZopeTestCase):
     """Test the FieldDiff class"""
 
@@ -37,25 +43,37 @@ class TestFieldDiff(ZopeTestCase.ZopeTestCase):
         a = A()
         fd = FieldDiff(a, a, 'attribute')
         self.failUnless(fd.same)
+        uu = U()
+        fd = FieldDiff(uu, uu, 'attribute')
+        self.failUnless(fd.same)
 
     def testMethodSame(self):
         """Test method with same value"""
         a = A()
         fd = FieldDiff(a, a, 'method')
         self.failUnless(fd.same)
+        uu = U()
+        fd = FieldDiff(uu, uu, 'method')
+        self.failUnless(fd.same)
 
     def testAttributeDiff(self):
         """Test attribute with different value"""
         a = A()
         b = B()
+        uu = U()
         fd = FieldDiff(a, b, 'attribute')
+        self.failIf(fd.same)
+        fd = FieldDiff(a, uu, 'attribute')
         self.failIf(fd.same)
 
     def testMethodDiff(self):
         """Test method with different value"""
         a = A()
         b = B()
+        uu = U()
         fd = FieldDiff(a, b, 'method')
+        self.failIf(fd.same)
+        fd = FieldDiff(a, uu, 'method')
         self.failIf(fd.same)
 
     def testGetLineDiffsSame(self):
@@ -64,12 +82,20 @@ class TestFieldDiff(ZopeTestCase.ZopeTestCase):
         fd = FieldDiff(a, a, 'attribute')
         expected = [('equal', 0, 1, 0, 1)]
         self.assertEqual(fd.getLineDiffs(), expected)
+        uu = U()
+        fd = FieldDiff(uu, uu, 'attribute')
+        expected = [('equal', 0, 1, 0, 1)]
+        self.assertEqual(fd.getLineDiffs(), expected)
 
     def testGetLineDiffsDifferent(self):
         """test getLineDiffs() method with different value"""
         a = A()
         b = B()
+        uu = U()
         fd = FieldDiff(a, b, 'attribute')
+        expected = [('replace', 0, 1, 0, 1)]
+        self.assertEqual(fd.getLineDiffs(), expected)
+        fd = FieldDiff(a, uu, 'attribute')
         expected = [('replace', 0, 1, 0, 1)]
         self.assertEqual(fd.getLineDiffs(), expected)
 
@@ -78,13 +104,20 @@ class TestFieldDiff(ZopeTestCase.ZopeTestCase):
         a = A()
         fd = FieldDiff(a, a, 'attribute')
         self.assertEqual(fd.ndiff(), '  value')
+        uu = U()
+        fd = FieldDiff(uu, uu, 'attribute')
+        self.assertEqual(fd.ndiff(), u'  \xfcnicode value')
 
     def testDiffText(self):
         """Test text diff output with different value"""
         a = A()
         b = B()
+        uu = U()
         expected = "- value%s+ different value" % linesep
         fd = FieldDiff(a, b, 'attribute')
+        self.assertEqual(fd.ndiff(), expected)
+        expected = u"- value%s+ \xfcnicode value" % linesep
+        fd = FieldDiff(a, uu, 'attribute')
         self.assertEqual(fd.ndiff(), expected)
 
     def test_dump_text(self):
