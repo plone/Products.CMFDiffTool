@@ -5,6 +5,7 @@
 from os import linesep
 from Testing import ZopeTestCase
 from Products.CMFDiffTool.FieldDiff import FieldDiff
+from Products.CMFDiffTool.FieldDiff import dump
 
 _marker = []
 
@@ -80,6 +81,46 @@ class TestFieldDiff(ZopeTestCase.ZopeTestCase):
         expected = "- value%s+ different value" % linesep
         fd = FieldDiff(a, b, 'attribute')
         self.assertEqual(fd.ndiff(), expected)
+
+    def test_dump_text(self):
+        """Test dumping a diff of text."""
+        diff = []
+        dump('-', ['support'], 0, 1, diff)
+        self.assertEqual(diff, ['- support'])
+        # Try unicode, a 'u' with an umlaut.
+        diff = []
+        dump('+', [u's\xfcpport'], 0, 1, diff)
+        self.assertEqual(diff, [u'+ s\xfcpport'])
+        # Combine them.
+        diff = []
+        dump('-', ['support'], 0, 1, diff)
+        dump('+', [u's\xfcpport'], 0, 1, diff)
+        self.assertEqual(diff, ['- support', u'+ s\xfcpport'])
+
+    def test_dump_integer(self):
+        """Test dumping a diff of integers."""
+        diff = []
+        dump('-', [4], 0, 1, diff)
+        self.assertEqual(diff, ['- 4'])
+        dump('+', [42], 0, 1, diff)
+        self.assertEqual(diff, ['- 4', '+ 42'])
+
+    def test_dump_float(self):
+        """Test dumping a diff of floats."""
+        diff = []
+        dump('-', [1.1], 0, 1, diff)
+        self.assertEqual(diff, ['- 1.1'])
+        dump('+', [1.2], 0, 1, diff)
+        self.assertEqual(diff, ['- 1.1', '+ 1.2'])
+
+    def test_dump_boolean(self):
+        """Test dumping a diff of booleans."""
+        diff = []
+        dump('-', [True], 0, 1, diff)
+        self.assertEqual(diff, ['- True'])
+        dump('+', [False], 0, 1, diff)
+        self.assertEqual(diff, ['- True', '+ False'])
+
 
 def test_suite():
     import unittest

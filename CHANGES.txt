@@ -4,6 +4,10 @@ Changelog
 2.1.1 (unreleased)
 ------------------
 
+- Fixed UnicodeDecodeError in dump/ndiff.
+  Issue https://github.com/plone/Products.CMFPlone/issues/820
+  [maurits]
+
 - Fix: Make ``test_dexteritydiff.py`` tests works with Python 2.6.
   [jensens]
 
