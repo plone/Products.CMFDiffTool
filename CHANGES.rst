@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.1.1 (unreleased)
+2.1.1 (2015-08-13)
 ------------------
 
 - Fixed UnicodeDecodeError in dump/ndiff.
