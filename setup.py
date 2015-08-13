@@ -6,8 +6,8 @@ version = '2.1.1.dev0'
 setup(name='Products.CMFDiffTool',
       version=version,
       description="Diff tool for Plone",
-      long_description=open("README.txt").read() + "\n" +
-                       open("CHANGES.txt").read(),
+      long_description=open("README.rst").read() + "\n" +
+                       open("CHANGES.rst").read(),
       classifiers=[
         "Framework :: Plone",
         ],
