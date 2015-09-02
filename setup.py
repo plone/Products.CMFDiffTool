@@ -31,6 +31,7 @@ setup(name='Products.CMFDiffTool',
           test=[
               'zope.component',
               'Products.CMFTestCase',
+              'collective.testcaselayer',
               'plone.namedfile',
               'plone.app.dexterity',
           ]

@@ -4,7 +4,8 @@ Changelog
 2.1.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Added collective.testcaselayer to test requirements.
+  [maurits]
 
 
 2.1.1 (2015-08-13)
