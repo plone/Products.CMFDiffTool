@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.1.2 (unreleased)
+2.1.2 (2015-09-28)
 ------------------
 
 - Added collective.testcaselayer to test requirements.
