@@ -3,8 +3,9 @@
 # CMFDiffTool tests
 #
 from os import linesep
-from Testing import ZopeTestCase
 from Products.CMFDiffTool.ListDiff import ListDiff
+from unittest import TestCase
+from plone.app.testing import PLONE_INTEGRATION_TESTING
 
 _marker = []
 
@@ -17,8 +18,10 @@ class B:
     attribute = [1, 2, 3, 4]
 
 
-class TestListDiff(ZopeTestCase.ZopeTestCase):
+class TestListDiff(TestCase):
     """Test the ListDiff class"""
+
+    layer = PLONE_INTEGRATION_TESTING
 
     def testInterface(self):
         """Ensure that tool instances implement the portal_diff interface"""

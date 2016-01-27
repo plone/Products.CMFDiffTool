@@ -3,8 +3,9 @@
 from os import linesep
 import sys
 
-from Testing import ZopeTestCase
 from Products.CMFDiffTool.TextDiff import TextDiff
+from unittest import TestCase
+from plone.app.testing import PLONE_INTEGRATION_TESTING
 
 _marker = []
 
@@ -23,8 +24,9 @@ class B:
         return "method 過労死"
 
 
-class TestTextDiff(ZopeTestCase.ZopeTestCase):
+class TestTextDiff(TestCase):
     """Test the TextDiff class"""
+    layer = PLONE_INTEGRATION_TESTING
 
     def testInterface(self):
         """Ensure that tool instances implement the portal_diff interface"""
@@ -100,9 +102,9 @@ class TestTextDiff(ZopeTestCase.ZopeTestCase):
 -कामसूत्र
 +過労死"""
         else:
-            expected = """--- None 
+            expected = """--- None
 
-+++ None 
++++ None
 
 @@ -1,1 +1,1 @@
 

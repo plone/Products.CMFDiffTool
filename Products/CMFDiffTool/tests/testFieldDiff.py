@@ -3,9 +3,10 @@
 # CMFDiffTool tests
 #
 from os import linesep
-from Testing import ZopeTestCase
 from Products.CMFDiffTool.FieldDiff import FieldDiff
 from Products.CMFDiffTool.FieldDiff import dump
+from unittest import TestCase
+from plone.app.testing import PLONE_INTEGRATION_TESTING
 
 _marker = []
 
@@ -30,8 +31,10 @@ class U:
         return u"different method val\xfce"
 
 
-class TestFieldDiff(ZopeTestCase.ZopeTestCase):
+class TestFieldDiff(TestCase):
     """Test the FieldDiff class"""
+
+    layer = PLONE_INTEGRATION_TESTING
 
     def testInterface(self):
         """Ensure that tool instances implement the portal_diff interface"""
