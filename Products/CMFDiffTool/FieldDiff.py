@@ -27,10 +27,14 @@ class FieldDiff(BaseDiff):
         return difflib.SequenceMatcher(None, a, b).get_opcodes()
 
     def testChanges(self, ob):
-        """Test the specified object to determine if the change set will apply without errors"""
+        """
+        Test the specified object to determine if the change set
+        will apply without errors
+        """
         value = _getValue(ob, self.field)
         if not self.same and value != self.oldValue:
-            raise ValueError, ("Conflict Error during merge", self.field, value, self.oldValue)
+            raise ValueError("Conflict Error during merge",
+                             self.field, value, self.oldValue)
 
     def applyChanges(self, ob):
         """Update the specified object with the difference"""
@@ -54,7 +58,7 @@ class FieldDiff(BaseDiff):
             elif tag == 'equal':
                 dump(' ', a, alo, ahi, r)
             else:
-                raise ValueError, 'unknown tag ' + `tag`
+                raise ValueError('unknown tag %r', tag)
         return '\n'.join(r)
 
 InitializeClass(FieldDiff)

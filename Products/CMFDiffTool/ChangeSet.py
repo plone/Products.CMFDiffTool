@@ -59,7 +59,8 @@ class BaseChangeSet(Implicit):
 
     security.declarePublic('computeDiff')
 
-    def computeDiff(self, ob1, ob2, recursive=1, exclude=None, id1=None, id2=None):
+    def computeDiff(self, ob1, ob2, recursive=1, exclude=None,
+                    id1=None, id2=None):
         """Compute the differences from ob1 to ob2 (ie. ob2 - ob1).
 
         The results can be accessed through getDiffs()"""
@@ -85,8 +86,9 @@ class BaseChangeSet(Implicit):
         diff_tool = getToolByName(self, "portal_diff")
         self._diffs = diff_tool.computeDiff(ob1, ob2, id1=id1, id2=id2)
 
-        if recursive and ob1.isPrincipiaFolderish and \
-                                                     ob2.isPrincipiaFolderish:
+        if (recursive and
+                ob1.isPrincipiaFolderish and
+                ob2.isPrincipiaFolderish):
             self.recursive = 1
             ids1 = set(ob1.objectIds())
             ids2 = set(ob2.objectIds())
@@ -125,7 +127,10 @@ class BaseChangeSet(Implicit):
     security.declarePublic('testChanges')
 
     def testChanges(self, ob):
-        """Test the specified object to determine if the change set will apply without errors"""
+        """
+        Test the specified object to determine if the change set
+        will apply without errors
+        """
         for d in self._diffs:
             d.testChanges(ob)
 
@@ -156,9 +161,12 @@ class BaseChangeSet(Implicit):
     security.declarePublic('getDiffs')
 
     def getDiffs(self):
-        """Returns the list differences between the two objects.
+        """
+        Returns the list differences between the two objects.
 
-        Each difference is a single object implementing the IDifference interface"""
+        Each difference is a single object implementing
+        the IDifference interface
+        """
         return self._diffs
 
     security.declarePublic('getSubDiffs')

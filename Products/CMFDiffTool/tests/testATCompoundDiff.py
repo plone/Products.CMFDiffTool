@@ -44,7 +44,8 @@ class TestATCompoundDiff(BaseATTestCase):
         # Add a schema extended field to an ATDocument and test that
         # the compound diff can read it
         from archetypes.schemaextender.field import ExtensionField
-        from archetypes.schemaextender.tests.mocks import IHighlighted, Extender
+        from archetypes.schemaextender.tests.mocks import Extender
+        from archetypes.schemaextender.tests.mocks import IHighlighted
 
         # custom field class which does not set attributes directly on the
         # content

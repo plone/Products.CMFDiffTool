@@ -1,10 +1,8 @@
 from zope.schema import (Bytes, Iterable, Container, Text, Date, Datetime,
                          Time, Choice, Bool)
 from zope.globalrequest import getRequest
-from z3c.form.interfaces import INPUT_MODE
 
 from plone.app.textfield import RichText
-from plone.autoform.base import AutoFields
 from plone.dexterity.browser.edit import DefaultEditForm
 
 from Products.CMFDiffTool.TextDiff import AsTextDiff
@@ -12,7 +10,6 @@ from Products.CMFDiffTool.namedfile import NamedFileBinaryDiff
 from Products.CMFDiffTool.namedfile import FILE_FIELD_TYPES
 from Products.CMFDiffTool.namedfile import NamedFileListDiff
 from Products.CMFDiffTool.choicediff import ChoiceDiff
-from Products.CMFDiffTool.choicediff import get_schemas
 from Products.CMFDiffTool.CMFDTHtmlDiff import CMFDTHtmlDiff
 from Products.CMFDiffTool.FieldDiff import FieldDiff
 from Products.CMFDiffTool.ListDiff import ListDiff
@@ -129,8 +126,8 @@ class DexterityCompoundDiff(object):
         if diff_type is ListDiff:
             return (
                 self._compute_diff_type(
-                    field.value_type, VALUE_TYPES_AND_DIFF_TYPES_RELATION)
-                or diff_type
+                    field.value_type, VALUE_TYPES_AND_DIFF_TYPES_RELATION) or
+                diff_type
             )
 
         return diff_type or FALL_BACK_DIFF_TYPE

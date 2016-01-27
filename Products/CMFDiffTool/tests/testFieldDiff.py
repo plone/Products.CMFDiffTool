@@ -27,6 +27,7 @@ class B:
 
 class U:
     attribute = u"\xfcnicode value"
+
     def method(self):
         return u"different method val\xfce"
 

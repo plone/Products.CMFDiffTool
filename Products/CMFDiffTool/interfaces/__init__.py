@@ -42,11 +42,15 @@ class IDifference(Interface):
 
     meta_type = Attribute('title', 'A human readable name for the diff type')
     field = Attribute('field', 'The name of the field being compared')
-    same = Attribute('same', 'True if the fields are the "same" (whatever that means for this difference)')
+    same = Attribute('same',
+                     'True if the fields are the "same" '
+                     '(whatever that means for this difference)')
     oldValue = Attribute('oldValue', 'The old field value being compared')
     newValue = Attribute('newValue', 'The new field value being compared')
-    oldFilename = Attribute('oldFilename', 'The old filename for the field being compared')
-    newFilename = Attribute('newFilename', 'The new filename for the field being compared')
+    oldFilename = Attribute('oldFilename',
+                            'The old filename for the field being compared')
+    newFilename = Attribute('newFilename',
+                            'The new filename for the field being compared')
 
     def testChanges(ob):
         """Test the specified object to determine if the change set will apply cleanly.
@@ -75,11 +79,6 @@ class IStringDifference(IDifference):
 
         The interpretation of these tuples depends on the difference class"""
 
-##     def getCharDiffs():
-##         """Return a list of character differences on a line-by-line basis.
-
-##         For every line in the field being compared, return a list of
-##         character differences """
 
 class IChangeSet(Interface):
     """And interface representing all of the differences between two objects"""
@@ -107,7 +106,8 @@ class IChangeSet(Interface):
     def getDiffs():
         """Returns the list of differences between the two objects.
 
-        Each difference is a single object implementing the IDifference interface"""
+        Each difference is a single object implementing the
+        IDifference interface"""
 
     def getSubDiffs():
         """If the ChangeSet was computed recursively, returns a list

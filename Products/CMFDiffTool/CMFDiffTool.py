@@ -30,12 +30,12 @@ class CMFDiffTool(UniqueObject, SimpleItem):
 
     manage_options = (({'label': 'Configure', 'action': 'manage_difftypes'},
                       {'label': 'Overview', 'action': 'manage_overview'},
-                      ) + SimpleItem.manage_options
-                    )
+                       ) + SimpleItem.manage_options
+                      )
 
     implements(IDiffTool)
 
-    ## Internal attributes
+    #  Internal attributes
     _difftypes = {}
 
     def __init__(self):
@@ -58,7 +58,8 @@ class CMFDiffTool(UniqueObject, SimpleItem):
         self._p_changed = 1
 
         if REQUEST:
-            return self.manage_difftypes(manage_tabs_message="Diff mappings updated")
+            return self.manage_difftypes(
+                manage_tabs_message="Diff mappings updated")
 
     security.declareProtected(ManagePortal, 'listDiffTypes')
 
@@ -67,9 +68,11 @@ class CMFDiffTool(UniqueObject, SimpleItem):
         self.setDiffField(pt_name, field, diff)
         if REQUEST:
             return self.manage_difftypes(manage_tabs_message="Field added")
-        
+
     def setDiffField(self, pt_name, field, diff):
-        """Set the diff type for 'field' on the portal type 'pt_name' to 'diff'"""
+        """
+        Set the diff type for 'field' on the portal type 'pt_name' to 'diff'
+        """
         if pt_name not in self.portal_types.listContentTypes():
             raise BadRequest("Error: invalid portal type")
 
@@ -83,7 +86,7 @@ class CMFDiffTool(UniqueObject, SimpleItem):
             self._pt_diffs.setdefault(pt_name, {})[field] = diff
             self._p_changed = 1
 
-    ## Interface fulfillment ##
+    #  Interface fulfillment
     security.declareProtected(ManagePortal, 'listDiffTypes')
 
     def listDiffTypes(self):

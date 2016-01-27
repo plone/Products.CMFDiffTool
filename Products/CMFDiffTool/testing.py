@@ -1,4 +1,4 @@
-#coding=utf8
+# -*- coding: utf-8 -*-
 from plone.dexterity.fti import DexterityFTI
 from Products.CMFCore.utils import getToolByName
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm

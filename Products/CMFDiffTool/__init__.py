@@ -1,11 +1,6 @@
 # -*- coding: utf-8 -*-
 """Initialize CMFDiffTool Product"""
-# Set up a MessageFactory for the cmfdifftool domain
-from zope.i18nmessageid import MessageFactory
-CMFDiffToolMessageFactory = MessageFactory('cmfdifftool')
-
 from Products.CMFCore.utils import ToolInit
-
 from Products.CMFDiffTool import CMFDiffTool
 from Products.CMFDiffTool import FieldDiff
 from Products.CMFDiffTool import TextDiff
@@ -13,6 +8,10 @@ from Products.CMFDiffTool import ListDiff
 from Products.CMFDiffTool import BinaryDiff
 from Products.CMFDiffTool import CMFDTHtmlDiff
 from Products.CMFDiffTool import ATCompoundDiff
+# Set up a MessageFactory for the cmfdifftool domain
+from zope.i18nmessageid import MessageFactory
+CMFDiffToolMessageFactory = MessageFactory('cmfdifftool')
+
 
 CMFDiffTool.registerDiffType(BinaryDiff.BinaryDiff)
 CMFDiffTool.registerDiffType(FieldDiff.FieldDiff)

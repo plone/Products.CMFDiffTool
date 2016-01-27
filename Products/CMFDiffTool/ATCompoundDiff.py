@@ -77,52 +77,52 @@ class ATCompoundDiff:
         for schemata_name in schemata_names:
             schema = schematas[schemata_name]
             for field in schema.viewableFields(obj1):
-                if (AT_FIELD_MAPPING.has_key(field.type) and
+                if (field.type in AT_FIELD_MAPPING and
                         field.getName() not in AT_EXCLUDED_FIELDS):
                     is_primary = getattr(field, 'primary', False)
                     label = field.widget.Label(obj1)
                     diff_type = AT_FIELD_MAPPING[field.type]
                     if IDifference.implementedBy(diff_type):
                         fields.append({'name': field.getName(),
-                                    'accessor': field.accessor,
-                                    'klass': diff_type,
-                                    'primary': is_primary,
-                                    'label': label,
-                                    'schemata': schemata_name})
+                                       'accessor': field.accessor,
+                                       'klass': diff_type,
+                                       'primary': is_primary,
+                                       'label': label,
+                                       'schemata': schemata_name})
                     elif 'raw' in diff_type:
-                        #Handle Fields which diff against the edit accessor
+                        #  Handle Fields which diff against the edit accessor
                         diff_name = diff_type.split(':')[1]
                         diff_type = globals()[diff_name]
                         fields.append({'name': field.getName(),
-                                    'accessor': field.edit_accessor,
-                                    'klass': diff_type,
-                                    'primary': is_primary,
-                                    'label': label,
-                                    'schemata': schemata_name})
+                                       'accessor': field.edit_accessor,
+                                       'klass': diff_type,
+                                       'primary': is_primary,
+                                       'label': label,
+                                       'schemata': schemata_name})
                     elif diff_type == 'variable_binary':
                         diff_type = BinaryDiff
-                        if 'text/' in field.getContentType(obj1) and \
-                        'text/' in \
-                            obj2.getField(field.getName()).getContentType(obj2):
+                        if ('text/' in field.getContentType(obj1) and
+                                'text/' in (obj2.getField(field.getName())
+                                            .getContentType(obj2))):
                             diff_type = TextDiff
                         fields.append({'name': field.getName(),
-                                    'accessor': field.accessor,
-                                    'klass': diff_type,
-                                    'primary': is_primary,
-                                    'label': label,
-                                    'schemata': schemata_name})
+                                       'accessor': field.accessor,
+                                       'klass': diff_type,
+                                       'primary': is_primary,
+                                       'label': label,
+                                       'schemata': schemata_name})
                     elif diff_type == 'variable_text':
                         diff_type = TextDiff
-                        if 'html' in field.getContentType(obj1) and \
-                        'html' in \
-                            obj2.getField(field.getName()).getContentType(obj2):
+                        if ('html' in field.getContentType(obj1) and
+                                'html' in (obj2.getField(field.getName())
+                                           .getContentType(obj2))):
                             diff_type = CMFDTHtmlDiff
                         fields.append({'name': field.getName(),
-                                    'accessor': field.accessor,
-                                    'klass': diff_type,
-                                    'primary': is_primary,
-                                    'label': label,
-                                    'schemata': schemata_name})
+                                       'accessor': field.accessor,
+                                       'klass': diff_type,
+                                       'primary': is_primary,
+                                       'label': label,
+                                       'schemata': schemata_name})
         return fields
 
 InitializeClass(ATCompoundDiff)

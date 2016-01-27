@@ -26,10 +26,14 @@ class BinaryDiff(FieldDiff):
             return [self.filenameTitle(filename)]
 
     def testChanges(self, ob):
-        """Test the specified object to determine if the change set will apply without errors"""
+        """
+        Test the specified object to determine if the change set will
+        apply without errors
+        """
         value = _getValue(ob, self.field)
         if not self.same and value != self.oldValue:
-            raise ValueError, ("Conflict Error during merge", self.field, value, self.oldValue)
+            raise ValueError("Conflict Error during merge",
+                             self.field, value, self.oldValue)
 
     def applyChanges(self, ob):
         """Update the specified object with the difference"""

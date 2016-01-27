@@ -69,7 +69,7 @@ class HTMLMatcher(SequenceMatcher):
         a = self.a
         b = self.b
         out = StringIO()
-        #print [o[0] for o in opcodes]
+        #  print [o[0] for o in opcodes]
         for tag, i1, i2, j1, j2 in opcodes:
             if tag == 'equal':
                 for item in a[i1:i2]:
@@ -151,10 +151,12 @@ class HTMLMatcher(SequenceMatcher):
         return '</span> '
 
     def formatInsertTag(self, tag):
-        return '<span class="tagInsert">insert: <tt>%s</tt></span> ' % htmlEncode(tag)
+        return ('<span class="tagInsert">insert: <tt>%s</tt></span> ' %
+                htmlEncode(tag))
 
     def formatDeleteTag(self, tag):
-        return '<span class="tagDelete">delete: <tt>%s</tt></span> ' % htmlEncode(tag)
+        return ('<span class="tagDelete">delete: <tt>%s</tt></span> ' %
+                htmlEncode(tag))
 
 
 class NoTagHTMLMatcher(HTMLMatcher):
@@ -170,7 +172,7 @@ def htmldiff(source1, source2, addStylesheet=False):
     Return the difference between two pieces of HTML
 
         >>> htmldiff('test1', 'test2')
-        '<span class="delete">test1 </span> <span class="insert">test2 </span> '
+        '<span class="delete">test1 </span> <span class="insert">test2 </span> '  # NOQA
         >>> htmldiff('test1', 'test1')
         'test1 '
         >>> htmldiff('<b>test1</b>', '<i>test1</i>')

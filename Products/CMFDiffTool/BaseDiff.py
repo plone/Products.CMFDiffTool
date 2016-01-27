@@ -80,10 +80,10 @@ def _getValue(ob, field, field_name, convert_to_str=True):
         # Archetypes with an adapter extended schema needs special handling
         field = ob.getField(field_name)
         if field is None:
-            raise AttributeError, field
+            raise AttributeError(field)
         value = field.getAccessor(ob)
     else:
-        raise AttributeError, field
+        raise AttributeError(field)
 
     # Handle case where the field is a method
     try:

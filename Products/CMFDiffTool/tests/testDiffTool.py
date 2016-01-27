@@ -8,6 +8,8 @@ from zExceptions import BadRequest
 
 from Products.CMFDiffTool.CMFDiffTool import registerDiffType
 from Products.CMFDiffTool.CMFDiffTool import unregisterDiffType
+from unittest import TestCase
+from plone.app.testing import PLONE_INTEGRATION_TESTING
 
 
 class DummyDiff:
@@ -16,9 +18,6 @@ class DummyDiff:
 
 class DummyDiff2:
     meta_type = "Second Dummy Diff Type"
-
-from unittest import TestCase
-from plone.app.testing import PLONE_INTEGRATION_TESTING
 
 
 class TestDiffTool(TestCase):
@@ -76,7 +75,9 @@ class TestDiffTool(TestCase):
                          {'title': 'Dummy Diff Type'})
 
     def testMultipleSetDiffField(self):
-        """Test setDiffField method adding a second field to one content type"""
+        """
+        Test setDiffField method adding a second field to one content type
+        """
         self.p_diff.setDiffField('Document', 'title', 'Dummy Diff Type')
         self.p_diff.setDiffField('Document', 'description', 'Dummy Diff Type')
         d = {'title': 'Dummy Diff Type', 'description': 'Dummy Diff Type'}
@@ -92,13 +93,16 @@ class TestDiffTool(TestCase):
         unregisterDiffType(DummyDiff2)
 
     def testSetDiffFieldNameFailure(self):
-        self.assertRaises(BadRequest, self.p_diff.setDiffField, 'Bob', 'title', 'Dummy Diff Type')
+        self.assertRaises(BadRequest, self.p_diff.setDiffField,
+                          'Bob', 'title', 'Dummy Diff Type')
 
     def testSetDiffFieldBlankFieldFailure(self):
-        self.assertRaises(BadRequest, self.p_diff.setDiffField, 'Document', '', 'Dummy Diff Type')
+        self.assertRaises(BadRequest, self.p_diff.setDiffField,
+                          'Document', '', 'Dummy Diff Type')
 
     def testSetDiffFieldInvalidDiffFailure(self):
-        self.assertRaises(BadRequest, self.p_diff.setDiffField, 'Document', 'title', 'NoDiff')
+        self.assertRaises(BadRequest, self.p_diff.setDiffField,
+                          'Document', 'title', 'NoDiff')
 
     def beforeTearDown(self):
         # Undo changes that don't get rolled back (i.e. module level changes)
