@@ -3,21 +3,20 @@
 # CMFDiffTool tests
 #
 
+from plone.app.testing import PLONE_INTEGRATION_TESTING
 from Products.CMFCore.utils import getToolByName
-from zExceptions import BadRequest
-
 from Products.CMFDiffTool.CMFDiffTool import registerDiffType
 from Products.CMFDiffTool.CMFDiffTool import unregisterDiffType
 from unittest import TestCase
-from plone.app.testing import PLONE_INTEGRATION_TESTING
+from zExceptions import BadRequest
 
 
 class DummyDiff:
-    meta_type = "Dummy Diff Type"
+    meta_type = 'Dummy Diff Type'
 
 
 class DummyDiff2:
-    meta_type = "Second Dummy Diff Type"
+    meta_type = 'Second Dummy Diff Type'
 
 
 class TestDiffTool(TestCase):

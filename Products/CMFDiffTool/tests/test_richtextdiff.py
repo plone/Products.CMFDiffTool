@@ -1,5 +1,6 @@
-from Products.CMFDiffTool.CMFDTHtmlDiff import CMFDTHtmlDiff
+# -*- coding: utf-8 -*-
 from plone.app.textfield.value import RichTextValue
+from Products.CMFDiffTool.CMFDTHtmlDiff import CMFDTHtmlDiff
 from Products.CMFDiffTool.interfaces import IDifference
 
 import unittest

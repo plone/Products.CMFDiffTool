@@ -2,9 +2,9 @@
 # BaseTestCase
 
 from plone.app.testing.bbb import PloneTestCase
-from Products.CMFDiffTool.testing import CMFDiffToolLayer
 from Products.CMFDiffTool.testing import CMFDiffToolATLayer
 from Products.CMFDiffTool.testing import CMFDiffToolDXLayer
+from Products.CMFDiffTool.testing import CMFDiffToolLayer
 
 
 class BaseTestCase(PloneTestCase):

@@ -1,6 +1,7 @@
-from Products.CMFDiffTool.TextDiff import AsTextDiff
+# -*- coding: utf-8 -*-
 from datetime import date
 from Products.CMFDiffTool.interfaces import IDifference
+from Products.CMFDiffTool.TextDiff import AsTextDiff
 
 import unittest
 

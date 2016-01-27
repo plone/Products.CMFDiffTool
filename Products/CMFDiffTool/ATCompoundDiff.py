@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 from App.class_init import InitializeClass
-from Products.CMFDiffTool.interfaces.portal_diff import IDifference
-from Products.CMFDiffTool.TextDiff import TextDiff
-from Products.CMFDiffTool.FieldDiff import FieldDiff
 from Products.CMFDiffTool.BinaryDiff import BinaryDiff
-from Products.CMFDiffTool.ListDiff import ListDiff
 from Products.CMFDiffTool.CMFDTHtmlDiff import CMFDTHtmlDiff
+from Products.CMFDiffTool.FieldDiff import FieldDiff
+from Products.CMFDiffTool.interfaces.portal_diff import IDifference
+from Products.CMFDiffTool.ListDiff import ListDiff
+from Products.CMFDiffTool.TextDiff import TextDiff
+
 
 AT_FIELD_MAPPING = {'text': 'variable_text',
                     'string': 'variable_text',
@@ -24,9 +25,9 @@ AT_EXCLUDED_FIELDS = ('modification_date', )
 
 
 class ATCompoundDiff:
-    """Text difference"""
+    '''Text difference'''
 
-    meta_type = "Compound Diff for AT types"
+    meta_type = 'Compound Diff for AT types'
 
     def __init__(self, obj1, obj2, field, id1=None, id2=None):
         if not id1:

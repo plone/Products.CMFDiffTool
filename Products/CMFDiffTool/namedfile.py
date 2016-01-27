@@ -1,10 +1,10 @@
+# -*- coding: utf-8 -*-
 from App.class_init import InitializeClass
-
 from plone.namedfile import NamedFile
-
 from Products.CMFDiffTool.BinaryDiff import BinaryDiff
 from Products.CMFDiffTool.ListDiff import ListDiff
 from Products.CMFDiffTool.TextDiff import TextDiff
+
 
 FILE_FIELD_TYPES = []
 

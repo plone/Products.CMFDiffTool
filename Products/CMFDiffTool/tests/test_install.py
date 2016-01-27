@@ -1,6 +1,6 @@
+# -*- coding: utf-8 -*-
 from .BaseTestCase import BaseTestCase
 from Products.CMFCore.utils import getToolByName
-
 from Products.CMFDiffTool.dexteritydiff import DexterityCompoundDiff
 
 

@@ -1,5 +1,3 @@
-
-
 # -*- coding: utf-8 -*-
 def safe_unicode(value):
     if isinstance(value, unicode):

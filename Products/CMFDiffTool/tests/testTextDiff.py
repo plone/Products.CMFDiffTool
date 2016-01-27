@@ -1,27 +1,28 @@
 # -*- coding: utf-8 -*-
 
 from os import linesep
-import sys
-
+from plone.app.testing import PLONE_INTEGRATION_TESTING
 from Products.CMFDiffTool.TextDiff import TextDiff
 from unittest import TestCase
-from plone.app.testing import PLONE_INTEGRATION_TESTING
+
+import sys
+
 
 _marker = []
 
 
 class A:
-    attribute = "कामसूत्र"
+    attribute = 'कामसूत्र'
 
     def method(self):
-        return "method कामसूत्र"
+        return 'method कामसूत्र'
 
 
 class B:
-    attribute = "過労死"
+    attribute = '過労死'
 
     def method(self):
-        return "method 過労死"
+        return 'method 過労死'
 
 
 class TestTextDiff(TestCase):
@@ -31,33 +32,33 @@ class TestTextDiff(TestCase):
     def testInterface(self):
         """Ensure that tool instances implement the portal_diff interface"""
         from Products.CMFDiffTool.interfaces import IDifference
-        self.failUnless(IDifference.implementedBy(TextDiff))
+        self.assertTrue(IDifference.implementedBy(TextDiff))
 
     def testAttributeSame(self):
         """Test attribute with same value"""
         a = A()
         fd = TextDiff(a, a, 'attribute')
-        self.failUnless(fd.same)
+        self.assertTrue(fd.same)
 
     def testMethodSame(self):
         """Test method with same value"""
         a = A()
         fd = TextDiff(a, a, 'method')
-        self.failUnless(fd.same)
+        self.assertTrue(fd.same)
 
     def testAttributeDiff(self):
         """Test attribute with different value"""
         a = A()
         b = B()
         fd = TextDiff(a, b, 'attribute')
-        self.failIf(fd.same)
+        self.assertFalse(fd.same)
 
     def testMethodDiff(self):
         """Test method with different value"""
         a = A()
         b = B()
         fd = TextDiff(a, b, 'method')
-        self.failIf(fd.same)
+        self.assertFalse(fd.same)
 
     def testGetLineDiffsSame(self):
         """test getLineDiffs() method with same value"""
@@ -84,7 +85,7 @@ class TestTextDiff(TestCase):
         """Test text diff output with different value"""
         a = A()
         b = B()
-        expected = "- कामसूत्र%s+ 過労死" % linesep
+        expected = '- कामसूत्र%s+ 過労死' % linesep
         fd = TextDiff(a, b, 'attribute')
         self.assertEqual(fd.ndiff(), expected)
 

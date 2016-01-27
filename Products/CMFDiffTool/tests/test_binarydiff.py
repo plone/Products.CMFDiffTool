@@ -1,10 +1,9 @@
+# -*- coding: utf-8 -*-
 from .BaseTestCase import BaseDXTestCase
 from plone.namedfile.file import NamedFile
-
-from Products.CMFDiffTool.interfaces import IDifference
 from Products.CMFDiffTool import namedfile
-
 from Products.CMFDiffTool import testing
+from Products.CMFDiffTool.interfaces import IDifference
 
 
 class BinaryDiffTestCase(BaseDXTestCase):

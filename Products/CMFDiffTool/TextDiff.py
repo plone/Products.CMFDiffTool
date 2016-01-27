@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
-import difflib
-from os import linesep
-
 from App.class_init import InitializeClass
+from os import linesep
+from Products.CMFDiffTool import CMFDiffToolMessageFactory as _
+from Products.CMFDiffTool.FieldDiff import FieldDiff
+from Products.CMFDiffTool.utils import safe_unicode
+from Products.CMFDiffTool.utils import safe_utf8
 from zope.component.hooks import getSite
 
-from Products.CMFDiffTool.FieldDiff import FieldDiff
-from Products.CMFDiffTool.utils import safe_unicode, safe_utf8
-from Products.CMFDiffTool import CMFDiffToolMessageFactory as _
+import difflib
 
 
 class TextDiff(FieldDiff):
     """Text difference"""
 
-    meta_type = "Lines Diff"
+    meta_type = 'Lines Diff'
     inlinediff_fmt = """
 <div class="%s">
     <del>%s</del>

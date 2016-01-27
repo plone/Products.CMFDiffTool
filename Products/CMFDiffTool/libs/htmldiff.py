@@ -13,9 +13,10 @@ Better results if you use mxTidy first.  The output is HTML.
 """
 
 from difflib import SequenceMatcher
-import re
 from StringIO import StringIO
+
 import cgi
+import re
 
 
 def htmlEncode(s, esc=cgi.escape):
@@ -135,8 +136,8 @@ class HTMLMatcher(SequenceMatcher):
             pos = match.end()
         else:
             pos = 0
-        return ('%s<style type="text/css"><!--\n%s\n--></style>%s'
-                % (html[:pos], ss, html[pos:]))
+        return ('{0}<style type="text/css"><!--\n{1}\n--></style>{2}'.format(
+            html[:pos], ss, html[pos:]))
 
     def startInsertText(self):
         return '<span class="insert">'
@@ -267,10 +268,10 @@ class TextMatcher(HTMLMatcher):
 if __name__ == '__main__':
     import sys
     if not sys.argv[1:]:
-        print "Usage: %s file1 file2" % sys.argv[0]
-        print "or to test: %s test" % sys.argv[0]
+        print('Usage: %s file1 file2' % sys.argv[0])  # NOQA
+        print('or to test: %s test' % sys.argv[0])  # NOQA
     elif sys.argv[1] == 'test' and not sys.argv[2:]:
         import doctest
         doctest.testmod()
     else:
-        print diffFiles(sys.argv[1], sys.argv[2])
+        print(diffFiles(sys.argv[1], sys.argv[2]))  # NOQA

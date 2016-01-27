@@ -1,7 +1,7 @@
+# -*- coding: utf-8 -*-
 from plone.namedfile import NamedFile
-
-from Products.CMFDiffTool.interfaces import IDifference
 from Products.CMFDiffTool import namedfile
+from Products.CMFDiffTool.interfaces import IDifference
 
 import unittest
 

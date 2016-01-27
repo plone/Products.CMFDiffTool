@@ -1,9 +1,9 @@
+# -*- coding: utf-8 -*-
 from .BaseTestCase import BaseDXTestCase
+from Products.CMFDiffTool import testing
 from Products.CMFDiffTool.choicediff import ChoiceDiff
 from Products.CMFDiffTool.choicediff import title_or_value
 from Products.CMFDiffTool.interfaces import IDifference
-
-from Products.CMFDiffTool import testing
 
 
 class ChoiceDiffTestCase(BaseDXTestCase):

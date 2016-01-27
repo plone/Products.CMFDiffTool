@@ -1,19 +1,26 @@
-from zope.schema import (Bytes, Iterable, Container, Text, Date, Datetime,
-                         Time, Choice, Bool)
-from zope.globalrequest import getRequest
-
+# -*- coding: utf-8 -*-
 from plone.app.textfield import RichText
 from plone.dexterity.browser.edit import DefaultEditForm
-
-from Products.CMFDiffTool.TextDiff import AsTextDiff
-from Products.CMFDiffTool.namedfile import NamedFileBinaryDiff
-from Products.CMFDiffTool.namedfile import FILE_FIELD_TYPES
-from Products.CMFDiffTool.namedfile import NamedFileListDiff
 from Products.CMFDiffTool.choicediff import ChoiceDiff
 from Products.CMFDiffTool.CMFDTHtmlDiff import CMFDTHtmlDiff
 from Products.CMFDiffTool.FieldDiff import FieldDiff
 from Products.CMFDiffTool.ListDiff import ListDiff
+from Products.CMFDiffTool.namedfile import FILE_FIELD_TYPES
+from Products.CMFDiffTool.namedfile import NamedFileBinaryDiff
+from Products.CMFDiffTool.namedfile import NamedFileListDiff
+from Products.CMFDiffTool.TextDiff import AsTextDiff
 from Products.CMFDiffTool.TextDiff import TextDiff
+from zope.globalrequest import getRequest
+from zope.schema import Bool
+from zope.schema import Bytes
+from zope.schema import Choice
+from zope.schema import Container
+from zope.schema import Date
+from zope.schema import Datetime
+from zope.schema import Iterable
+from zope.schema import Text
+from zope.schema import Time
+
 
 # TODO: Perhaps this can be replaced with some kind of Zope 3 style
 # adaptation, in order to provide better extensibility.
