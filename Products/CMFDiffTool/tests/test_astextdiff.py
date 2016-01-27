@@ -2,7 +2,7 @@ from Products.CMFDiffTool.TextDiff import AsTextDiff
 from datetime import date
 from Products.CMFDiffTool.interfaces import IDifference
 
-import unittest2 as unittest
+import unittest
 
 
 class DateDummyType(object):

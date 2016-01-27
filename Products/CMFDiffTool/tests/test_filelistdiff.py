@@ -3,7 +3,7 @@ from plone.namedfile import NamedFile
 from Products.CMFDiffTool.interfaces import IDifference
 from Products.CMFDiffTool import namedfile
 
-import unittest2 as unittest
+import unittest
 
 
 class DummyType(object):

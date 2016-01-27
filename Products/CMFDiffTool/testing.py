@@ -4,6 +4,7 @@ from Products.CMFCore.utils import getToolByName
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope.component import getSiteManager
 from zope.schema.interfaces import IVocabularyFactory
+from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FIXTURE
 
 from plone.app.testing.bbb import PTC_FIXTURE
 from plone.app.testing import PloneSandboxLayer
@@ -26,7 +27,7 @@ def vocabulary_factory(context):
 
 class DXLayer(PloneSandboxLayer):
 
-    defaultBases = (PTC_FIXTURE, )
+    defaultBases = (PLONE_APP_CONTENTTYPES_FIXTURE, )
 
     def setUpPloneSite(self, portal):
         """Set up additional products and ZCML required to test

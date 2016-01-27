@@ -2,7 +2,7 @@ from Products.CMFDiffTool.CMFDTHtmlDiff import CMFDTHtmlDiff
 from plone.app.textfield.value import RichTextValue
 from Products.CMFDiffTool.interfaces import IDifference
 
-import unittest2 as unittest
+import unittest
 
 
 class DummyType(object):
