@@ -1,10 +1,10 @@
+# -*- coding: utf-8 -*-
 from App.class_init import InitializeClass
-
 from plone.namedfile import NamedFile
-
 from Products.CMFDiffTool.BinaryDiff import BinaryDiff
 from Products.CMFDiffTool.ListDiff import ListDiff
 from Products.CMFDiffTool.TextDiff import TextDiff
+
 
 FILE_FIELD_TYPES = []
 
@@ -129,9 +129,10 @@ class NamedFileListDiff(ListDiff):
         dummy_dict = {'repr': '', 'data': None, 'filename': None}
         make_lists_same_length(old_data, new_data, dummy_dict)
 
-        is_same_dict = lambda d1, d2: is_same(
-            d1['data'], d1['filename'], d2['data'], d2['filename']
-        )
+        def is_same_dict(d1, d2):
+            return is_same(
+                d1['data'], d1['filename'], d2['data'], d2['filename']
+            )
 
         return '\n'.join([
             ((self.same_fmt % (css_class, d_old['repr']))

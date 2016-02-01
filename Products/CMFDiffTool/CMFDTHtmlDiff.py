@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from App.class_init import InitializeClass
-from Products.CMFDiffTool.TextDiff import TextDiff
 from Products.CMFDiffTool.libs import htmldiff
+from Products.CMFDiffTool.TextDiff import TextDiff
 
 
 # Give it a dumb name so it doesn't conflict with all the other html diffs
@@ -10,7 +10,7 @@ from Products.CMFDiffTool.libs import htmldiff
 class CMFDTHtmlDiff(TextDiff):
     """Text difference"""
 
-    meta_type = "HTML Diff"
+    meta_type = 'HTML Diff'
 
     def inline_diff(self):
         """Return a specialized diff for HTML"""

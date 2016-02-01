@@ -8,15 +8,16 @@
 # (C) 2003 Brent Hendricks - licensed under the terms of the
 # GNU General Public License (GPL).  See LICENSE.txt for details
 
-import logging
-from zope.interface import implements
-
 from AccessControl import ClassSecurityInfo
-from Acquisition import Implicit
 from Acquisition import aq_base
+from Acquisition import Implicit
 from ComputedAttribute import ComputedAttribute
 from Products.CMFCore.utils import getToolByName
 from Products.CMFDiffTool.interfaces import IChangeSet
+from zope.interface import implements
+
+import logging
+
 
 logger = logging.getLogger('CMFDiffTool')
 
@@ -41,7 +42,7 @@ class BaseChangeSet(Implicit):
         self._changesets = {}
         self.recursive = 0
 
-    security.declarePublic('getId')
+    security.declarePublic('getId')  # NOQA
 
     def getId(self):
         """ChangeSet id"""
@@ -54,12 +55,13 @@ class BaseChangeSet(Implicit):
         """Returns true if there are no differences between the two objects"""
         return reduce(lambda x, y: x and y, [d.same for d in self._diffs], 1)
 
-    security.declarePublic('same')
+    security.declarePublic('same')  # NOQA
     same = ComputedAttribute(_isSame)
 
-    security.declarePublic('computeDiff')
+    security.declarePublic('computeDiff')  # NOQA
 
-    def computeDiff(self, ob1, ob2, recursive=1, exclude=None, id1=None, id2=None):
+    def computeDiff(self, ob1, ob2, recursive=1, exclude=None,
+                    id1=None, id2=None):
         """Compute the differences from ob1 to ob2 (ie. ob2 - ob1).
 
         The results can be accessed through getDiffs()"""
@@ -82,11 +84,12 @@ class BaseChangeSet(Implicit):
             except AttributeError:
                 # one or both of the objects may not have a path
                 return
-        diff_tool = getToolByName(self, "portal_diff")
+        diff_tool = getToolByName(self, 'portal_diff')
         self._diffs = diff_tool.computeDiff(ob1, ob2, id1=id1, id2=id2)
 
-        if recursive and ob1.isPrincipiaFolderish and \
-                                                     ob2.isPrincipiaFolderish:
+        if (recursive and
+                ob1.isPrincipiaFolderish and
+                ob2.isPrincipiaFolderish):
             self.recursive = 1
             ids1 = set(ob1.objectIds())
             ids2 = set(ob2.objectIds())
@@ -122,10 +125,13 @@ class BaseChangeSet(Implicit):
         cs.computeDiff(ob1[id], ob2[id], exclude=exclude, id1=id1, id2=id2)
         self._changesets[id] = aq_base(cs)
 
-    security.declarePublic('testChanges')
+    security.declarePublic('testChanges')  # NOQA
 
     def testChanges(self, ob):
-        """Test the specified object to determine if the change set will apply without errors"""
+        """
+        Test the specified object to determine if the change set
+        will apply without errors
+        """
         for d in self._diffs:
             d.testChanges(ob)
 
@@ -134,7 +140,7 @@ class BaseChangeSet(Implicit):
             child = ob[id]
             cs.testChanges(child)
 
-    security.declarePublic('applyChanges')
+    security.declarePublic('applyChanges')  # NOQA
 
     def applyChanges(self, ob):
         """Apply the change set to the specified object"""
@@ -153,15 +159,18 @@ class BaseChangeSet(Implicit):
             child = ob[id]
             cs.applyChanges(child)
 
-    security.declarePublic('getDiffs')
+    security.declarePublic('getDiffs')  # NOQA
 
     def getDiffs(self):
-        """Returns the list differences between the two objects.
+        """
+        Returns the list differences between the two objects.
 
-        Each difference is a single object implementing the IDifference interface"""
+        Each difference is a single object implementing
+        the IDifference interface
+        """
         return self._diffs
 
-    security.declarePublic('getSubDiffs')
+    security.declarePublic('getSubDiffs')  # NOQA
 
     def getSubDiffs(self):
         """If the ChangeSet was computed recursively, returns a list
@@ -172,7 +181,7 @@ class BaseChangeSet(Implicit):
            """
         return [self[id] for id in self._changed]
 
-    security.declarePublic('getAddedItems')
+    security.declarePublic('getAddedItems')  # NOQA
 
     def getAddedItems(self):
         """If the ChangeSet was computed recursively, returns the list
@@ -182,7 +191,7 @@ class BaseChangeSet(Implicit):
         """
         return list(self._added)
 
-    security.declarePublic('getRemovedItems')
+    security.declarePublic('getRemovedItems')  # NOQA
 
     def getRemovedItems(self):
         """If the ChangeSet was computed recursively, returns the list

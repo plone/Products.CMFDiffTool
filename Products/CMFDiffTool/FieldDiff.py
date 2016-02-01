@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
-import difflib
 from App.class_init import InitializeClass
-from Products.CMFDiffTool.BaseDiff import BaseDiff, _getValue
+from Products.CMFDiffTool.BaseDiff import _getValue
+from Products.CMFDiffTool.BaseDiff import BaseDiff
+
+import difflib
 
 
 class FieldDiff(BaseDiff):
     """Text difference"""
 
-    meta_type = "Field Diff"
+    meta_type = 'Field Diff'
 
     def _parseField(self, value, filename=None):
         """Parse a field value in preparation for diffing"""
@@ -27,10 +29,14 @@ class FieldDiff(BaseDiff):
         return difflib.SequenceMatcher(None, a, b).get_opcodes()
 
     def testChanges(self, ob):
-        """Test the specified object to determine if the change set will apply without errors"""
+        """
+        Test the specified object to determine if the change set
+        will apply without errors
+        """
         value = _getValue(ob, self.field)
         if not self.same and value != self.oldValue:
-            raise ValueError, ("Conflict Error during merge", self.field, value, self.oldValue)
+            raise ValueError('Conflict Error during merge',
+                             self.field, value, self.oldValue)
 
     def applyChanges(self, ob):
         """Update the specified object with the difference"""
@@ -54,7 +60,7 @@ class FieldDiff(BaseDiff):
             elif tag == 'equal':
                 dump(' ', a, alo, ahi, r)
             else:
-                raise ValueError, 'unknown tag ' + `tag`
+                raise ValueError('unknown tag %r', tag)
         return '\n'.join(r)
 
 InitializeClass(FieldDiff)

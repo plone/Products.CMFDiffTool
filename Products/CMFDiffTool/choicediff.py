@@ -1,10 +1,9 @@
-from zope.component import getUtility
+# -*- coding: utf-8 -*-
 from App.class_init import InitializeClass
-
-from Products.CMFDiffTool.TextDiff import AsTextDiff
-
 from plone.dexterity.interfaces import IDexterityFTI
 from plone.dexterity.utils import getAdditionalSchemata
+from Products.CMFDiffTool.TextDiff import AsTextDiff
+from zope.component import getUtility
 
 
 def title_or_value(vocabulary, value):

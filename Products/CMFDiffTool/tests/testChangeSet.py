@@ -2,15 +2,13 @@
 #
 # CMFDiffTool tests
 #
-from os import linesep
-from Products.CMFCore.utils import getToolByName
-
-from Products.CMFDiffTool.ChangeSet import BaseChangeSet
 from Acquisition import aq_base
-
+from os import linesep
+from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FUNCTIONAL_TESTING  # NOQA
+from Products.CMFCore.utils import getToolByName
+from Products.CMFDiffTool.ChangeSet import BaseChangeSet
+from Products.CMFPlone.utils import safe_hasattr
 from unittest import TestCase
-
-from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FUNCTIONAL_TESTING
 
 
 class TestChangeSet(TestCase):
@@ -34,15 +32,18 @@ class TestChangeSet(TestCase):
     def setupTestObjects(self):
         self.folder.invokeFactory('Document', 'doc1', title='My Title')
         self.folder.manage_pasteObjects(
-                                     self.folder.manage_copyObjects(['doc1']))
+            self.folder.manage_copyObjects(['doc1']))
 
     def setupTestFolders(self):
         self.folder.invokeFactory('Folder', 'folder1', title='My Folder Title')
-        self.folder.folder1.invokeFactory('Document', 'doc1', title='My Title1')
-        self.folder.folder1.invokeFactory('Document', 'doc2', title='My Title2')
-        self.folder.folder1.invokeFactory('Document', 'doc3', title='My Title3')
+        self.folder.folder1.invokeFactory('Document', 'doc1',
+                                          title='My Title1')
+        self.folder.folder1.invokeFactory('Document', 'doc2',
+                                          title='My Title2')
+        self.folder.folder1.invokeFactory('Document', 'doc3',
+                                          title='My Title3')
         self.folder.manage_pasteObjects(
-                                  self.folder.manage_copyObjects(['folder1']))
+            self.folder.manage_copyObjects(['folder1']))
 
     def testChangeSetUnchanged(self):
         self.setupTestObjects()
@@ -57,7 +58,7 @@ class TestChangeSet(TestCase):
         self.cs.computeDiff(self.folder.doc1, self.folder.copy_of_doc1)
         diffs = self.cs.getDiffs()
         self.assertEqual(len(diffs), 3)
-        self.failIf(diffs[0].same)
+        self.assertFalse(diffs[0].same)
         self.assertEqual(diffs[0].ndiff(),
                          '- My Title%s+ My New Title' % linesep)
 
@@ -83,11 +84,11 @@ class TestChangeSet(TestCase):
         self.cs.computeDiff(self.folder.folder1, self.folder.copy_of_folder1)
         diffs = self.cs.getDiffs()
         self.assertEqual(len(diffs), 2)
-        self.failIf(diffs[0].same)
+        self.assertFalse(diffs[0].same)
         self.assertEqual(diffs[0].ndiff(),
                          '- My Folder Title%s+ My New Title' % linesep)
-        self.failIf(self.cs._added)
-        self.failIf(self.cs._removed)
+        self.assertFalse(self.cs._added)
+        self.assertFalse(self.cs._removed)
         sub_cs = self.cs.getSubDiffs()
         self.assertEqual(len(sub_cs), 3)
         # The sub diffs should show no changes
@@ -105,8 +106,8 @@ class TestChangeSet(TestCase):
         self.assertEqual(len(diffs), 2)
         self.assertTrue(diffs[0].same)
         self.assertTrue(diffs[1].same)
-        self.failIf(self.cs._added)
-        self.failIf(self.cs._removed)
+        self.assertFalse(self.cs._added)
+        self.assertFalse(self.cs._removed)
         sub_cs = self.cs.getSubDiffs()
         self.assertEqual(len(sub_cs), 3)
         for i in range(len(sub_cs)):
@@ -115,7 +116,7 @@ class TestChangeSet(TestCase):
             self.assertEqual(len(sub_diffs), 3)
             # doc1 has changed
             if sub_cs[i].getId() == 'doc1':
-                self.failIf(sub_diffs[0].same)
+                self.assertFalse(sub_diffs[0].same)
                 self.assertEqual(sub_diffs[0].ndiff(),
                                  '- My Title1%s+ My New Title' % linesep)
             else:
@@ -138,13 +139,13 @@ class TestChangeSet(TestCase):
             sub_diffs = sub_cs[i].getDiffs()
             self.assertEqual(len(sub_diffs), 3)
             self.assertTrue(sub_diffs[0].same)
-        self.failIf(self.cs._added)
+        self.assertFalse(self.cs._added)
         self.assertEqual(list(self.cs._removed), ['doc1'])
 
     def testChangeSetFolderDocAdded(self):
         self.setupTestFolders()
         self.folder.copy_of_folder1.invokeFactory('Document', 'doc4',
-                                                         title='My Doc Title')
+                                                  title='My Doc Title')
         self.cs.computeDiff(self.folder.folder1, self.folder.copy_of_folder1)
         diffs = self.cs.getDiffs()
         self.assertEqual(len(diffs), 2)
@@ -158,15 +159,16 @@ class TestChangeSet(TestCase):
             sub_diffs = sub_cs[i].getDiffs()
             self.assertEqual(len(sub_diffs), 3)
             self.assertTrue(sub_diffs[0].same)
-        self.failIf(self.cs._removed)
+        self.assertFalse(self.cs._removed)
         self.assertEqual(list(self.cs._added), ['doc4'])
 
     def testChangeSetFolderReordered(self):
         self.setupTestFolders()
-        if hasattr(aq_base(self.folder.copy_of_folder1), 'moveObjectsToTop'):
+        if safe_hasattr(aq_base(self.folder.copy_of_folder1),
+                        'moveObjectsToTop'):
             self.folder.copy_of_folder1.moveObjectsToTop(['doc3'])
-        elif hasattr(aq_base(self.folder.copy_of_folder1),
-                                                        'moveObjectsByDelta'):
+        elif safe_hasattr(aq_base(self.folder.copy_of_folder1),
+                          'moveObjectsByDelta'):
             self.folder.copy_of_folder1.moveObjectsByDelta(['doc3'], -3)
         else:
             # We don't have an orderable folder give up
@@ -175,8 +177,8 @@ class TestChangeSet(TestCase):
         diffs = self.cs.getDiffs()
         self.assertEqual(len(diffs), 2)
         self.assertTrue(diffs[0].same)
-        self.failIf(self.cs._added)
-        self.failIf(self.cs._removed)
+        self.assertFalse(self.cs._added)
+        self.assertFalse(self.cs._removed)
         sub_cs = self.cs.getSubDiffs()
         self.assertEqual(len(sub_cs), 3)
         # The sub diffs should show no changes
@@ -188,10 +190,10 @@ class TestChangeSet(TestCase):
         # XXX we need an explicit way of noting reorders
 
     def testChangeSetFolderComplex(self):
-        self.setupTestFolders()\
+        self.setupTestFolders()
         # Add a new sub object
         self.folder.copy_of_folder1.invokeFactory('Document', 'doc4',
-                                                         title='My Doc Title')
+                                                  title='My Doc Title')
         # Delete a sub object
         self.folder.copy_of_folder1.manage_delObjects('doc2')
         # Change one object
@@ -199,10 +201,11 @@ class TestChangeSet(TestCase):
         # Change the folder itself
         self.folder.copy_of_folder1.setTitle('My New Title')
         # Move the changed object
-        if hasattr(aq_base(self.folder.copy_of_folder1), 'moveObjectsToTop'):
+        if safe_hasattr(aq_base(self.folder.copy_of_folder1),
+                        'moveObjectsToTop'):
             self.folder.copy_of_folder1.moveObjectsToTop(['doc3'])
-        elif hasattr(aq_base(self.folder.copy_of_folder1),
-                                                        'moveObjectsByDelta'):
+        elif safe_hasattr(aq_base(self.folder.copy_of_folder1),
+                          'moveObjectsByDelta'):
             self.folder.copy_of_folder1.moveObjectsByDelta(['doc3'], -3)
         else:
             # We don't have an orderable folder give up
@@ -211,7 +214,7 @@ class TestChangeSet(TestCase):
         self.cs.computeDiff(self.folder.folder1, self.folder.copy_of_folder1)
         diffs = self.cs.getDiffs()
         self.assertEqual(len(diffs), 2)
-        self.failIf(diffs[0].same)
+        self.assertFalse(diffs[0].same)
         self.assertEqual(diffs[0].ndiff(),
                          '- My Folder Title%s+ My New Title' % linesep)
         self.assertEqual(list(self.cs._added), ['doc4'])
@@ -225,7 +228,7 @@ class TestChangeSet(TestCase):
             sub_diffs = sub_cs[i].getDiffs()
             self.assertEqual(len(sub_diffs), 3)
             if sub_cs[i].getId() == 'doc3':
-                self.failIf(sub_diffs[0].same)
+                self.assertFalse(sub_diffs[0].same)
                 self.assertEqual(sub_diffs[0].ndiff(),
                                  '- My Title3%s+ My New Title' % linesep)
             else:

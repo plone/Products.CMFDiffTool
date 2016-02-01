@@ -1,10 +1,12 @@
-from zope.interface import alsoProvides, noLongerProvides
+# -*- coding: utf-8 -*-
+from .BaseTestCase import BaseATTestCase
+from Products.Archetypes import atapi
 from Products.ATContentTypes.content.document import ATDocument
 from Products.CMFDiffTool.ATCompoundDiff import ATCompoundDiff
-
-from .BaseTestCase import BaseATTestCase
-from zope.component import adapts, provideAdapter
-from Products.Archetypes import atapi
+from zope.component import adapts
+from zope.component import provideAdapter
+from zope.interface import alsoProvides
+from zope.interface import noLongerProvides
 
 
 class TestATCompoundDiff(BaseATTestCase):
@@ -20,7 +22,7 @@ class TestATCompoundDiff(BaseATTestCase):
         second.setText('<p>Body2</p>', mimetype='text/html')
         fd = ATCompoundDiff(first, second, None)
         # There should be some fields
-        self.failUnless(len(fd))
+        self.assertTrue(len(fd))
         for field in fd:
             # We've changed the body
             if field.label == 'label_body_text':
@@ -44,7 +46,8 @@ class TestATCompoundDiff(BaseATTestCase):
         # Add a schema extended field to an ATDocument and test that
         # the compound diff can read it
         from archetypes.schemaextender.field import ExtensionField
-        from archetypes.schemaextender.tests.mocks import IHighlighted, Extender
+        from archetypes.schemaextender.tests.mocks import Extender
+        from archetypes.schemaextender.tests.mocks import IHighlighted
 
         # custom field class which does not set attributes directly on the
         # content
@@ -67,10 +70,10 @@ class TestATCompoundDiff(BaseATTestCase):
                 HighlightedField('schemaextender_test',
                                  schemata='settings',
                                  widget=atapi.BooleanWidget(
-                                                    label="Extended",
-                                                    description=""),
+                                     label='Extended',
+                                     description=''),
                                  ),
-                      ]
+            ]
 
         """Ensure that tool instances implement the portal_diff interface"""
         provideAdapter(TestSchemaExtender,
@@ -86,4 +89,4 @@ class TestATCompoundDiff(BaseATTestCase):
         field = fd[-1]
         self.assertEqual(field.oldValue, False)
         self.assertEqual(field.newValue, True)
-        self.assertEqual(field.label, "Extended")
+        self.assertEqual(field.label, 'Extended')

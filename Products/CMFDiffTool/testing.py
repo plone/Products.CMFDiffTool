@@ -1,13 +1,15 @@
-#coding=utf8
+# -*- coding: utf-8 -*-
+from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FIXTURE
+from plone.app.testing import FunctionalTesting
+from plone.app.testing import PloneSandboxLayer
+from plone.app.testing.bbb import PTC_FIXTURE
 from plone.dexterity.fti import DexterityFTI
 from Products.CMFCore.utils import getToolByName
-from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope.component import getSiteManager
 from zope.schema.interfaces import IVocabularyFactory
+from zope.schema.vocabulary import SimpleTerm
+from zope.schema.vocabulary import SimpleVocabulary
 
-from plone.app.testing.bbb import PTC_FIXTURE
-from plone.app.testing import PloneSandboxLayer
-from plone.app.testing import FunctionalTesting
 
 TEST_CONTENT_TYPE_ID = 'TestContentType'
 
@@ -26,12 +28,12 @@ def vocabulary_factory(context):
 
 class DXLayer(PloneSandboxLayer):
 
-    defaultBases = (PTC_FIXTURE, )
+    defaultBases = (PLONE_APP_CONTENTTYPES_FIXTURE, )
 
     def setUpPloneSite(self, portal):
-        """Set up additional products and ZCML required to test
+        '''Set up additional products and ZCML required to test
         this product.
-        """
+        '''
         # setup dexterity
         types_tool = getToolByName(portal, 'portal_types')
 
@@ -53,28 +55,28 @@ class DXLayer(PloneSandboxLayer):
                 'plone.app.contenttypes.behaviors.collection.ICollection',
             ),
             model_source='''
-            <model xmlns="http://namespaces.plone.org/supermodel/schema">
+            <model xmlns='http://namespaces.plone.org/supermodel/schema'>
                 <schema>
-                    <field name="text" type="zope.schema.Text">
+                    <field name='text' type='zope.schema.Text'>
                         <title>Text</title>
                         <required>False</required>
                     </field>
-                    <field name="file" type="plone.namedfile.field.NamedFile">
+                    <field name='file' type='plone.namedfile.field.NamedFile'>
                         <title>File</title>
                         <required>False</required>
                     </field>
-                    <field name="date" type="zope.schema.Date">
+                    <field name='date' type='zope.schema.Date'>
                         <title>Date</title>
                         <required>False</required>
                     </field>
-                    <field name="files" type="zope.schema.List">
+                    <field name='files' type='zope.schema.List'>
                         <title>Date</title>
                         <required>False</required>
-                        <value_type type="plone.namedfile.field.NamedFile">
+                        <value_type type='plone.namedfile.field.NamedFile'>
                             <title>Val</title>
                         </value_type>
                     </field>
-                    <field name="choice" type="zope.schema.Choice">
+                    <field name='choice' type='zope.schema.Choice'>
                         <title>Choice</title>
                         <required>False</required>
                         <vocabulary>Products.CMFDiffTool.testing.VOCABULARY</vocabulary>
@@ -103,8 +105,8 @@ class ATLayer(PloneSandboxLayer):
 PACKAGE_AT_FIXTURE = ATLayer()
 
 CMFDiffToolLayer = FunctionalTesting(
-    bases=(PTC_FIXTURE, ), name="Products.CMFDiffTool:functional")
+    bases=(PTC_FIXTURE, ), name='Products.CMFDiffTool:functional')
 CMFDiffToolDXLayer = FunctionalTesting(
-    bases=(PACKAGE_DX_FIXTURE, ), name="Products.CMFDiffTool.DX:functional")
+    bases=(PACKAGE_DX_FIXTURE, ), name='Products.CMFDiffTool.DX:functional')
 CMFDiffToolATLayer = FunctionalTesting(
-    bases=(PACKAGE_AT_FIXTURE, ), name="Products.CMFDiffTool.AT:functional")
+    bases=(PACKAGE_AT_FIXTURE, ), name='Products.CMFDiffTool.AT:functional')

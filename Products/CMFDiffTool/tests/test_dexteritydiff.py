@@ -1,14 +1,11 @@
-from datetime import date
-
-from plone.namedfile import NamedFile
-from Products.CMFDiffTool.interfaces import IDifference
-
+# -*- coding: utf-8 -*-
 from .BaseTestCase import BaseDXTestCase
-
+from datetime import date
+from plone.namedfile import NamedFile
+from Products.CMFDiffTool import testing
 from Products.CMFDiffTool.dexteritydiff import DexterityCompoundDiff
 from Products.CMFDiffTool.dexteritydiff import EXCLUDED_FIELDS
-
-from Products.CMFDiffTool import testing
+from Products.CMFDiffTool.interfaces import IDifference
 
 
 class DexterityDiffTestCase(BaseDXTestCase):

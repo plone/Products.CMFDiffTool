@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from os import linesep
 from App.class_init import InitializeClass
+from os import linesep
 from Products.CMFDiffTool.BaseDiff import _getValue
 from Products.CMFDiffTool.FieldDiff import FieldDiff
 
@@ -8,7 +8,7 @@ from Products.CMFDiffTool.FieldDiff import FieldDiff
 class BinaryDiff(FieldDiff):
     """Simple binary difference"""
 
-    meta_type = "Binary Diff"
+    meta_type = 'Binary Diff'
     inlinediff_fmt = """
 <div class="%s">
     <del>%s</del>
@@ -26,10 +26,14 @@ class BinaryDiff(FieldDiff):
             return [self.filenameTitle(filename)]
 
     def testChanges(self, ob):
-        """Test the specified object to determine if the change set will apply without errors"""
+        """
+        Test the specified object to determine if the change set will
+        apply without errors
+        """
         value = _getValue(ob, self.field)
         if not self.same and value != self.oldValue:
-            raise ValueError, ("Conflict Error during merge", self.field, value, self.oldValue)
+            raise ValueError('Conflict Error during merge',
+                             self.field, value, self.oldValue)
 
     def applyChanges(self, ob):
         """Update the specified object with the difference"""

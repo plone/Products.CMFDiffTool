@@ -3,58 +3,63 @@
 # CMFDiffTool tests
 #
 from os import linesep
-from Testing import ZopeTestCase
-from Products.CMFDiffTool.FieldDiff import FieldDiff
+from plone.app.testing import PLONE_INTEGRATION_TESTING
 from Products.CMFDiffTool.FieldDiff import dump
+from Products.CMFDiffTool.FieldDiff import FieldDiff
+from unittest import TestCase
+
 
 _marker = []
 
 
 class A:
-    attribute = "value"
+    attribute = 'value'
 
     def method(self):
-        return "method value"
+        return 'method value'
 
 
 class B:
-    attribute = "different value"
+    attribute = 'different value'
 
     def method(self):
-        return "different method value"
+        return 'different method value'
 
 
 class U:
     attribute = u"\xfcnicode value"
+
     def method(self):
         return u"different method val\xfce"
 
 
-class TestFieldDiff(ZopeTestCase.ZopeTestCase):
+class TestFieldDiff(TestCase):
     """Test the FieldDiff class"""
+
+    layer = PLONE_INTEGRATION_TESTING
 
     def testInterface(self):
         """Ensure that tool instances implement the portal_diff interface"""
         from Products.CMFDiffTool.interfaces.portal_diff import IDifference
-        self.failUnless(IDifference.implementedBy(FieldDiff))
+        self.assertTrue(IDifference.implementedBy(FieldDiff))
 
     def testAttributeSame(self):
         """Test attribute with same value"""
         a = A()
         fd = FieldDiff(a, a, 'attribute')
-        self.failUnless(fd.same)
+        self.assertTrue(fd.same)
         uu = U()
         fd = FieldDiff(uu, uu, 'attribute')
-        self.failUnless(fd.same)
+        self.assertTrue(fd.same)
 
     def testMethodSame(self):
         """Test method with same value"""
         a = A()
         fd = FieldDiff(a, a, 'method')
-        self.failUnless(fd.same)
+        self.assertTrue(fd.same)
         uu = U()
         fd = FieldDiff(uu, uu, 'method')
-        self.failUnless(fd.same)
+        self.assertTrue(fd.same)
 
     def testAttributeDiff(self):
         """Test attribute with different value"""
@@ -62,9 +67,9 @@ class TestFieldDiff(ZopeTestCase.ZopeTestCase):
         b = B()
         uu = U()
         fd = FieldDiff(a, b, 'attribute')
-        self.failIf(fd.same)
+        self.assertFalse(fd.same)
         fd = FieldDiff(a, uu, 'attribute')
-        self.failIf(fd.same)
+        self.assertFalse(fd.same)
 
     def testMethodDiff(self):
         """Test method with different value"""
@@ -72,9 +77,9 @@ class TestFieldDiff(ZopeTestCase.ZopeTestCase):
         b = B()
         uu = U()
         fd = FieldDiff(a, b, 'method')
-        self.failIf(fd.same)
+        self.assertFalse(fd.same)
         fd = FieldDiff(a, uu, 'method')
-        self.failIf(fd.same)
+        self.assertFalse(fd.same)
 
     def testGetLineDiffsSame(self):
         """test getLineDiffs() method with same value"""
@@ -113,7 +118,7 @@ class TestFieldDiff(ZopeTestCase.ZopeTestCase):
         a = A()
         b = B()
         uu = U()
-        expected = "- value%s+ different value" % linesep
+        expected = '- value%s+ different value' % linesep
         fd = FieldDiff(a, b, 'attribute')
         self.assertEqual(fd.ndiff(), expected)
         expected = u"- value%s+ \xfcnicode value" % linesep

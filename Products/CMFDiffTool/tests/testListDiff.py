@@ -3,8 +3,10 @@
 # CMFDiffTool tests
 #
 from os import linesep
-from Testing import ZopeTestCase
+from plone.app.testing import PLONE_INTEGRATION_TESTING
 from Products.CMFDiffTool.ListDiff import ListDiff
+from unittest import TestCase
+
 
 _marker = []
 
@@ -17,26 +19,28 @@ class B:
     attribute = [1, 2, 3, 4]
 
 
-class TestListDiff(ZopeTestCase.ZopeTestCase):
+class TestListDiff(TestCase):
     """Test the ListDiff class"""
+
+    layer = PLONE_INTEGRATION_TESTING
 
     def testInterface(self):
         """Ensure that tool instances implement the portal_diff interface"""
         from Products.CMFDiffTool.interfaces.portal_diff import IDifference
-        self.failUnless(IDifference.implementedBy(ListDiff))
+        self.assertTrue(IDifference.implementedBy(ListDiff))
 
     def testAttributeSame(self):
         """Test attribute with same value"""
         a = A()
         diff = ListDiff(a, a, 'attribute')
-        self.failUnless(diff.same)
+        self.assertTrue(diff.same)
 
     def testAttributeDiff(self):
         """Test attribute with different value"""
         a = A()
         b = B()
         diff = ListDiff(a, b, 'attribute')
-        self.failIf(diff.same)
+        self.assertFalse(diff.same)
 
     def testGetLineDiffsSame(self):
         """test getLineDiffs() method with same value"""
@@ -57,14 +61,14 @@ class TestListDiff(ZopeTestCase.ZopeTestCase):
         """Test text diff output with no diff"""
         a = A()
         diff = ListDiff(a, a, 'attribute')
-        expected = "  1%(linesep)s  2%(linesep)s  3" % {'linesep': linesep}
+        expected = '  1%(linesep)s  2%(linesep)s  3' % {'linesep': linesep}
         self.assertEqual(diff.ndiff(), expected)
 
     def testDiffText(self):
         """Test text diff output with no diff"""
         a = A()
         b = B()
-        expected = "  1%(linesep)s  2%(linesep)s  3%(linesep)s+ 4" % \
+        expected = '  1%(linesep)s  2%(linesep)s  3%(linesep)s+ 4' % \
                    {'linesep': linesep}
         diff = ListDiff(a, b, 'attribute')
         self.assertEqual(diff.ndiff(), expected)

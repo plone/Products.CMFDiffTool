@@ -1,8 +1,9 @@
-from Products.CMFDiffTool.TextDiff import AsTextDiff
+# -*- coding: utf-8 -*-
 from datetime import date
 from Products.CMFDiffTool.interfaces import IDifference
+from Products.CMFDiffTool.TextDiff import AsTextDiff
 
-import unittest2 as unittest
+import unittest
 
 
 class DateDummyType(object):
@@ -37,7 +38,7 @@ class AsTextDiffTestCase(unittest.TestCase):
                 self.assertTrue(str(d1) in inline_diff)
             if d2 is not None:
                 self.assertTrue(str(d2) in inline_diff)
-            #self.assertFalse('None' in inline_diff)
+            # self.assertFalse('None' in inline_diff)
 
     def test_should_diff_boolean_fields(self):
         self._test_diff_bool(False, False, True)
@@ -62,4 +63,4 @@ class AsTextDiffTestCase(unittest.TestCase):
         else:
             self.assertTrue(
                 ('True' in inline_diff) or ('False' in inline_diff))
-            #self.assertFalse('None' in inline_diff)
+            # self.assertFalse('None' in inline_diff)

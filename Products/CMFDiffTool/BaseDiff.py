@@ -4,16 +4,16 @@
    Calculate differences between content objects
 """
 
+from Acquisition import aq_base
+from App.class_init import InitializeClass
+from plone.dexterity.interfaces import IDexterityContent
+from Products.CMFDiffTool import CMFDiffToolMessageFactory as _
+from Products.CMFDiffTool.interfaces import IDifference
+from Products.CMFPlone.utils import safe_hasattr
 from zope.i18n import translate
 from zope.interface import implements
 
 import Acquisition
-from Acquisition import aq_base
-from App.class_init import InitializeClass
-from Products.CMFDiffTool.interfaces import IDifference
-from Products.CMFDiffTool import CMFDiffToolMessageFactory as _
-
-from plone.dexterity.interfaces import IDexterityContent
 
 
 class BaseDiff:
@@ -21,7 +21,7 @@ class BaseDiff:
 
     implements(IDifference)
     __allow_access_to_unprotected_subobjects__ = 1
-    meta_type = "Base Diff"
+    meta_type = 'Base Diff'
 
     def __init__(self, obj1, obj2, field, id1=None, id2=None,
                  field_name=None, field_label=None, schemata=None):
@@ -29,9 +29,9 @@ class BaseDiff:
         self.oldValue = _getValue(obj1, field, field_name)
         self.newValue = _getValue(obj2, field, field_name)
         self.same = (self.oldValue == self.newValue)
-        if not id1 and hasattr(obj1, 'getId'):
+        if not id1 and safe_hasattr(obj1, 'getId'):
             id1 = obj1.getId()
-        if not id2 and hasattr(obj2, 'getId'):
+        if not id2 and safe_hasattr(obj2, 'getId'):
             id2 = obj2.getId()
         self.id1 = id1
         self.id2 = id2
@@ -39,11 +39,11 @@ class BaseDiff:
         self.schemata = schemata or 'default'
         fld1 = _getValue(obj1, field, field_name, convert_to_str=False)
         fld2 = _getValue(obj2, field, field_name, convert_to_str=False)
-        if hasattr(fld1, 'getFilename'):
+        if safe_hasattr(fld1, 'getFilename'):
             self.oldFilename = fld1.getFilename()
         else:
             self.oldFilename = None
-        if hasattr(fld2, 'getFilename'):
+        if safe_hasattr(fld2, 'getFilename'):
             self.newFilename = fld2.getFilename()
         else:
             self.newFilename = None
@@ -74,16 +74,16 @@ def _getValue(ob, field, field_name, convert_to_str=True):
     # will work
     if IDexterityContent.providedBy(ob) and field:
         value = getattr(ob, field, None)
-    elif field and hasattr(aq_base(ob), field):
+    elif field and safe_hasattr(aq_base(ob), field):
         value = getattr(ob, field)
-    elif hasattr(aq_base(ob), 'getField'):
+    elif safe_hasattr(aq_base(ob), 'getField'):
         # Archetypes with an adapter extended schema needs special handling
         field = ob.getField(field_name)
         if field is None:
-            raise AttributeError, field
+            raise AttributeError(field)
         value = field.getAccessor(ob)
     else:
-        raise AttributeError, field
+        raise AttributeError(field)
 
     # Handle case where the field is a method
     try:

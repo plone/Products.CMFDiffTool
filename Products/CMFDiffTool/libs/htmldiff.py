@@ -13,9 +13,10 @@ Better results if you use mxTidy first.  The output is HTML.
 """
 
 from difflib import SequenceMatcher
-import re
 from StringIO import StringIO
+
 import cgi
+import re
 
 
 def htmlEncode(s, esc=cgi.escape):
@@ -69,7 +70,7 @@ class HTMLMatcher(SequenceMatcher):
         a = self.a
         b = self.b
         out = StringIO()
-        #print [o[0] for o in opcodes]
+        #  print [o[0] for o in opcodes]
         for tag, i1, i2, j1, j2 in opcodes:
             if tag == 'equal':
                 for item in a[i1:i2]:
@@ -135,8 +136,8 @@ class HTMLMatcher(SequenceMatcher):
             pos = match.end()
         else:
             pos = 0
-        return ('%s<style type="text/css"><!--\n%s\n--></style>%s'
-                % (html[:pos], ss, html[pos:]))
+        return ('{0}<style type="text/css"><!--\n{1}\n--></style>{2}'.format(
+            html[:pos], ss, html[pos:]))
 
     def startInsertText(self):
         return '<span class="insert">'
@@ -151,10 +152,12 @@ class HTMLMatcher(SequenceMatcher):
         return '</span> '
 
     def formatInsertTag(self, tag):
-        return '<span class="tagInsert">insert: <tt>%s</tt></span> ' % htmlEncode(tag)
+        return ('<span class="tagInsert">insert: <tt>%s</tt></span> ' %
+                htmlEncode(tag))
 
     def formatDeleteTag(self, tag):
-        return '<span class="tagDelete">delete: <tt>%s</tt></span> ' % htmlEncode(tag)
+        return ('<span class="tagDelete">delete: <tt>%s</tt></span> ' %
+                htmlEncode(tag))
 
 
 class NoTagHTMLMatcher(HTMLMatcher):
@@ -170,7 +173,7 @@ def htmldiff(source1, source2, addStylesheet=False):
     Return the difference between two pieces of HTML
 
         >>> htmldiff('test1', 'test2')
-        '<span class="delete">test1 </span> <span class="insert">test2 </span> '
+        '<span class="delete">test1 </span> <span class="insert">test2 </span> '  # NOQA
         >>> htmldiff('test1', 'test1')
         'test1 '
         >>> htmldiff('<b>test1</b>', '<i>test1</i>')
@@ -265,10 +268,10 @@ class TextMatcher(HTMLMatcher):
 if __name__ == '__main__':
     import sys
     if not sys.argv[1:]:
-        print "Usage: %s file1 file2" % sys.argv[0]
-        print "or to test: %s test" % sys.argv[0]
+        print('Usage: %s file1 file2' % sys.argv[0])  # NOQA
+        print('or to test: %s test' % sys.argv[0])  # NOQA
     elif sys.argv[1] == 'test' and not sys.argv[2:]:
         import doctest
         doctest.testmod()
     else:
-        print diffFiles(sys.argv[1], sys.argv[2])
+        print(diffFiles(sys.argv[1], sys.argv[2]))  # NOQA

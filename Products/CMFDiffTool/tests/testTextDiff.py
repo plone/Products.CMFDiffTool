@@ -1,61 +1,64 @@
 # -*- coding: utf-8 -*-
 
 from os import linesep
+from plone.app.testing import PLONE_INTEGRATION_TESTING
+from Products.CMFDiffTool.TextDiff import TextDiff
+from unittest import TestCase
+
 import sys
 
-from Testing import ZopeTestCase
-from Products.CMFDiffTool.TextDiff import TextDiff
 
 _marker = []
 
 
 class A:
-    attribute = "कामसूत्र"
+    attribute = 'कामसूत्र'
 
     def method(self):
-        return "method कामसूत्र"
+        return 'method कामसूत्र'
 
 
 class B:
-    attribute = "過労死"
+    attribute = '過労死'
 
     def method(self):
-        return "method 過労死"
+        return 'method 過労死'
 
 
-class TestTextDiff(ZopeTestCase.ZopeTestCase):
+class TestTextDiff(TestCase):
     """Test the TextDiff class"""
+    layer = PLONE_INTEGRATION_TESTING
 
     def testInterface(self):
         """Ensure that tool instances implement the portal_diff interface"""
         from Products.CMFDiffTool.interfaces import IDifference
-        self.failUnless(IDifference.implementedBy(TextDiff))
+        self.assertTrue(IDifference.implementedBy(TextDiff))
 
     def testAttributeSame(self):
         """Test attribute with same value"""
         a = A()
         fd = TextDiff(a, a, 'attribute')
-        self.failUnless(fd.same)
+        self.assertTrue(fd.same)
 
     def testMethodSame(self):
         """Test method with same value"""
         a = A()
         fd = TextDiff(a, a, 'method')
-        self.failUnless(fd.same)
+        self.assertTrue(fd.same)
 
     def testAttributeDiff(self):
         """Test attribute with different value"""
         a = A()
         b = B()
         fd = TextDiff(a, b, 'attribute')
-        self.failIf(fd.same)
+        self.assertFalse(fd.same)
 
     def testMethodDiff(self):
         """Test method with different value"""
         a = A()
         b = B()
         fd = TextDiff(a, b, 'method')
-        self.failIf(fd.same)
+        self.assertFalse(fd.same)
 
     def testGetLineDiffsSame(self):
         """test getLineDiffs() method with same value"""
@@ -82,7 +85,7 @@ class TestTextDiff(ZopeTestCase.ZopeTestCase):
         """Test text diff output with different value"""
         a = A()
         b = B()
-        expected = "- कामसूत्र%s+ 過労死" % linesep
+        expected = '- कामसूत्र%s+ 過労死' % linesep
         fd = TextDiff(a, b, 'attribute')
         self.assertEqual(fd.ndiff(), expected)
 
@@ -100,9 +103,9 @@ class TestTextDiff(ZopeTestCase.ZopeTestCase):
 -कामसूत्र
 +過労死"""
         else:
-            expected = """--- None 
+            expected = """--- None
 
-+++ None 
++++ None
 
 @@ -1,1 +1,1 @@
 
@@ -124,6 +127,6 @@ class TestTextDiff(ZopeTestCase.ZopeTestCase):
         <tbody>
             <tr><td class="diff_next" id="difflib_chg_to0__0"><a href="#difflib_chg_to0__top">t</a></td><td class="diff_header" id="from0_1">1</td><td nowrap="nowrap"><span class="diff_sub">कामसूत्र</span></td><td class="diff_next"><a href="#difflib_chg_to0__top">t</a></td><td class="diff_header" id="to0_1">1</td><td nowrap="nowrap"><span class="diff_add">過労死</span></td></tr>
         </tbody>
-    </table>"""
+    </table>"""  # NOQA
         fd = TextDiff(a, b, 'attribute')
         self.assertEqual(fd.html_diff(), expected)

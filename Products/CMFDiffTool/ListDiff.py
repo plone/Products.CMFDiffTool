@@ -6,7 +6,7 @@ from Products.CMFDiffTool.FieldDiff import FieldDiff
 class ListDiff(FieldDiff):
     """Text difference"""
 
-    meta_type = "List Diff"
+    meta_type = 'List Diff'
 
     def _parseField(self, value, filename=None):
         """Parse a field value in preparation for diffing"""

@@ -6,8 +6,8 @@ version = '3.0.3.dev0'
 setup(name='Products.CMFDiffTool',
       version=version,
       description="Diff tool for Plone",
-      long_description=open("README.txt").read() + "\n" +
-                       open("CHANGES.txt").read(),
+      long_description=(open("README.txt").read() + "\n" +
+                        open("CHANGES.txt").read()),
       classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Programming Language :: Python :: 2.7",
@@ -31,6 +31,7 @@ setup(name='Products.CMFDiffTool',
             'plone.namedfile',
             'plone.app.dexterity',
             'plone.app.contenttypes',
+            'plone.app.robotframework',  # Only because plone.app.event fails
         ]
       ),
       install_requires=[
