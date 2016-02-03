@@ -8,6 +8,8 @@ from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FUNCTIONAL_TES
 from Products.CMFCore.utils import getToolByName
 from Products.CMFDiffTool.ChangeSet import BaseChangeSet
 from Products.CMFPlone.utils import safe_hasattr
+from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
 from unittest import TestCase
 
 
@@ -23,6 +25,7 @@ class TestChangeSet(TestCase):
         cs = BaseChangeSet('my_changeset')
         # ChangeSet needs an acquisition wrapper
         self.cs = cs.__of__(self.portal)
+        setRoles(self.portal, TEST_USER_ID, ['Contributor'])
 
     def testInterface(self):
         """Ensure that tool instances implement the portal_diff interface"""
