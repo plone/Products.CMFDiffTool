@@ -4,7 +4,11 @@ Changelog
 3.0.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+Fixes:
+
+- Test fixes.  [do3cc, pbauer]
+
+- Removed ZopeTestCase tests.  [do3cc]
 
 
 3.0.2 (2015-08-13)
@@ -37,7 +41,7 @@ __ https://github.com/plone/Products.CMFPlone/issues/330
 - Ported tests to plone.app.testing
   [tomgross]
 - Fix _getValue() bug for dexterity behaviour empty fields.
-  [sdelcourt] 
+  [sdelcourt]
 
 
 2.1 (2013-05-26)
@@ -238,5 +242,3 @@ __ https://github.com/plone/Products.CMFPlone/issues/330
 
 - Initial version.
   [brentmh]
-
-
