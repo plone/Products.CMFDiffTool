@@ -169,4 +169,11 @@ class DexterityCompoundDiff(object):
         form = DefaultEditForm(obj, getRequest())
         form.portal_type = obj.portal_type
         form.updateFields()
-        return [(form.fields[name].field, name) for name in form.fields]
+        all_fields = list()
+        all_fields += [(form.fields[name].field, name) for name in form.fields]
+        if form.groups:
+            for group in form.groups:
+                all_fields += [(group.fields[name].field, name) for name in group.fields]
+
+        return all_fields
+

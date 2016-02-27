@@ -6,7 +6,8 @@ Changelog
 
 New:
 
-- *add item here*
+- Include fields in additional fieldsets for DX content types
+  [frapell]
 
 Fixes:
 
