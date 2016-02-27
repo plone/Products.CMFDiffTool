@@ -9,10 +9,6 @@ New:
 - Include fields in additional fieldsets for DX content types
   [frapell]
 
-Fixes:
-
-- *add item here*
-
 
 3.0.3 (2016-02-15)
 ------------------
