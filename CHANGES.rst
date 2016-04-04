@@ -10,7 +10,8 @@ Incompatibilities:
 
 New:
 
-- *add item here*
+- Add generic `inline_diff` implementation for FieldDiff.
+  [davisagli]
 
 Fixes:
 
