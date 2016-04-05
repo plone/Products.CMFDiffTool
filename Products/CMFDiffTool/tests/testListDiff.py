@@ -73,4 +73,15 @@ class TestListDiff(TestCase):
         diff = ListDiff(a, b, 'attribute')
         self.assertEqual(diff.ndiff(), expected)
 
-        # FIXME: need tests for other kinds of diffs
+    def test_inline_diff(self):
+        a = A()
+        b = B()
+        expected = """<div class="InlineDiff">1</div>
+<div class="InlineDiff">2</div>
+<div class="InlineDiff">3</div>
+<div class="InlineDiff">
+    <div class="diff_sub"></div>
+    <div class="diff_add">4</div>
+</div>"""
+        diff = ListDiff(a, b, 'attribute')
+        self.assertEqual(diff.inline_diff(), expected)
