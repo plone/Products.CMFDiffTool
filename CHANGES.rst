@@ -4,7 +4,8 @@ Changelog
 2.1.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add generic `inline_diff` implementation for FieldDiff.
+  [davisagli]
 
 
 2.1.2 (2015-09-28)
