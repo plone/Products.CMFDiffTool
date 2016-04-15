@@ -4,6 +4,8 @@ Changelog
 2.1.3 (unreleased)
 ------------------
 
+New features:
+
 - Add generic `inline_diff` implementation for FieldDiff.
   [davisagli]
 
@@ -230,5 +232,3 @@ Changelog
 
 - Initial version.
   [brentmh]
-
-
