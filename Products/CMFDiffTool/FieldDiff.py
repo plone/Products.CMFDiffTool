@@ -1,20 +1,12 @@
 # -*- coding: utf-8 -*-
 import difflib
 from App.class_init import InitializeClass
-from os import linesep
 from Products.CMFDiffTool.BaseDiff import BaseDiff, _getValue
-
 
 class FieldDiff(BaseDiff):
     """Text difference"""
 
     meta_type = "Field Diff"
-
-    same_fmt = """<div class="%s">%s</div>"""
-    inlinediff_fmt = """<div class="%s">
-    <div class="diff_sub">%s</div>
-    <div class="diff_add">%s</div>
-</div>"""
 
     def _parseField(self, value, filename=None):
         """Parse a field value in preparation for diffing"""
@@ -63,33 +55,6 @@ class FieldDiff(BaseDiff):
             else:
                 raise ValueError, 'unknown tag ' + `tag`
         return '\n'.join(r)
-
-    def inline_diff(self):
-        css_class = 'InlineDiff'
-        inlinediff_fmt = self.inlinediff_fmt
-        same_fmt = self.same_fmt
-        r=[]
-        a = self._parseField(self.oldValue, filename=self.oldFilename)
-        b = self._parseField(self.newValue, filename=self.newFilename)
-        for tag, alo, ahi, blo, bhi in self.getLineDiffs():
-            if tag == 'replace':
-                for i in xrange(alo, ahi):
-                    r.append(inlinediff_fmt % (css_class, a[i], ''))
-                for i in xrange(blo, bhi):
-                    r.append(inlinediff_fmt % (css_class, '', b[i]))
-            elif tag == 'delete':
-                for i in xrange(alo, ahi):
-                    r.append(inlinediff_fmt % (css_class, a[i], ''))
-            elif tag == 'insert':
-                for i in xrange(blo, bhi):
-                    r.append(inlinediff_fmt % (css_class, '', b[i]))
-            elif tag == 'equal':
-                for i in xrange(alo, ahi):
-                    r.append(same_fmt % (css_class, a[i]))
-            else:
-                raise ValueError('unknown tag ' + `tag`)
-        return '\n'.join(r)
-
 
 InitializeClass(FieldDiff)
 
