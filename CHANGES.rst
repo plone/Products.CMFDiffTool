@@ -4,18 +4,10 @@ Changelog
 3.0.5 (unreleased)
 ------------------
 
-Incompatibilities:
-
-- *add item here*
-
-New:
+New features:
 
 - Add generic `inline_diff` implementation for FieldDiff.
   [davisagli]
-
-Fixes:
-
-- *add item here*
 
 
 3.0.4 (2016-02-27)
