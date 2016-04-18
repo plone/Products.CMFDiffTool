@@ -4,17 +4,10 @@ Changelog
 3.1.1 (unreleased)
 ------------------
 
-Breaking changes:
-
-- *add item here*
-
-New features:
-
-- *add item here*
-
 Bug fixes:
 
-- *add item here*
+- Rerelease, as 3.1.0 was broken on one of our test servers.  Should
+  be fine elsewhere.  [maurits]
 
 
 3.1.0 (2016-04-15)
