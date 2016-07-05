@@ -14,7 +14,7 @@ from Acquisition import Implicit
 from ComputedAttribute import ComputedAttribute
 from Products.CMFCore.utils import getToolByName
 from Products.CMFDiffTool.interfaces import IChangeSet
-from zope.interface import implements
+from zope.interface import implementer
 
 import logging
 
@@ -22,10 +22,9 @@ import logging
 logger = logging.getLogger('CMFDiffTool')
 
 
+@implementer(IChangeSet)
 class BaseChangeSet(Implicit):
     """A ChangeSet represents the set of differences between two objects"""
-
-    implements(IChangeSet)
     # This should really not be needed just for same, we should use a method
     __allow_access_to_unprotected_subobjects__ = 1
     security = ClassSecurityInfo()

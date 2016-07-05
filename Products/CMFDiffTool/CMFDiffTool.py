@@ -15,9 +15,10 @@ from Products.CMFDiffTool.interfaces import IDiffTool
 from Products.CMFPlone.utils import safe_hasattr
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from zExceptions import BadRequest
-from zope.interface import implements
+from zope.interface import implementer
 
 
+@implementer(IDiffTool)
 class CMFDiffTool(UniqueObject, SimpleItem):
     """ """
 
@@ -30,8 +31,6 @@ class CMFDiffTool(UniqueObject, SimpleItem):
                       {'label': 'Overview', 'action': 'manage_overview'},
                        ) + SimpleItem.manage_options
                       )
-
-    implements(IDiffTool)
 
     #  Internal attributes
     _difftypes = {}

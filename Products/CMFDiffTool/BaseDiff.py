@@ -11,15 +11,14 @@ from Products.CMFDiffTool import CMFDiffToolMessageFactory as _
 from Products.CMFDiffTool.interfaces import IDifference
 from Products.CMFPlone.utils import safe_hasattr
 from zope.i18n import translate
-from zope.interface import implements
+from zope.interface import implementer
 
 import Acquisition
 
 
+@implementer(IDifference)
 class BaseDiff:
     """Basic diff type"""
-
-    implements(IDifference)
     __allow_access_to_unprotected_subobjects__ = 1
     meta_type = 'Base Diff'
 
