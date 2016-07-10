@@ -4,13 +4,13 @@ from Products.CMFDiffTool.interfaces import IDiffTool
 from Products.GenericSetup.utils import exportObjects
 from Products.GenericSetup.utils import importObjects
 from Products.GenericSetup.utils import XMLAdapterBase
-from zope.interface import implements
+from zope.interface import implementer
 
 
+@implementer(IDiffTool)
 class DiffToolXMLAdapter(XMLAdapterBase):
     '''In- and exporter for DiffTool.
     '''
-    implements(IDiffTool)
 
     name = 'diff_tool'
 
