@@ -14,6 +14,7 @@ setup(
         "Programming Language :: Python :: 2.7",
         "Framework :: Plone",
         "Framework :: Plone :: 5.0",
+        "Framework :: Plone :: 5.1",
         "Topic :: Internet :: WWW/HTTP",
     ],
     keywords='Diff Plone',
