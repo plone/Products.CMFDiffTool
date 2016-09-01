@@ -11,6 +11,10 @@ class ListDiff(FieldDiff):
     def _parseField(self, value, filename=None):
         """Parse a field value in preparation for diffing"""
         # Return the list as is for diffing
-        return value
+        if type(value) is set:
+            # A set cannot be indexed, so return a list of a set
+            return list(value)
+        else:
+            return value
 
 InitializeClass(ListDiff)
