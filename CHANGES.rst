@@ -14,7 +14,7 @@ New features:
 
 Bug fixes:
 
-- Fix error in showing changes to objects of type "set"
+- Fix error in showing changes to objects of type "set" [deankarlen]
 
 
 3.1.2 (2016-07-29)
