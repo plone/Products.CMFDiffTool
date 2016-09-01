@@ -14,7 +14,7 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Fix error when showing changes to objects of type "set" [deankarlen]
 
 
 2.2.0 (2016-04-15)
