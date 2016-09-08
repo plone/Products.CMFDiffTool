@@ -4,14 +4,6 @@ Changelog
 3.1.3 (unreleased)
 ------------------
 
-Breaking changes:
-
-- *add item here*
-
-New features:
-
-- *add item here*
-
 Bug fixes:
 
 - Fix error in showing changes to objects of type "set" [deankarlen]
