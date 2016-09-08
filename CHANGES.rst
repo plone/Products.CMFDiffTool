@@ -4,14 +4,6 @@ Changelog
 2.2.1 (unreleased)
 ------------------
 
-Breaking changes:
-
-- *add item here*
-
-New features:
-
-- *add item here*
-
 Bug fixes:
 
 - Fix error when showing changes to objects of type "set" [deankarlen]
