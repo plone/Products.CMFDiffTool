@@ -14,7 +14,7 @@ New features:
 
 Bug fixes:
 
-- Fixed AttributeError: 'NoneType' object has no attribute x (lists)  [rristow]
+- Fixed AttributeError: 'NoneType' object has no attribute x (lists) [rristow]
 
 
 3.1.3 (2016-09-09)
