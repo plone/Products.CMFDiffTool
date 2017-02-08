@@ -29,6 +29,24 @@ class TestListDiff(TestCase):
         from Products.CMFDiffTool.interfaces.portal_diff import IDifference
         self.assertTrue(IDifference.implementedBy(ListDiff))
 
+    def testInvalidValue(self):
+        """ Test if no error with invalid values """
+        a = A()
+        a.attribute = []
+        b = A()
+
+        b.attribute = None
+        diff = ListDiff(a, b, 'attribute')
+        self.assertEqual([('insert', 0, 0, 0, 1)], diff.getLineDiffs())
+
+        b.attribute = 0
+        diff = ListDiff(a, b, 'attribute')
+        self.assertEqual([('insert', 0, 0, 0, 1)], diff.getLineDiffs())
+
+        b.attribute = ""
+        diff = ListDiff(a, b, 'attribute')
+        self.assertEqual([('insert', 0, 0, 0, 1)], diff.getLineDiffs())
+
     def testAttributeSame(self):
         """Test attribute with same value"""
         a = A()
