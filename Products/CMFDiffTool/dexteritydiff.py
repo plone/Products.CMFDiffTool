@@ -176,4 +176,3 @@ class DexterityCompoundDiff(object):
                 all_fields += [(group.fields[name].field, name) for name in group.fields]
 
         return all_fields
-

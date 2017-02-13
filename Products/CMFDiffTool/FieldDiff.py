@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from App.class_init import InitializeClass
-from os import linesep
 from Products.CMFDiffTool.BaseDiff import _getValue
 from Products.CMFDiffTool.BaseDiff import BaseDiff
 
@@ -74,7 +73,7 @@ class FieldDiff(BaseDiff):
         css_class = 'InlineDiff'
         inlinediff_fmt = self.inlinediff_fmt
         same_fmt = self.same_fmt
-        r=[]
+        r = []
         a = self._parseField(self.oldValue, filename=self.oldFilename)
         b = self._parseField(self.newValue, filename=self.newFilename)
         for tag, alo, ahi, blo, bhi in self.getLineDiffs():
@@ -93,7 +92,7 @@ class FieldDiff(BaseDiff):
                 for i in xrange(alo, ahi):
                     r.append(same_fmt % (css_class, a[i]))
             else:
-                raise ValueError('unknown tag ' + `tag`)
+                raise ValueError('unknown tag "%s"' % tag)
         return '\n'.join(r)
 
 
