@@ -14,7 +14,8 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Fix tests as contents have 5 more fields from IThumbIconHandling in their
+  schema. [ebrehault]
 
 
 3.1.3 (2016-09-09)
