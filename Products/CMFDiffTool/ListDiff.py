@@ -24,8 +24,7 @@ class RelationListDiff(FieldDiff):
 
     same_fmt = """<div class="%s"><a target="_blank" href="%s">%s</a></div>"""
     inlinediff_fmt = """<div class="%s">
-        <div class="diff_sub"><a target="_blank" href="%s">%s</a></div>
-        <div class="diff_add"><a target="_blank" href="%s">%s</a></div>
+        <div class="%s"><a target="_blank" href="%s">%s</a></div>
     </div>"""
 
     def _parseField(self, value, filename=None):
@@ -52,24 +51,24 @@ class RelationListDiff(FieldDiff):
                     obj = self.oldValue[i]
                     obj_title = obj.Title()
                     obj_url = obj.absolute_url()
-                    r.append(inlinediff_fmt % (css_class, obj_url, obj_title, '', ''))
+                    r.append(inlinediff_fmt % (css_class, "diff_sub", obj_url, obj_title))
                 for i in xrange(blo, bhi):
                     obj = self.newValue[i]
                     obj_title = obj.Title()
                     obj_url = obj.absolute_url()
-                    r.append(inlinediff_fmt % (css_class, '', '', obj_url, obj_title))
+                    r.append(inlinediff_fmt % (css_class, "diff_add", obj_url, obj_title))
             elif tag == 'delete':
                 for i in xrange(alo, ahi):
                     obj = self.oldValue[i]
                     obj_title = obj.Title()
                     obj_url = obj.absolute_url()
-                    r.append(inlinediff_fmt % (css_class, obj_url, obj_title, '', ''))
+                    r.append(inlinediff_fmt % (css_class, "diff_sub", obj_url, obj_title))
             elif tag == 'insert':
                 for i in xrange(blo, bhi):
                     obj = self.newValue[i]
                     obj_title = obj.Title()
                     obj_url = obj.absolute_url()
-                    r.append(inlinediff_fmt % (css_class, '', '', obj_url, obj_title))
+                    r.append(inlinediff_fmt % (css_class, "diff_add", obj_url, obj_title))
             elif tag == 'equal':
                 for i in xrange(alo, ahi):
                     obj = self.oldValue[i]
