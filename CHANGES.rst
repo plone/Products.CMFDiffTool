@@ -10,7 +10,9 @@ Breaking changes:
 
 New features:
 
-- *add item here*
+- When field is a Relation List, get the referenced objects instead of diffing
+  on the actual reference objects.
+  [frapell]
 
 Bug fixes:
 

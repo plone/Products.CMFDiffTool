@@ -10,6 +10,7 @@ from plone.dexterity.interfaces import IDexterityContent
 from Products.CMFDiffTool import CMFDiffToolMessageFactory as _
 from Products.CMFDiffTool.interfaces import IDifference
 from Products.CMFPlone.utils import safe_hasattr
+from z3c.relationfield.relation import RelationValue
 from zope.i18n import translate
 from zope.interface import implementer
 
@@ -89,6 +90,27 @@ def _getValue(ob, field, field_name, convert_to_str=True):
         value = value()
     except (AttributeError, TypeError):
         pass
+
+    new_value = value
+    if isinstance(value, list) or isinstance(value, tuple):
+        new_value = list()
+        for val in value:
+            if isinstance(val, RelationValue):
+                try:
+                    obj = val.to_object
+                except:
+                    obj = None
+                new_value.append(obj)
+        if isinstance(value, tuple):
+            new_value = tuple(new_value)
+    value = new_value
+
+    if isinstance(value, RelationValue):
+        try:
+            obj = value.to_object
+        except:
+            obj = None
+        value = obj
 
     if convert_to_str:
         # If this is some object, convert it to a string
