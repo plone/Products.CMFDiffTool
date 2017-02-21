@@ -101,6 +101,8 @@ def _getValue(ob, field, field_name, convert_to_str=True):
                 except:
                     obj = None
                 new_value.append(obj)
+            else:
+                new_value.append(val)
         if isinstance(value, tuple):
             new_value = tuple(new_value)
     value = new_value
