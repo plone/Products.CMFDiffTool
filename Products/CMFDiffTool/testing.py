@@ -51,7 +51,7 @@ class DXLayer(PloneSandboxLayer):
             behaviors=(
                 'plone.app.versioningbehavior.behaviors.IVersionable',
                 'plone.app.dexterity.behaviors.metadata.IBasic',
-                'plone.app.dexterity.behaviors.metadata.IRelatedItems',
+                'plone.app.relationfield.behavior.IRelatedItems',
                 'plone.app.contenttypes.behaviors.collection.ICollection',
             ),
             model_source='''

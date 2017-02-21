@@ -6,6 +6,9 @@ from Products.CMFDiffTool import testing
 from Products.CMFDiffTool.dexteritydiff import DexterityCompoundDiff
 from Products.CMFDiffTool.dexteritydiff import EXCLUDED_FIELDS
 from Products.CMFDiffTool.interfaces import IDifference
+from z3c.relationfield.relation import RelationValue
+from zope.component import getUtility
+from zope.intid.interfaces import IIntIds
 
 
 class DexterityDiffTestCase(BaseDXTestCase):
@@ -102,3 +105,52 @@ class DexterityDiffTestCase(BaseDXTestCase):
         fields = [d.field for d in diffs]
         self.assertIn('title', fields)
         self.assertIn('description', fields)
+
+    def test_should_provide_diff_for_related_fields(self):
+        intids = getUtility(IIntIds)
+
+        self.portal.invokeFactory(
+            testing.TEST_CONTENT_TYPE_ID,
+            'obj1',
+            title=u'Object 1',
+            description=u'Desc 1',
+            text=u'Text 1'
+        )
+        obj1 = self.portal['obj1']
+
+        intid = intids.register(obj1)
+        self.portal.invokeFactory(
+            testing.TEST_CONTENT_TYPE_ID,
+            'obj2',
+            title=u'Object 2',
+            relatedItems=[RelationValue(intid)],
+        )
+        obj2 = self.portal['obj2']
+
+        intid = intids.register(obj2)
+        self.portal.invokeFactory(
+            testing.TEST_CONTENT_TYPE_ID,
+            'obj3',
+            title=u'Object 3',
+            relatedItems=[RelationValue(intid)],
+        )
+        obj3 = self.portal['obj3']
+
+        diffs = DexterityCompoundDiff(obj2, obj3, 'any')
+        for d in diffs:
+            if d.field == 'relatedItems':
+                inline_diff = d.inline_diff()
+                self.assertTrue(inline_diff)
+                i_diff_sub = inline_diff.index('<div class="diff_sub">')
+                i_obj1 = inline_diff.index('Object 1')
+                i_diff_add = inline_diff.index('<div class="diff_add">')
+                i_obj2 = inline_diff.index('Object 2')
+                self.assertTrue(i_diff_sub < i_obj1 < i_diff_add < i_obj2)
+
+                n_diff = d.ndiff()
+                self.assertTrue(n_diff)
+                i_rem = n_diff.index('-')
+                i_obj1 = n_diff.index('obj1')
+                i_add = n_diff.index('+')
+                i_obj2 = n_diff.index('obj2')
+                self.assertTrue(i_rem < i_obj1 < i_add < i_obj2)
