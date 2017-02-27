@@ -10,12 +10,13 @@ class ListDiff(FieldDiff):
 
     def _parseField(self, value, filename=None):
         """Parse a field value in preparation for diffing"""
-        # Return the list as is for diffing
-        if type(value) is set:
-            # A set cannot be indexed, so return a list of a set
-            return list(value)
-        else:
+        if type(value) is list or type(value) is tuple:
             return value
+        else:
+            if type(value) is set:
+                return list(value)
+            else:
+                return [value]
 
 
 class RelationListDiff(FieldDiff):
@@ -44,7 +45,7 @@ class RelationListDiff(FieldDiff):
         css_class = 'InlineDiff'
         inlinediff_fmt = self.inlinediff_fmt
         same_fmt = self.same_fmt
-        r=[]
+        r = []
         for tag, alo, ahi, blo, bhi in self.getLineDiffs():
             if tag == 'replace':
                 for i in xrange(alo, ahi):
@@ -76,7 +77,7 @@ class RelationListDiff(FieldDiff):
                     obj_url = obj.absolute_url()
                     r.append(same_fmt % (css_class, obj_url, obj_title))
             else:
-                raise ValueError('unknown tag ' + `tag`)
+                raise ValueError('unknown tag %s' % tag)
         return '\n'.join(r)
 
     def ndiff(self):
