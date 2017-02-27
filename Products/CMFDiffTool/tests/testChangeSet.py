@@ -5,11 +5,11 @@
 from Acquisition import aq_base
 from os import linesep
 from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FUNCTIONAL_TESTING  # NOQA
+from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
 from Products.CMFCore.utils import getToolByName
 from Products.CMFDiffTool.ChangeSet import BaseChangeSet
 from Products.CMFPlone.utils import safe_hasattr
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
 from unittest import TestCase
 
 

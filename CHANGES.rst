@@ -16,7 +16,7 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Fixed AttributeError: 'NoneType' if the object doesn't have the expected attribute [rristow]
 
 
 3.1.3 (2016-09-09)
