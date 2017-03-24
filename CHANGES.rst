@@ -4,10 +4,6 @@ Changelog
 3.1.4 (unreleased)
 ------------------
 
-Breaking changes:
-
-- *add item here*
-
 New features:
 
 - When field is a Relation List, get the referenced objects instead of diffing
