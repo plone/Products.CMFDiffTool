@@ -13,7 +13,7 @@ Better results if you use mxTidy first.  The output is HTML.
 """
 
 from difflib import SequenceMatcher
-from StringIO import StringIO
+from six import StringIO
 
 import cgi
 import re
@@ -21,6 +21,7 @@ import re
 
 def htmlEncode(s, esc=cgi.escape):
     return esc(s, 1)
+
 
 commentRE = re.compile('<!--.*?-->', re.S)
 tagRE = re.compile('<.*?>', re.S)
@@ -264,6 +265,7 @@ class TextMatcher(HTMLMatcher):
             if line.startswith(' '):
                 line = '&nbsp;' + line[1:]
             out.write('<tt>%s</tt><br>\n' % line)
+
 
 if __name__ == '__main__':
     import sys

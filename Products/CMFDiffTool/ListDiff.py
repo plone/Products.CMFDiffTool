@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from App.class_init import InitializeClass
 from Products.CMFDiffTool.FieldDiff import FieldDiff
+from six.moves import range
 
 
 class ListDiff(FieldDiff):
@@ -48,30 +49,34 @@ class RelationListDiff(FieldDiff):
         r = []
         for tag, alo, ahi, blo, bhi in self.getLineDiffs():
             if tag == 'replace':
-                for i in xrange(alo, ahi):
+                for i in range(alo, ahi):
                     obj = self.oldValue[i]
                     obj_title = obj.Title()
                     obj_url = obj.absolute_url()
-                    r.append(inlinediff_fmt % (css_class, "diff_sub", obj_url, obj_title))
-                for i in xrange(blo, bhi):
+                    r.append(inlinediff_fmt %
+                             (css_class, "diff_sub", obj_url, obj_title))
+                for i in range(blo, bhi):
                     obj = self.newValue[i]
                     obj_title = obj.Title()
                     obj_url = obj.absolute_url()
-                    r.append(inlinediff_fmt % (css_class, "diff_add", obj_url, obj_title))
+                    r.append(inlinediff_fmt %
+                             (css_class, "diff_add", obj_url, obj_title))
             elif tag == 'delete':
-                for i in xrange(alo, ahi):
+                for i in range(alo, ahi):
                     obj = self.oldValue[i]
                     obj_title = obj.Title()
                     obj_url = obj.absolute_url()
-                    r.append(inlinediff_fmt % (css_class, "diff_sub", obj_url, obj_title))
+                    r.append(inlinediff_fmt %
+                             (css_class, "diff_sub", obj_url, obj_title))
             elif tag == 'insert':
-                for i in xrange(blo, bhi):
+                for i in range(blo, bhi):
                     obj = self.newValue[i]
                     obj_title = obj.Title()
                     obj_url = obj.absolute_url()
-                    r.append(inlinediff_fmt % (css_class, "diff_add", obj_url, obj_title))
+                    r.append(inlinediff_fmt %
+                             (css_class, "diff_add", obj_url, obj_title))
             elif tag == 'equal':
-                for i in xrange(alo, ahi):
+                for i in range(alo, ahi):
                     obj = self.oldValue[i]
                     obj_title = obj.Title()
                     obj_url = obj.absolute_url()
@@ -85,26 +90,26 @@ class RelationListDiff(FieldDiff):
         r = []
         for tag, alo, ahi, blo, bhi in self.getLineDiffs():
             if tag == 'replace':
-                for i in xrange(alo, ahi):
+                for i in range(alo, ahi):
                     obj = self.oldValue[i]
                     obj_url = obj.absolute_url()
                     r.append("- %s" % obj_url)
-                for i in xrange(blo, bhi):
+                for i in range(blo, bhi):
                     obj = self.newValue[i]
                     obj_url = obj.absolute_url()
                     r.append("+ %s" % obj_url)
             elif tag == 'delete':
-                for i in xrange(alo, ahi):
+                for i in range(alo, ahi):
                     obj = self.oldValue[i]
                     obj_url = obj.absolute_url()
                     r.append("- %s" % obj_url)
             elif tag == 'insert':
-                for i in xrange(blo, bhi):
+                for i in range(blo, bhi):
                     obj = self.newValue[i]
                     obj_url = obj.absolute_url()
                     r.append("+ %s" % obj_url)
             elif tag == 'equal':
-                for i in xrange(alo, ahi):
+                for i in range(alo, ahi):
                     obj = self.oldValue[i]
                     obj_url = obj.absolute_url()
                     r.append("  %s" % obj_url)

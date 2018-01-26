@@ -2,6 +2,7 @@
 from App.class_init import InitializeClass
 from Products.CMFDiffTool.BaseDiff import _getValue
 from Products.CMFDiffTool.BaseDiff import BaseDiff
+from six.moves import range
 
 import difflib
 
@@ -78,18 +79,18 @@ class FieldDiff(BaseDiff):
         b = self._parseField(self.newValue, filename=self.newFilename)
         for tag, alo, ahi, blo, bhi in self.getLineDiffs():
             if tag == 'replace':
-                for i in xrange(alo, ahi):
+                for i in range(alo, ahi):
                     r.append(inlinediff_fmt % (css_class, a[i], ''))
-                for i in xrange(blo, bhi):
+                for i in range(blo, bhi):
                     r.append(inlinediff_fmt % (css_class, '', b[i]))
             elif tag == 'delete':
-                for i in xrange(alo, ahi):
+                for i in range(alo, ahi):
                     r.append(inlinediff_fmt % (css_class, a[i], ''))
             elif tag == 'insert':
-                for i in xrange(blo, bhi):
+                for i in range(blo, bhi):
                     r.append(inlinediff_fmt % (css_class, '', b[i]))
             elif tag == 'equal':
-                for i in xrange(alo, ahi):
+                for i in range(alo, ahi):
                     r.append(same_fmt % (css_class, a[i]))
             else:
                 raise ValueError('unknown tag "%s"' % tag)
@@ -100,7 +101,7 @@ InitializeClass(FieldDiff)
 
 
 def dump(tag, x, lo, hi, r):
-    for i in xrange(lo, hi):
+    for i in range(lo, hi):
         r.append(tag + ' %s' % x[i])
 
 
