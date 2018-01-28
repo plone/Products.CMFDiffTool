@@ -38,6 +38,7 @@ setup(
     ),
     install_requires=[
         'setuptools',
+        'six',
         'zope.interface',
         'Products.CMFCore',
         'Products.GenericSetup',

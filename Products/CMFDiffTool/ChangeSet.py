@@ -14,6 +14,7 @@ from Acquisition import Implicit
 from ComputedAttribute import ComputedAttribute
 from Products.CMFCore.utils import getToolByName
 from Products.CMFDiffTool.interfaces import IChangeSet
+from six.moves import reduce
 from zope.interface import implementer
 
 import logging
