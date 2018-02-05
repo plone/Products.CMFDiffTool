@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.1.5 (unreleased)
+3.1.5 (2018-02-05)
 ------------------
 
 New features:
