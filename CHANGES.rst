@@ -4,17 +4,9 @@ Changelog
 3.1.5 (unreleased)
 ------------------
 
-Breaking changes:
-
-- *add item here*
-
 New features:
 
 - Add Python 2 / 3 compatibility [davilima6] 
-
-Bug fixes:
-
-- *add item here*
 
 
 3.1.4 (2017-03-23)
