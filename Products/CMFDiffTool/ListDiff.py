@@ -4,6 +4,14 @@ from Products.CMFDiffTool.FieldDiff import FieldDiff
 from six.moves import range
 
 
+def chk_hashable(value):
+    try:
+        hash(value)
+    except TypeError as e:
+        value = repr(e) + ": " + repr(value)
+    return value
+
+
 class ListDiff(FieldDiff):
     """Text difference"""
 
@@ -12,12 +20,15 @@ class ListDiff(FieldDiff):
     def _parseField(self, value, filename=None):
         """Parse a field value in preparation for diffing"""
         if type(value) is list or type(value) is tuple:
-            return value
+            values = []
+            for v in value:
+                values.append(chk_hashable(v))
+            return values
         else:
             if type(value) is set:
                 return list(value)
             else:
-                return [value]
+                return [chk_hashable(value)]
 
 
 class RelationListDiff(FieldDiff):

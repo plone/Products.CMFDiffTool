@@ -19,6 +19,14 @@ class B:
     attribute = [1, 2, 3, 4]
 
 
+class C:
+    attribute = {"a": 1, "b": 2}
+
+
+class D:
+    attribute = {"a": 1, "b": 2, "c": 3}
+
+
 class TestListDiff(TestCase):
     """Test the ListDiff class"""
 
@@ -103,3 +111,18 @@ class TestListDiff(TestCase):
 </div>"""
         diff = ListDiff(a, b, 'attribute')
         self.assertEqual(diff.inline_diff(), expected)
+
+    def testGetLineDictDiffsSame(self):
+        """test getLineDiffs() method with dict same value"""
+        c = C()
+        diff = ListDiff(c, c, 'attribute')
+        expected = [('equal', 0, 1, 0, 1)]
+        self.assertEqual(diff.getLineDiffs(), expected)
+
+    def testGetLineDictDiffsDifferent(self):
+        """test getLineDiffs() method with dict different value"""
+        c = C()
+        d = D()
+        diff = ListDiff(c, d, 'attribute')
+        expected = [('replace', 0, 1, 0, 1)]
+        self.assertEqual(diff.getLineDiffs(), expected)
