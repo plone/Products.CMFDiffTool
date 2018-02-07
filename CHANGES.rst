@@ -14,7 +14,7 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Bug fix for dict type, because we use DataGredField. [terapyon]
 
 
 3.1.5 (2018-02-05)
