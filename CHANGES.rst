@@ -4,17 +4,10 @@ Changelog
 3.1.6 (unreleased)
 ------------------
 
-Breaking changes:
-
-- *add item here*
-
-New features:
-
-- *add item here*
-
 Bug fixes:
 
-- Bug fix for dict type, because we use DataGredField. [terapyon]
+- Bug fix for dict type, because we use DataGridField.
+  [terapyon]
 
 
 3.1.5 (2018-02-05)
