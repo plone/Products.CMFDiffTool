@@ -14,8 +14,9 @@ New features:
 
 Bug fixes:
 
-- *add item here*
-
+- Fix display of subjects diff
+  https://github.com/plone/Products.CMFPlone/issues/2340
+  [tomgross]
 
 3.1.6 (2018-02-11)
 ------------------
