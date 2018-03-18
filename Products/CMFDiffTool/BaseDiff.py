@@ -73,7 +73,14 @@ def _getValue(ob, field, field_name, convert_to_str=True):
     # grab it *with* acquisition, so things like ComputedAttribute
     # will work
     if IDexterityContent.providedBy(ob) and field:
-        value = getattr(ob, field, None)
+        # we need a special handling for subjects because the field is stored as
+        # `subject` attribute but the schema name is `subjects`
+        # see plone.app.dexterity.behaviors.metadata.ICategorization and
+        # plone.dexterity.content.DexterityContent
+        if field == 'subjects':
+            value = ob.Subject()
+        else:
+            value = getattr(ob, field, None)
     elif field and safe_hasattr(aq_base(ob), field):
         value = getattr(ob, field)
     elif safe_hasattr(aq_base(ob), 'getField'):
