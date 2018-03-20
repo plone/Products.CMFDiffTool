@@ -2,7 +2,7 @@
 """Initialize CMFDiffTool Product"""
 # Set up a MessageFactory for the cmfdifftool domain
 from zope.i18nmessageid import MessageFactory
-CMFDiffToolMessageFactory = MessageFactory('cmfdifftool')
+CMFDiffToolMessageFactory = MessageFactory('plone')
 
 from Products.CMFCore.utils import ToolInit  # NOQA
 from Products.CMFDiffTool import CMFDiffTool  # NOQA

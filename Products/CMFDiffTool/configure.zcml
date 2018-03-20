@@ -10,7 +10,4 @@
 
   <include file="profiles.zcml"/>
 
-  <!-- Translations -->
-  <i18n:registerTranslations directory="locales" />
-
 </configure>
