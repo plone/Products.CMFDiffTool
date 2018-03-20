@@ -10,7 +10,8 @@ Breaking changes:
 
 New features:
 
-- *add item here*
+- Use plone domain for translations
+  [erral]
 
 Bug fixes:
 
