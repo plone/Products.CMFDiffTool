@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from setuptools import setup, find_packages
 
-version = '3.1.7'
+version = '3.1.8.dev0'
 
 setup(
     name='Products.CMFDiffTool',
