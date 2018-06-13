@@ -1,15 +1,18 @@
 # -*- coding: utf-8 -*-
-from .BaseTestCase import BaseDXTestCase
+from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
 from plone.namedfile.file import NamedFile
 from Products.CMFDiffTool import namedfile
 from Products.CMFDiffTool import testing
 from Products.CMFDiffTool.interfaces import IDifference
+from Products.CMFDiffTool.tests.BaseTestCase import BaseDXTestCase
 
 
 class BinaryDiffTestCase(BaseDXTestCase):
 
     def test_should_detect_different_filename(self):
-        self.loginAsPortalOwner()
+        self.portal = self.layer['portal']
+        setRoles(self.portal, TEST_USER_ID, ['Manager'])
         self.portal.invokeFactory(
             testing.TEST_CONTENT_TYPE_ID,
             'obj1',
@@ -29,7 +32,7 @@ class BinaryDiffTestCase(BaseDXTestCase):
         self.assertFalse(diff.same)
 
     def test_should_detect_different_data(self):
-        self.loginAsPortalOwner()
+        setRoles(self.portal, TEST_USER_ID, ['Manager'])
         self.portal.invokeFactory(
             testing.TEST_CONTENT_TYPE_ID,
             'obj1',
@@ -49,7 +52,7 @@ class BinaryDiffTestCase(BaseDXTestCase):
         self.assertFalse(diff.same)
 
     def test_should_detect_same_data_and_filename(self):
-        self.loginAsPortalOwner()
+        setRoles(self.portal, TEST_USER_ID, ['Manager'])
         self.portal.invokeFactory(
             testing.TEST_CONTENT_TYPE_ID,
             'obj1',

@@ -1,15 +1,18 @@
 # -*- coding: utf-8 -*-
-from .BaseTestCase import BaseDXTestCase
+from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
 from Products.CMFDiffTool import testing
 from Products.CMFDiffTool.choicediff import ChoiceDiff
 from Products.CMFDiffTool.choicediff import title_or_value
 from Products.CMFDiffTool.interfaces import IDifference
+from Products.CMFDiffTool.tests.BaseTestCase import BaseDXTestCase
 
 
 class ChoiceDiffTestCase(BaseDXTestCase):
 
-    def afterSetUp(self):
-        self.loginAsPortalOwner()
+    def setUp(self):
+        self.portal = self.layer['portal']
+        setRoles(self.portal, TEST_USER_ID, ['Manager'])
         self.portal.invokeFactory(
             testing.TEST_CONTENT_TYPE_ID,
             'obj1',

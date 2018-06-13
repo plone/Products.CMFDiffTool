@@ -5,7 +5,7 @@ from plone.app.testing import PLONE_INTEGRATION_TESTING
 from Products.CMFDiffTool.TextDiff import TextDiff
 from unittest import TestCase
 
-import sys
+import six
 
 
 _marker = []
@@ -93,25 +93,16 @@ class TestTextDiff(TestCase):
         """Test text diff output with different value"""
         a = A()
         b = B()
-        if sys.version_info[:2] >= (2, 7):
-            expected = """--- None
 
-+++ None
+        expected = """--- version1
+
++++ version2
 
 @@ -1 +1 @@
 
 -कामसूत्र
 +過労死"""
-        else:
-            expected = """--- None
-
-+++ None
-
-@@ -1,1 +1,1 @@
-
--कामसूत्र
-+過労死"""
-        fd = TextDiff(a, b, 'attribute')
+        fd = TextDiff(a, b, 'attribute', 'version1', 'version2')
         self.assertEqual(fd.unified_diff(), expected)
 
     def testHTMLDiff(self):
