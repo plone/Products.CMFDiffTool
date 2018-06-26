@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from App.class_init import InitializeClass
+from AccessControl.class_init import InitializeClass
 from Products.CMFDiffTool.FieldDiff import FieldDiff
 from six.moves import range
 
