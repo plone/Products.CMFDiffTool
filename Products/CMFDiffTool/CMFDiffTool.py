@@ -88,7 +88,7 @@ class CMFDiffTool(UniqueObject, SimpleItem):
 
     def listDiffTypes(self):
         """List the names of the registered difference types"""
-        return self._difftypes.keys()
+        return list(self._difftypes)
 
     security.declareProtected(ManagePortal, 'getDiffType')  # NOQA
 
