@@ -14,7 +14,8 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Fix diff and tests in py3
+  [pbauer, hverlarde, jensens]
 
 
 3.2.0 (2018-04-03)
@@ -45,7 +46,7 @@ Bug fixes:
 
 New features:
 
-- Add Python 2 / 3 compatibility [davilima6] 
+- Add Python 2 / 3 compatibility [davilima6]
 
 
 3.1.4 (2017-03-23)
