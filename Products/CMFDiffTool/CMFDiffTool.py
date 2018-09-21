@@ -5,7 +5,7 @@
 """
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_base
-from App.class_init import InitializeClass
+from AccessControl.class_init import InitializeClass
 from OFS.SimpleItem import SimpleItem
 from Products.CMFCore.permissions import ManagePortal
 from Products.CMFCore.utils import registerToolInterface
@@ -88,7 +88,7 @@ class CMFDiffTool(UniqueObject, SimpleItem):
 
     def listDiffTypes(self):
         """List the names of the registered difference types"""
-        return self._difftypes.keys()
+        return list(self._difftypes)
 
     security.declareProtected(ManagePortal, 'getDiffType')  # NOQA
 

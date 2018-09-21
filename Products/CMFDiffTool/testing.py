@@ -2,13 +2,14 @@
 from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FIXTURE
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import PloneSandboxLayer
-from plone.app.testing.bbb import PTC_FIXTURE
 from plone.dexterity.fti import DexterityFTI
 from Products.CMFCore.utils import getToolByName
 from zope.component import getSiteManager
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
+
+import six
 
 
 TEST_CONTENT_TYPE_ID = 'TestContentType'
@@ -89,24 +90,25 @@ class DXLayer(PloneSandboxLayer):
 
 PACKAGE_DX_FIXTURE = DXLayer()
 
+if six.PY2:
+    from plone.app.testing.bbb import PTC_FIXTURE
 
-class ATLayer(PloneSandboxLayer):
+    class ATLayer(PloneSandboxLayer):
 
-    defaultBases = (PTC_FIXTURE, )
+        defaultBases = (PTC_FIXTURE, )
 
-    def setUpZope(self, app, configurationContext):
-        # setup schema extender if available
-        try:
-            from archetypes import schemaextender
-            self.loadZCML(package=schemaextender)
-        except ImportError:
-            pass
+        def setUpZope(self, app, configurationContext):
+            # setup schema extender if available
+            try:
+                from archetypes import schemaextender
+                self.loadZCML(package=schemaextender)
+            except ImportError:
+                pass
 
-PACKAGE_AT_FIXTURE = ATLayer()
+    PACKAGE_AT_FIXTURE = ATLayer()
+    CMFDiffToolATLayer = FunctionalTesting(
+        bases=(PACKAGE_AT_FIXTURE, ), name='Products.CMFDiffTool.AT:functional')
 
-CMFDiffToolLayer = FunctionalTesting(
-    bases=(PTC_FIXTURE, ), name='Products.CMFDiffTool:functional')
+
 CMFDiffToolDXLayer = FunctionalTesting(
     bases=(PACKAGE_DX_FIXTURE, ), name='Products.CMFDiffTool.DX:functional')
-CMFDiffToolATLayer = FunctionalTesting(
-    bases=(PACKAGE_AT_FIXTURE, ), name='Products.CMFDiffTool.AT:functional')

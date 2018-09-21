@@ -12,6 +12,8 @@ setup(
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
         "Framework :: Plone",
         "Framework :: Plone :: 5.1",
         "Framework :: Plone :: 5.2",

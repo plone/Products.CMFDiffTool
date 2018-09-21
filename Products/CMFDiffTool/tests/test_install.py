@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-from .BaseTestCase import BaseTestCase
 from Products.CMFCore.utils import getToolByName
 from Products.CMFDiffTool.dexteritydiff import DexterityCompoundDiff
+from Products.CMFDiffTool.tests.BaseTestCase import BaseDXTestCase
 
 
-class InstallTestCase(BaseTestCase):
+class InstallTestCase(BaseDXTestCase):
 
     def test_compound_diff_type_should_be_registered(self):
         diff_tool = getToolByName(self.portal, 'portal_diff')

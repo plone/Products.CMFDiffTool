@@ -11,7 +11,7 @@ Command-line usage:
 
 Better results if you use mxTidy first.  The output is HTML.
 """
-
+from __future__ import print_function
 from difflib import SequenceMatcher
 from six import StringIO
 

@@ -1,20 +1,24 @@
 # -*- coding: utf-8 -*-
-from .BaseTestCase import BaseDXTestCase
 from datetime import date
+from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
 from plone.namedfile import NamedFile
 from Products.CMFDiffTool import testing
 from Products.CMFDiffTool.dexteritydiff import DexterityCompoundDiff
 from Products.CMFDiffTool.dexteritydiff import EXCLUDED_FIELDS
 from Products.CMFDiffTool.interfaces import IDifference
+from Products.CMFDiffTool.tests.BaseTestCase import BaseDXTestCase
 from z3c.relationfield.relation import RelationValue
 from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
 
 
+
 class DexterityDiffTestCase(BaseDXTestCase):
 
-    def afterSetUp(self):
-        self.loginAsPortalOwner()
+    def setUp(self):
+        self.portal = self.layer['portal']
+        setRoles(self.portal, TEST_USER_ID, ['Manager'])
 
     def test_should_diff(self):
         self.portal.invokeFactory(

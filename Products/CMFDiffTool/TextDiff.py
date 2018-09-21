@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from App.class_init import InitializeClass
+from AccessControl.class_init import InitializeClass
 from os import linesep
 from Products.CMFDiffTool import CMFDiffToolMessageFactory as _
 from Products.CMFDiffTool.FieldDiff import FieldDiff
@@ -8,6 +8,7 @@ from Products.CMFDiffTool.utils import safe_utf8
 from zope.component.hooks import getSite
 
 import difflib
+import six
 
 
 class TextDiff(FieldDiff):
@@ -33,11 +34,17 @@ class TextDiff(FieldDiff):
 
     def unified_diff(self):
         """Return a unified diff"""
-        a = [safe_utf8(i) for i in
-             self._parseField(self.oldValue, filename=self.oldFilename)]
-        b = [safe_utf8(i) for i in
-             self._parseField(self.newValue, filename=self.newFilename)]
-        return linesep.join(difflib.unified_diff(a, b, self.id1, self.id2))
+        a = self._parseField(self.oldValue, filename=self.oldFilename)
+        b = self._parseField(self.newValue, filename=self.newFilename)
+        if six.PY2:
+            a = [safe_utf8(i) for i in a]
+            b = [safe_utf8(i) for i in b]
+        # in py3 unified_diff does not accept None for ids (id1 and id2)
+        # But TextDiff() sets None as default. We overwrite this here so the
+        # default of unified_diff ('') can be used .
+        cleanargs = [a, b, self.id1, self.id2]
+        cleanargs = [i for i in cleanargs if i]
+        return linesep.join(difflib.unified_diff(*cleanargs))
 
     def html_diff(self, context=True, wrapcolumn=40):
         """Return an HTML table showing differences"""
@@ -48,10 +55,14 @@ class TextDiff(FieldDiff):
         b = [safe_unicode(i) for i in
              self._parseField(self.newValue, filename=self.newFilename)]
         vis_diff = difflib.HtmlDiff(wrapcolumn=wrapcolumn)
-        diff = safe_utf8(vis_diff.make_table(a, b,
-                                             safe_unicode(self.id1),
-                                             safe_unicode(self.id2),
-                                             context=context))
+        diff = vis_diff.make_table(
+            a,
+            b,
+            safe_unicode(self.id1),
+            safe_unicode(self.id2),
+            context=context)
+        if six.PY2:
+            diff = safe_utf8(diff)
         return diff
 
     def inline_diff(self):

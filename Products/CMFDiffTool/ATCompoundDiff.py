@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from App.class_init import InitializeClass
+from AccessControl.class_init import InitializeClass
 from Products.CMFDiffTool.BinaryDiff import BinaryDiff
 from Products.CMFDiffTool.CMFDTHtmlDiff import CMFDTHtmlDiff
 from Products.CMFDiffTool.FieldDiff import FieldDiff
