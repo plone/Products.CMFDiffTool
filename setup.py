@@ -23,7 +23,7 @@ setup(
     keywords='Diff Plone',
     author='Brent Hendricks',
     author_email='plone-developers@lists.sourceforge.net',
-    url='https://pypi.python.org/pypi/Products.CMFDiffTool',
+    url='https://pypi.org/project/Products.CMFDiffTool',
     license='GPL',
     packages=find_packages(exclude=['ez_setup']),
     namespace_packages=['Products'],
