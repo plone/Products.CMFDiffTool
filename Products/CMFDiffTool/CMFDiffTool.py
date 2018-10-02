@@ -4,8 +4,8 @@
    Calculate differences between content objects
 """
 from AccessControl import ClassSecurityInfo
-from Acquisition import aq_base
 from AccessControl.class_init import InitializeClass
+from Acquisition import aq_base
 from OFS.SimpleItem import SimpleItem
 from Products.CMFCore.permissions import ManagePortal
 from Products.CMFCore.utils import registerToolInterface
@@ -176,6 +176,7 @@ def unregisterDiffType(klass):
     interface."""
 
     del CMFDiffTool._difftypes[klass.meta_type]
+
 
 InitializeClass(CMFDiffTool)
 registerToolInterface('portal_diff', IDiffTool)

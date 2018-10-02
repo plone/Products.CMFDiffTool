@@ -43,7 +43,7 @@ class DXLayer(PloneSandboxLayer):
         sm.registerUtility(
             component=vocabulary_factory,
             provided=IVocabularyFactory,
-            name=u'Products.CMFDiffTool.testing.VOCABULARY'
+            name=u'Products.CMFDiffTool.testing.VOCABULARY',
         )
 
         fti = DexterityFTI(
@@ -92,9 +92,10 @@ class DXLayer(PloneSandboxLayer):
                     </field>
                 </schema>
             </model>
-            '''
+            ''',
         )
         types_tool._setObject(TEST_CONTENT_TYPE_ID, fti)
+
 
 PACKAGE_DX_FIXTURE = DXLayer()
 
@@ -115,7 +116,8 @@ if six.PY2:
 
     PACKAGE_AT_FIXTURE = ATLayer()
     CMFDiffToolATLayer = FunctionalTesting(
-        bases=(PACKAGE_AT_FIXTURE, ), name='Products.CMFDiffTool.AT:functional')
+        bases=(PACKAGE_AT_FIXTURE, ),
+        name='Products.CMFDiffTool.AT:functional')
 
 
 CMFDiffToolDXLayer = FunctionalTesting(

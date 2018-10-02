@@ -47,5 +47,5 @@ tools = (CMFDiffTool.CMFDiffTool, )
 def initialize(context):
     ToolInit('CMF Diff Tool',
              tools=tools,
-             icon='tool.gif'
+             icon='tool.gif',
              ).initialize(context)

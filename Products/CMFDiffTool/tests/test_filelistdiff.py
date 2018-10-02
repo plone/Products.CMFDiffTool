@@ -19,42 +19,42 @@ class AsTextDiffTestCase(unittest.TestCase):
         self._test_diff_files(
             [('data1', u'filename1')],
             [('data2', u'filename2')],
-            False
+            False,
         )
         self._test_diff_files(
             [('data1', u'filename1'), ('datax', u'filenamex')],
             [('data1', u'filename1'), ('datay', u'filenamey')],
-            False
+            False,
         )
         self._test_diff_files(
             [('data1', u'filename1'), ('datax', u'filenamex')],
             [('datax', u'filenamex'), ('data1', u'filename1')],
-            False
+            False,
         )
         self._test_diff_files(
             [('data1', u'filename1')],
             [('data1', u'filename1'), ('datax', u'filenamex')],
-            False
+            False,
         )
         self._test_diff_files(
             [('data1', u'filename1')],
             [('data1', u'filename1')],
-            True
+            True,
         )
         self._test_diff_files(
             [('data1', u'filename1'), ('datax', u'filenamex')],
             [('data1', u'filename1'), ('datax', u'filenamex')],
-            True
+            True,
         )
         self._test_diff_files(
             [('data1', u'filename1'), ('datax', u'filenamex')],
             None,
-            False
+            False,
         )
         self._test_diff_files(
             [('data1', u'filename1'), ('datax', u'filenamex')],
             [],
-            False
+            False,
         )
         self._test_diff_files(None, None, True)
         self._test_diff_files([], [], True)

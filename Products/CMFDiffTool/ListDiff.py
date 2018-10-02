@@ -28,8 +28,9 @@ class ListDiff(FieldDiff):
                 # Binding the field to an object will construct the vocabulary
                 # using a factory if necessary.
                 try:
-                    self._vocabulary = field_instance.value_type.bind(obj).vocabulary
-                except:
+                    self._vocabulary = field_instance.value_type.bind(obj).\
+                        vocabulary
+                except Exception:
                     pass
 
     def chk_hashable(self, value):
@@ -38,7 +39,7 @@ class ListDiff(FieldDiff):
         try:
             hash(value)
         except TypeError as e:
-            value = repr(e) + ": " + repr(value)
+            value = repr(e) + ': ' + repr(value)
         return value
 
     def _parseField(self, value, filename=None):
@@ -65,7 +66,8 @@ class RelationListDiff(FieldDiff):
     </div>"""
 
     def _parseField(self, value, filename=None):
-        """Take RelationValues and just return the target UID so we can compare"""
+        """ Take RelationValues and just return the target UID
+            so we can compare """
 
         if filename is None:
             # Since we only want to compare a single field, make a
@@ -74,7 +76,7 @@ class RelationListDiff(FieldDiff):
         else:
             return [
                 self.filenameTitle(filename),
-                ['/'.join(val.getPhysicalPath()) for val in value]
+                ['/'.join(val.getPhysicalPath()) for val in value],
             ]
 
     def inline_diff(self):
@@ -89,27 +91,27 @@ class RelationListDiff(FieldDiff):
                     obj_title = obj.Title()
                     obj_url = obj.absolute_url()
                     r.append(inlinediff_fmt %
-                             (css_class, "diff_sub", obj_url, obj_title))
+                             (css_class, 'diff_sub', obj_url, obj_title))
                 for i in range(blo, bhi):
                     obj = self.newValue[i]
                     obj_title = obj.Title()
                     obj_url = obj.absolute_url()
                     r.append(inlinediff_fmt %
-                             (css_class, "diff_add", obj_url, obj_title))
+                             (css_class, 'diff_add', obj_url, obj_title))
             elif tag == 'delete':
                 for i in range(alo, ahi):
                     obj = self.oldValue[i]
                     obj_title = obj.Title()
                     obj_url = obj.absolute_url()
                     r.append(inlinediff_fmt %
-                             (css_class, "diff_sub", obj_url, obj_title))
+                             (css_class, 'diff_sub', obj_url, obj_title))
             elif tag == 'insert':
                 for i in range(blo, bhi):
                     obj = self.newValue[i]
                     obj_title = obj.Title()
                     obj_url = obj.absolute_url()
                     r.append(inlinediff_fmt %
-                             (css_class, "diff_add", obj_url, obj_title))
+                             (css_class, 'diff_add', obj_url, obj_title))
             elif tag == 'equal':
                 for i in range(alo, ahi):
                     obj = self.oldValue[i]
@@ -121,33 +123,33 @@ class RelationListDiff(FieldDiff):
         return '\n'.join(r)
 
     def ndiff(self):
-        """Return a textual diff"""
+        """ Return a textual diff """
         r = []
         for tag, alo, ahi, blo, bhi in self.getLineDiffs():
             if tag == 'replace':
                 for i in range(alo, ahi):
                     obj = self.oldValue[i]
                     obj_url = obj.absolute_url()
-                    r.append("- %s" % obj_url)
+                    r.append('- %s' % obj_url)
                 for i in range(blo, bhi):
                     obj = self.newValue[i]
                     obj_url = obj.absolute_url()
-                    r.append("+ %s" % obj_url)
+                    r.append('+ %s' % obj_url)
             elif tag == 'delete':
                 for i in range(alo, ahi):
                     obj = self.oldValue[i]
                     obj_url = obj.absolute_url()
-                    r.append("- %s" % obj_url)
+                    r.append('- %s' % obj_url)
             elif tag == 'insert':
                 for i in range(blo, bhi):
                     obj = self.newValue[i]
                     obj_url = obj.absolute_url()
-                    r.append("+ %s" % obj_url)
+                    r.append('+ %s' % obj_url)
             elif tag == 'equal':
                 for i in range(alo, ahi):
                     obj = self.oldValue[i]
                     obj_url = obj.absolute_url()
-                    r.append("  %s" % obj_url)
+                    r.append('  %s' % obj_url)
             else:
                 raise ValueError('unknown tag %r', tag)
         return '\n'.join(r)

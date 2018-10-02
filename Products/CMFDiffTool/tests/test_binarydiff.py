@@ -16,14 +16,14 @@ class BinaryDiffTestCase(BaseDXTestCase):
         self.portal.invokeFactory(
             testing.TEST_CONTENT_TYPE_ID,
             'obj1',
-            file=NamedFile(data='contents', filename=u'blah.txt')
+            file=NamedFile(data='contents', filename=u'blah.txt'),
         )
         obj1 = self.portal['obj1']
 
         self.portal.invokeFactory(
             testing.TEST_CONTENT_TYPE_ID,
             'obj2',
-            file=NamedFile(data='contents', filename=u'bleh.txt')
+            file=NamedFile(data='contents', filename=u'bleh.txt'),
         )
         obj2 = self.portal['obj2']
 
@@ -36,14 +36,14 @@ class BinaryDiffTestCase(BaseDXTestCase):
         self.portal.invokeFactory(
             testing.TEST_CONTENT_TYPE_ID,
             'obj1',
-            file=NamedFile(data='contents', filename=u'f.txt')
+            file=NamedFile(data='contents', filename=u'f.txt'),
         )
         obj1 = self.portal['obj1']
 
         self.portal.invokeFactory(
             testing.TEST_CONTENT_TYPE_ID,
             'obj2',
-            file=NamedFile(data='different contents', filename=u'f.txt')
+            file=NamedFile(data='different contents', filename=u'f.txt'),
         )
         obj2 = self.portal['obj2']
 
@@ -56,14 +56,14 @@ class BinaryDiffTestCase(BaseDXTestCase):
         self.portal.invokeFactory(
             testing.TEST_CONTENT_TYPE_ID,
             'obj1',
-            file=NamedFile(data='contents', filename=u'f.txt')
+            file=NamedFile(data='contents', filename=u'f.txt'),
         )
         obj1 = self.portal['obj1']
 
         self.portal.invokeFactory(
             testing.TEST_CONTENT_TYPE_ID,
             'obj2',
-            file=NamedFile(data='contents', filename=u'f.txt')
+            file=NamedFile(data='contents', filename=u'f.txt'),
         )
         obj2 = self.portal['obj2']
 

@@ -8,6 +8,8 @@ Bug fixes:
 
 - Display titles in diff of zope.schema.List using vocabulary
   [sgeulette]
+- Flake8 corrections
+  [sgeulette]
 
 3.2.1 (2018-09-23)
 ------------------

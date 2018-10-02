@@ -5,8 +5,6 @@ from plone.app.testing import PLONE_INTEGRATION_TESTING
 from Products.CMFDiffTool.TextDiff import TextDiff
 from unittest import TestCase
 
-import six
-
 
 _marker = []
 

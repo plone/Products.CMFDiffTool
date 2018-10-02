@@ -6,10 +6,10 @@ from os import linesep
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from Products.CMFDiffTool import testing
-from Products.CMFDiffTool.choicediff import title_or_value
 from Products.CMFDiffTool.interfaces import IDifference
 from Products.CMFDiffTool.ListDiff import ListDiff
 from Products.CMFDiffTool.tests.BaseTestCase import BaseDXTestCase
+
 
 _marker = []
 
@@ -23,11 +23,11 @@ class B:
 
 
 class C:
-    attribute = {"a": 1, "b": 2}
+    attribute = {'a': 1, 'b': 2}
 
 
 class D:
-    attribute = {"a": 1, "b": 2, "c": 3}
+    attribute = {'a': 1, 'b': 2, 'c': 3}
 
 
 class TestListDiff(BaseDXTestCase):
@@ -66,7 +66,7 @@ class TestListDiff(BaseDXTestCase):
         diff = ListDiff(a, b, 'attribute')
         self.assertEqual([('insert', 0, 0, 0, 1)], diff.getLineDiffs())
 
-        b.attribute = ""
+        b.attribute = ''
         diff = ListDiff(a, b, 'attribute')
         self.assertEqual([('insert', 0, 0, 0, 1)], diff.getLineDiffs())
 
@@ -142,7 +142,8 @@ class TestListDiff(BaseDXTestCase):
     <div class="diff_add">First Title</div>
 </div>'''
         self._test_diff_list([],
-                             [testing.VOCABULARY_TUPLES[0][0]], False, expected)
+                             [testing.VOCABULARY_TUPLES[0][0]],
+                             False, expected)
         # changed: replaced unique value by another one, displaying titles
         expected = u'''<div class="InlineDiff">
     <div class="diff_sub">First Title</div>
@@ -153,7 +154,8 @@ class TestListDiff(BaseDXTestCase):
     <div class="diff_add">Third Title</div>
 </div>'''
         self._test_diff_list([testing.VOCABULARY_TUPLES[0][0]],
-                             [testing.VOCABULARY_TUPLES[2][0]], False, expected)
+                             [testing.VOCABULARY_TUPLES[2][0]],
+                             False, expected)
         # changed: replaced multiple values by others, displaying titles
         expected = u'''<div class="InlineDiff">
     <div class="diff_sub">First Title</div>
@@ -164,8 +166,11 @@ class TestListDiff(BaseDXTestCase):
     <div class="diff_sub"></div>
     <div class="diff_add">Third Title</div>
 </div>'''
-        self._test_diff_list([testing.VOCABULARY_TUPLES[0][0], testing.VOCABULARY_TUPLES[1][0]],
-                             [testing.VOCABULARY_TUPLES[1][0], testing.VOCABULARY_TUPLES[2][0]], False, expected)
+        self._test_diff_list([testing.VOCABULARY_TUPLES[0][0],
+                              testing.VOCABULARY_TUPLES[1][0]],
+                             [testing.VOCABULARY_TUPLES[1][0],
+                              testing.VOCABULARY_TUPLES[2][0]],
+                             False, expected)
         # changed: replaced multiple values by others, displaying titles
         expected = u'''<div class="InlineDiff">
     <div class="diff_sub"></div>
@@ -176,8 +181,11 @@ class TestListDiff(BaseDXTestCase):
     <div class="diff_sub">second_value</div>
     <div class="diff_add"></div>
 </div>'''
-        self._test_diff_list([testing.VOCABULARY_TUPLES[0][0], testing.VOCABULARY_TUPLES[1][0]],
-                             [testing.VOCABULARY_TUPLES[2][0], testing.VOCABULARY_TUPLES[0][0]], False, expected)
+        self._test_diff_list([testing.VOCABULARY_TUPLES[0][0],
+                              testing.VOCABULARY_TUPLES[1][0]],
+                             [testing.VOCABULARY_TUPLES[2][0],
+                              testing.VOCABULARY_TUPLES[0][0]],
+                             False, expected)
         # changed: removed values, displaying titles
         expected = u'''<div class="InlineDiff">
     <div class="diff_sub">First Title</div>
@@ -187,7 +195,8 @@ class TestListDiff(BaseDXTestCase):
     <div class="diff_sub">second_value</div>
     <div class="diff_add"></div>
 </div>'''
-        self._test_diff_list([testing.VOCABULARY_TUPLES[0][0], testing.VOCABULARY_TUPLES[1][0]],
+        self._test_diff_list([testing.VOCABULARY_TUPLES[0][0],
+                              testing.VOCABULARY_TUPLES[1][0]],
                              [], False, expected)
 
     def _test_diff_list(self, value1, value2, same, expected):

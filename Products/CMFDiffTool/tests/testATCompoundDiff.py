@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import six
 
+
 if six.PY2:
     from .BaseTestCase import BaseATTestCase
     from Products.Archetypes import atapi
@@ -11,14 +12,14 @@ if six.PY2:
     from zope.interface import alsoProvides
     from zope.interface import noLongerProvides
 
-
     class TestATCompoundDiff(BaseATTestCase):
         """Test the portal_diff tool"""
 
         def testCompoundDiff(self):
             first = self.folder.invokeFactory('Document', 'extended-document')
             first = self.folder[first]
-            second = self.folder.invokeFactory('Document', 'extended-document2')
+            second = self.folder.invokeFactory('Document',
+                                               'extended-document2')
             second = self.folder[second]
             # Change a value
             first.setText('<p>Body1</p>', mimetype='text/html')
@@ -68,7 +69,7 @@ if six.PY2:
                         noLongerProvides(instance, IHighlighted)
 
             class TestSchemaExtender(Extender):
-                adapts(ATDocument)
+                adapts(ATDocument)  # noqa: D001
                 fields = [
                     HighlightedField('schemaextender_test',
                                      schemata='settings',
@@ -78,13 +79,15 @@ if six.PY2:
                                      ),
                 ]
 
-            """Ensure that tool instances implement the portal_diff interface"""
+            """ Ensure that tool instances implement the portal_diff
+            interface """
             provideAdapter(TestSchemaExtender,
-                           name=u"archetypes.schemaextender.tests")
+                           name=u'archetypes.schemaextender.tests')
 
             first = self.folder.invokeFactory('Document', 'extended-document')
             first = self.folder[first]
-            second = self.folder.invokeFactory('Document', 'extended-document2')
+            second = self.folder.invokeFactory('Document',
+                                               'extended-document2')
             second = self.folder[second]
             # Change the value
             alsoProvides(second, IHighlighted)

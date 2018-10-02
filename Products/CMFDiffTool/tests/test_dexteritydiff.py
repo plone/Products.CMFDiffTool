@@ -13,7 +13,6 @@ from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
 
 
-
 class DexterityDiffTestCase(BaseDXTestCase):
 
     def setUp(self):
@@ -26,7 +25,7 @@ class DexterityDiffTestCase(BaseDXTestCase):
             'obj1',
             title=u'Object 1',
             description=u'Desc 1',
-            text=u'Text 1'
+            text=u'Text 1',
         )
         obj1 = self.portal['obj1']
 
@@ -34,7 +33,7 @@ class DexterityDiffTestCase(BaseDXTestCase):
             testing.TEST_CONTENT_TYPE_ID,
             'obj2',
             title=u'Object 2',
-            text=u'Text 2'
+            text=u'Text 2',
         )
         obj2 = self.portal['obj2']
 
@@ -118,7 +117,7 @@ class DexterityDiffTestCase(BaseDXTestCase):
             'obj1',
             title=u'Object 1',
             description=u'Desc 1',
-            text=u'Text 1'
+            text=u'Text 1',
         )
         obj1 = self.portal['obj1']
 

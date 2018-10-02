@@ -62,7 +62,7 @@ class NamedFileBinaryDiff(BinaryDiff):
     def _parseField(self, value, filename=None):
         return [
             '' if (value is None)
-            else named_file_as_str(NamedFile(data=value, filename=filename))
+            else named_file_as_str(NamedFile(data=value, filename=filename)),
         ]
 
     def inline_diff(self):
@@ -71,6 +71,7 @@ class NamedFileBinaryDiff(BinaryDiff):
         new = self._parseField(self.newValue, self.newFilename)[0]
 
         return '' if self.same else self.inlinediff_fmt % (css_class, old, new)
+
 
 InitializeClass(NamedFileBinaryDiff)
 
@@ -131,7 +132,7 @@ class NamedFileListDiff(ListDiff):
 
         def is_same_dict(d1, d2):
             return is_same(
-                d1['data'], d1['filename'], d2['data'], d2['filename']
+                d1['data'], d1['filename'], d2['data'], d2['filename'],
             )
 
         return '\n'.join([
@@ -139,5 +140,6 @@ class NamedFileListDiff(ListDiff):
              if is_same_dict(d_old, d_new) else self.inlinediff_fmt
              % (css_class, d_old['repr'], d_new['repr'])
              ) for (d_old, d_new) in zip(old_data, new_data)])
+
 
 InitializeClass(NamedFileListDiff)
