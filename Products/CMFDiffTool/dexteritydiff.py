@@ -122,7 +122,7 @@ class DexterityCompoundDiff(object):
             id2=self.id2,
             field_name=field.getName(),
             field_label=field.title,
-            schemata=schema_name
+            schemata=schema_name,
         )
 
     def _get_diff_type(self, field):
@@ -176,6 +176,7 @@ class DexterityCompoundDiff(object):
         all_fields += [(form.fields[name].field, name) for name in form.fields]
         if form.groups:
             for group in form.groups:
-                all_fields += [(group.fields[name].field, name) for name in group.fields]
+                all_fields += [(group.fields[name].field, name)
+                               for name in group.fields]
 
         return all_fields

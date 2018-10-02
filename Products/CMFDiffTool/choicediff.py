@@ -80,4 +80,5 @@ class ChoiceDiff(AsTextDiff):
 
         return AsTextDiff._parseField(self, value, filename)
 
+
 InitializeClass(ChoiceDiff)

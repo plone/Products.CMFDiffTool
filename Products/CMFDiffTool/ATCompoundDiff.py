@@ -126,4 +126,5 @@ class ATCompoundDiff:
                                        'schemata': schemata_name})
         return fields
 
+
 InitializeClass(ATCompoundDiff)

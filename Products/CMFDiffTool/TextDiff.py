@@ -87,14 +87,15 @@ class TextDiff(FieldDiff):
         if old_fname != new_fname:
             html.append(
                 self.inlinediff_fmt % ('%s FilenameDiff' % css_class,
-                                       old_fname, new_fname)
+                                       old_fname, new_fname),
             )
         if a != b:
             html.append(
-                self.inlinediff_fmt % (css_class, a, b)
+                self.inlinediff_fmt % (css_class, a, b),
             )
         if html:
             return linesep.join(html)
+
 
 InitializeClass(TextDiff)
 
@@ -117,5 +118,6 @@ class AsTextDiff(TextDiff):
             value = translate(_(value))
 
         return TextDiff._parseField(self, safe_unicode(value), filename)
+
 
 InitializeClass(AsTextDiff)

@@ -51,10 +51,11 @@ class BinaryDiff(FieldDiff):
             html.append(
                 self.inlinediff_fmt % (css_class,
                                        self.filenameTitle(self.oldFilename),
-                                       self.filenameTitle(self.newFilename))
+                                       self.filenameTitle(self.newFilename)),
             )
 
         if html:
             return linesep.join(html)
+
 
 InitializeClass(BinaryDiff)

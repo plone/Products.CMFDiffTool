@@ -27,7 +27,7 @@ class FieldDiff(BaseDiff):
         else:
             return [
                 self.filenameTitle(filename),
-                value
+                value,
             ]
 
     def getLineDiffs(self):

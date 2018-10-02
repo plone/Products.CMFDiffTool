@@ -4,8 +4,8 @@
    Calculate differences between content objects
 """
 
-from Acquisition import aq_base
 from AccessControl.class_init import InitializeClass
+from Acquisition import aq_base
 from plone.dexterity.interfaces import IDexterityContent
 from Products.CMFDiffTool import CMFDiffToolMessageFactory as _
 from Products.CMFDiffTool.interfaces import IDifference
@@ -63,7 +63,7 @@ class BaseDiff:
     def filenameTitle(self, filename):
         """Translate the filename leading text
         """
-        msg = _(u"Filename: ${filename}",
+        msg = _(u'Filename: ${filename}',
                 mapping={'filename': filename})
         return translate(msg)
 
@@ -73,8 +73,8 @@ def _getValue(ob, field, field_name, convert_to_str=True):
     # grab it *with* acquisition, so things like ComputedAttribute
     # will work
     if IDexterityContent.providedBy(ob) and field:
-        # we need a special handling for subjects because the field is stored as
-        # `subject` attribute but the schema name is `subjects`
+        # we need a special handling for subjects because the field is stored
+        # as `subject` attribute but the schema name is `subjects`
         # see plone.app.dexterity.behaviors.metadata.ICategorization and
         # plone.dexterity.content.DexterityContent
         if field == 'subjects':
@@ -105,7 +105,7 @@ def _getValue(ob, field, field_name, convert_to_str=True):
             if isinstance(val, RelationValue):
                 try:
                     obj = val.to_object
-                except:
+                except Exception:
                     obj = None
                 new_value.append(obj)
             else:
@@ -117,7 +117,7 @@ def _getValue(ob, field, field_name, convert_to_str=True):
     if isinstance(value, RelationValue):
         try:
             obj = value.to_object
-        except:
+        except Exception:
             obj = None
         value = obj
 
@@ -130,5 +130,6 @@ def _getValue(ob, field, field_name, convert_to_str=True):
             pass
 
     return value
+
 
 InitializeClass(BaseDiff)

@@ -37,7 +37,8 @@ class TestChangeSet(TestCase):
         self.folder.invokeFactory('Document', 'doc1', title='My Title')
         self.folder.manage_pasteObjects(
             self.folder.manage_copyObjects(['doc1']))
-        cdd = DexterityCompoundDiff(self.folder['doc1'], self.folder['doc1'], '')
+        cdd = DexterityCompoundDiff(self.folder['doc1'], self.folder['doc1'],
+                                    '')
         self.len_diff = len(cdd._diffs)
 
     def setupTestFolders(self):
@@ -220,7 +221,8 @@ class TestChangeSet(TestCase):
             # We don't have an orderable folder give up
             return
 
-        self.cs.computeDiff(self.folder['folder1'], self.folder['copy_of_folder1'])
+        self.cs.computeDiff(self.folder['folder1'],
+                            self.folder['copy_of_folder1'])
         diffs = self.cs.getDiffs()
         self.assertEqual(len(diffs), 14)
         self.assertFalse(diffs[0].same)

@@ -28,4 +28,5 @@ class CMFDTHtmlDiff(TextDiff):
             value = getattr(value, 'raw', value)
         return TextDiff._parseField(self, value, filename)
 
+
 InitializeClass(CMFDTHtmlDiff)

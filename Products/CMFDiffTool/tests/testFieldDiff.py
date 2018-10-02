@@ -27,10 +27,10 @@ class B:
 
 
 class U:
-    attribute = u"\xfcnicode value"
+    attribute = u'\xfcnicode value'
 
     def method(self):
-        return u"different method val\xfce"
+        return u'different method val\xfce'
 
 
 class TestFieldDiff(TestCase):
@@ -121,7 +121,7 @@ class TestFieldDiff(TestCase):
         expected = '- value%s+ different value' % linesep
         fd = FieldDiff(a, b, 'attribute')
         self.assertEqual(fd.ndiff(), expected)
-        expected = u"- value%s+ \xfcnicode value" % linesep
+        expected = u'- value%s+ \xfcnicode value' % linesep
         fd = FieldDiff(a, uu, 'attribute')
         self.assertEqual(fd.ndiff(), expected)
 

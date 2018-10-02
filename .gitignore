@@ -2,6 +2,8 @@
 *.py[co]
 build
 dist
+include/
+lib/
 *.mo
 .installed.cfg
 bin/
