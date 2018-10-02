@@ -17,6 +17,7 @@ TEST_CONTENT_TYPE_ID = 'TestContentType'
 VOCABULARY_TUPLES = [
     (u'first_value', u'First Title'),
     (u'second_value', None),
+    (u'third_value', u'Third Title'),
 ]
 
 VOCABULARY = SimpleVocabulary(
@@ -81,6 +82,13 @@ class DXLayer(PloneSandboxLayer):
                         <title>Choice</title>
                         <required>False</required>
                         <vocabulary>Products.CMFDiffTool.testing.VOCABULARY</vocabulary>
+                    </field>
+                    <field name="choices" type="zope.schema.List">
+                        <title>Choices</title>
+                        <required>False</required>
+                        <value_type type="zope.schema.Choice">
+                            <vocabulary>Products.CMFDiffTool.testing.VOCABULARY</vocabulary>
+                        </value_type>
                     </field>
                 </schema>
             </model>

@@ -4,18 +4,10 @@ Changelog
 3.2.2 (unreleased)
 ------------------
 
-Breaking changes:
-
-- *add item here*
-
-New features:
-
-- *add item here*
-
 Bug fixes:
 
-- *add item here*
-
+- Display titles in diff of zope.schema.List using vocabulary
+  [sgeulette]
 
 3.2.1 (2018-09-23)
 ------------------
