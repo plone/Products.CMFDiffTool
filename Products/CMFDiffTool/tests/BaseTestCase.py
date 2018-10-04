@@ -18,7 +18,11 @@ class BaseDXTestCase(unittest.TestCase):
 
 
 if six.PY2:
-    from plone.app.testing.bbb import PloneTestCase
+    try:
+        from plone.app.testing.bbb_at import PloneTestCase
+    except ImportError:
+        # plone.app.testing 5 or earlier
+        from plone.app.testing.bbb import PloneTestCase
     from Products.CMFDiffTool.testing import CMFDiffToolATLayer
 
     class BaseATTestCase(PloneTestCase):
