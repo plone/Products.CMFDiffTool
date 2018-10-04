@@ -100,7 +100,11 @@ class DXLayer(PloneSandboxLayer):
 PACKAGE_DX_FIXTURE = DXLayer()
 
 if six.PY2:
-    from plone.app.testing.bbb import PTC_FIXTURE
+    try:
+        from plone.app.testing.bbb_at import PTC_FIXTURE
+    except ImportError:
+        # plone.app.testing 5 or earlier
+        from plone.app.testing.bbb import PTC_FIXTURE
 
     class ATLayer(PloneSandboxLayer):
 

@@ -10,6 +10,8 @@ Bug fixes:
   [sgeulette]
 - Flake8 corrections
   [sgeulette]
+- fix AT tests
+  [petschki]
 
 3.2.1 (2018-09-23)
 ------------------
