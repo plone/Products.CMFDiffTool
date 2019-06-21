@@ -15,11 +15,15 @@ from __future__ import print_function
 from difflib import SequenceMatcher
 from six import StringIO
 
-import cgi
 import re
 
+try:
+    from html import escape
+except ImportError:
+    from cgi import escape
 
-def htmlEncode(s, esc=cgi.escape):
+
+def htmlEncode(s, esc=escape):
     return esc(s, 1)
 
 
