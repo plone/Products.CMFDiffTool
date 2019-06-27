@@ -1,21 +1,13 @@
 Changelog
 =========
 
-3.2.3 (unreleased)
+3.3.0 (2019-06-27)
 ------------------
-
-Breaking changes:
-
-- *add item here*
 
 New features:
 
 - Add support for Python 3.8
   [pbauer]
-
-Bug fixes:
-
-- *add item here*
 
 
 3.2.2 (2018-10-24)
