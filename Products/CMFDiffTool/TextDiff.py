@@ -75,10 +75,12 @@ class TextDiff(FieldDiff):
                                     filename=self.newFilename)
         if old_attr:
             old_fname = old_attr.pop(0)
+            old_attr = [x.decode('ascii') if type(x) is bytes else x for x in old_attr]
         else:
             old_fname = None
         if new_attr:
             new_fname = new_attr.pop(0)
+            new_attr = [x.decode('ascii') if type(x) is bytes else x for x in new_attr]
         else:
             new_fname = None
         a = linesep.join(old_attr or [])
