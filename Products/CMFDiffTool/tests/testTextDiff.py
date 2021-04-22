@@ -23,6 +23,13 @@ class B:
         return 'method 過労死'
 
 
+class H:
+    attribute = '<script>alert("Hacker value")</script>'
+
+    def method(self):
+        return '<script>alert("Hacker method value")</script>'
+
+
 class TestTextDiff(TestCase):
     """Test the TextDiff class"""
     layer = PLONE_INTEGRATION_TESTING
@@ -107,6 +114,7 @@ class TestTextDiff(TestCase):
         """Test text diff output with different value"""
         a = A()
         b = B()
+        h = H()
         expected = """
     <table class="diff" id="difflib_chg_to0__top"
            cellspacing="0" cellpadding="0" rules="groups" >
@@ -119,3 +127,22 @@ class TestTextDiff(TestCase):
     </table>"""  # NOQA
         fd = TextDiff(a, b, 'attribute')
         self.assertEqual(fd.html_diff(), expected)
+
+        fd = TextDiff(a, h, 'attribute')
+        # h.attribute contains a script, and this should be escaped.
+        self.assertNotIn(h.attribute, fd.html_diff())
+        self.assertIn("&gt;", fd.html_diff())
+
+    def testInlineDiff(self):
+        """Test text inline diff output with different value"""
+        a = A()
+        b = B()
+        h = H()
+        fd = TextDiff(a, b, 'attribute')
+        self.assertIn('class="InlineDiff FilenameDiff"', fd.inline_diff())
+
+        fd = TextDiff(a, h, 'attribute')
+        self.assertIn('class="InlineDiff FilenameDiff"', fd.inline_diff())
+        # h.attribute contains a script, and this should be escaped.
+        self.assertNotIn(h.attribute, fd.inline_diff())
+        self.assertIn("&gt;", fd.inline_diff())

@@ -22,12 +22,20 @@ class B:
     attribute = [1, 2, 3, 4]
 
 
+class HList:
+    attribute = ['<script>alert("Hacker value")</script>']
+
+
 class C:
     attribute = {'a': 1, 'b': 2}
 
 
 class D:
     attribute = {'a': 1, 'b': 2, 'c': 3}
+
+
+class HDict:
+    attribute = {'a': '<script>alert("Hacker value")</script>'}
 
 
 class TestListDiff(BaseDXTestCase):
@@ -126,6 +134,22 @@ class TestListDiff(BaseDXTestCase):
 </div>"""
         diff = ListDiff(a, b, 'attribute')
         self.assertEqual(diff.inline_diff(), expected)
+
+    def test_inline_diff_hacker_list(self):
+        a = A()
+        h = HList()
+        diff = ListDiff(a, h, 'attribute')
+        # The script tag should be escaped.
+        self.assertNotIn("<script", diff.inline_diff())
+        self.assertIn("&gt;", diff.inline_diff())
+
+    def test_inline_diff_hacker_dict(self):
+        d = D()
+        h = HDict()
+        diff = ListDiff(d, h, 'attribute')
+        # The script tag should be escaped.
+        self.assertNotIn("<script", diff.inline_diff())
+        self.assertIn("&gt;", diff.inline_diff())
 
     def test_inline_diff_vocabulary(self):
         # unchanged, with vocabulary title

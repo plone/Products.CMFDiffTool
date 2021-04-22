@@ -33,6 +33,14 @@ class RichTextDiffTestCase(unittest.TestCase):
         self.assertEqual(diff.same, True)
         self.assertEqual(inline_diff, u'foo ')
 
+    def test_inline_diff_same_hacker(self):
+        value = RichTextValue(u'<script>alert("Hacker value")</script>')
+        diff = CMFDTHtmlDiff(DummyType(value), DummyType(value), 'body')
+        inline_diff = diff.inline_diff()
+        # The script tag should be escaped.
+        self.assertNotIn("<script", inline_diff)
+        self.assertIn("&gt;", inline_diff)
+
     def test_inline_diff_different(self):
         old_value = RichTextValue(u'foo')
         new_value = RichTextValue(u'foo bar')
@@ -44,3 +52,20 @@ class RichTextDiffTestCase(unittest.TestCase):
         self.assertTrue(IDifference.providedBy(diff))
         self.assertEqual(diff.same, False)
         self.assertEqual(inline_diff, u'foo <span class="insert">bar </span> ')
+
+    def test_inline_diff_different_hacker(self):
+        old_value = RichTextValue(u'clean')
+        new_value = RichTextValue(u'<script>alert("Hacker value")</script>')
+        diff = CMFDTHtmlDiff(DummyType(old_value), DummyType(new_value), 'body')
+        inline_diff = diff.inline_diff()
+        # The script tag should be escaped.
+        self.assertNotIn("<script", inline_diff)
+        self.assertIn("&gt;", inline_diff)
+
+        old_value = RichTextValue(u'<script>alert("Hacker value")</script>')
+        new_value = RichTextValue(u'clean')
+        diff = CMFDTHtmlDiff(DummyType(old_value), DummyType(new_value), 'body')
+        inline_diff = diff.inline_diff()
+        # The script tag should be escaped.
+        self.assertNotIn("<script", inline_diff)
+        self.assertIn("&gt;", inline_diff)

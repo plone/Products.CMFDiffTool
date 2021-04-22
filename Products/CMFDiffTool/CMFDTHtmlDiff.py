@@ -2,6 +2,7 @@
 from AccessControl.class_init import InitializeClass
 from Products.CMFDiffTool.libs import htmldiff
 from Products.CMFDiffTool.TextDiff import TextDiff
+from Products.CMFDiffTool.utils import html_encode
 
 
 # Give it a dumb name so it doesn't conflict with all the other html diffs
@@ -18,7 +19,7 @@ class CMFDTHtmlDiff(TextDiff):
                                        filename=self.oldFilename))
         b = '\n'.join(self._parseField(self.newValue,
                                        filename=self.newFilename))
-        return htmldiff.htmldiff(a, b)
+        return htmldiff.htmldiff(html_encode(a), html_encode(b))
 
     def _parseField(self, value, filename=None):
         """Use the field's raw value if available."""

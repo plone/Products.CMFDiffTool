@@ -56,6 +56,17 @@ class AsTextDiffTestCase(unittest.TestCase):
             [],
             False,
         )
+        self._test_diff_files(
+            [
+                ('<script>alert("Hacker data 1")</script>', u'filename1'),
+                ('<script>alert("Hacker data 2")</script>', u'filename2'),
+            ],
+            [
+                ('data1', u'<script>alert("Hacker data")</script>.txt'),
+                ('<script>alert("Hacker data 2")</script>', u'filename2'),
+            ],
+            False,
+        )
         self._test_diff_files(None, None, True)
         self._test_diff_files([], [], True)
         self._test_diff_files([], None, True)
@@ -65,4 +76,8 @@ class AsTextDiffTestCase(unittest.TestCase):
             DummyType(files1), DummyType(files2), 'files')
         self.assertTrue(IDifference.providedBy(diff))
         self.assertEqual(diff.same, same)
-        self.assertNotEqual(bool(diff.inline_diff()), same)
+        inline = diff.inline_diff()
+        self.assertNotEqual(bool(inline), same)
+        if inline:
+            # No hacker can catch us unawares.
+            self.assertNotIn("<script", inline)

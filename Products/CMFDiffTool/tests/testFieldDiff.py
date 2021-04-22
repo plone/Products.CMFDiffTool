@@ -33,6 +33,13 @@ class U:
         return u'different method val\xfce'
 
 
+class H:
+    attribute = '<script>alert("Hacker value")</script>'
+
+    def method(self):
+        return '<script>alert("Hacker method value")</script>'
+
+
 class TestFieldDiff(TestCase):
     """Test the FieldDiff class"""
 
@@ -163,3 +170,40 @@ class TestFieldDiff(TestCase):
         self.assertEqual(diff, ['- True'])
         dump('+', [False], 0, 1, diff)
         self.assertEqual(diff, ['- True', '+ False'])
+
+    def test_inline_diff_same(self):
+        """Test inline diff for attribute with same value"""
+        a = A()
+        uu = U()
+        h = H()
+        # We mostly just want to check that the inline diff renders without error.
+        fd = FieldDiff(a, a, 'attribute')
+        self.assertIn('class="InlineDiff"', fd.inline_diff())
+        fd = FieldDiff(uu, uu, 'attribute')
+        self.assertIn('class="InlineDiff"', fd.inline_diff())
+        self.assertNotIn("&gt;", fd.inline_diff())
+        fd = FieldDiff(h, h, 'attribute')
+        self.assertIn('class="InlineDiff"', fd.inline_diff())
+        # h.attribute contains a script, and this should be escaped.
+        self.assertNotIn(h.attribute, fd.inline_diff())
+        self.assertIn("&gt;", fd.inline_diff())
+
+    def test_inline_diff_different(self):
+        """Test inline diff for attribute with different value"""
+        a = A()
+        uu = U()
+        h = H()
+        fd = FieldDiff(a, uu, 'attribute')
+        self.assertIn('class="InlineDiff"', fd.inline_diff())
+        fd = FieldDiff(uu, a, 'attribute')
+        self.assertIn('class="InlineDiff"', fd.inline_diff())
+        self.assertNotIn("&gt;", fd.inline_diff())
+        fd = FieldDiff(uu, h, 'attribute')
+        self.assertIn('class="InlineDiff"', fd.inline_diff())
+        # h.attribute contains a script, and this should be escaped.
+        self.assertNotIn(h.attribute, fd.inline_diff())
+        fd = FieldDiff(h, uu, 'attribute')
+        self.assertIn('class="InlineDiff"', fd.inline_diff())
+        # h.attribute contains a script, and this should be escaped.
+        self.assertNotIn(h.attribute, fd.inline_diff())
+        self.assertIn("&gt;", fd.inline_diff())
