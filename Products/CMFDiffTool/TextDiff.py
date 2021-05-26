@@ -3,6 +3,7 @@ from AccessControl.class_init import InitializeClass
 from os import linesep
 from Products.CMFDiffTool import CMFDiffToolMessageFactory as _
 from Products.CMFDiffTool.FieldDiff import FieldDiff
+from Products.CMFDiffTool.utils import html_encode
 from Products.CMFDiffTool.utils import safe_unicode
 from Products.CMFDiffTool.utils import safe_utf8
 from zope.component.hooks import getSite
@@ -87,11 +88,11 @@ class TextDiff(FieldDiff):
         if old_fname != new_fname:
             html.append(
                 self.inlinediff_fmt % ('%s FilenameDiff' % css_class,
-                                       old_fname, new_fname),
+                                       html_encode(old_fname), html_encode(new_fname)),
             )
         if a != b:
             html.append(
-                self.inlinediff_fmt % (css_class, a, b),
+                self.inlinediff_fmt % (css_class, html_encode(a), html_encode(b)),
             )
         if html:
             return linesep.join(html)
