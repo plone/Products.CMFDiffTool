@@ -4,7 +4,7 @@ from plone.namedfile import NamedFile
 from Products.CMFDiffTool.BinaryDiff import BinaryDiff
 from Products.CMFDiffTool.ListDiff import ListDiff
 from Products.CMFDiffTool.TextDiff import TextDiff
-from Products.CMFDiffTool.utils import html_encode
+from Products.CMFDiffTool.utils import html_escape
 
 
 FILE_FIELD_TYPES = []
@@ -71,7 +71,7 @@ class NamedFileBinaryDiff(BinaryDiff):
         old = self._parseField(self.oldValue, self.oldFilename)[0]
         new = self._parseField(self.newValue, self.newFilename)[0]
 
-        return '' if self.same else self.inlinediff_fmt % (css_class, html_encode(old), html_encode(new))
+        return '' if self.same else self.inlinediff_fmt % (css_class, html_escape(old), html_escape(new))
 
 
 InitializeClass(NamedFileBinaryDiff)
@@ -137,9 +137,9 @@ class NamedFileListDiff(ListDiff):
             )
 
         return '\n'.join([
-            ((self.same_fmt % (css_class, html_encode(d_old['repr'])))
+            ((self.same_fmt % (css_class, html_escape(d_old['repr'])))
              if is_same_dict(d_old, d_new) else self.inlinediff_fmt
-             % (css_class, html_encode(d_old['repr']), html_encode(d_new['repr']))
+             % (css_class, html_escape(d_old['repr']), html_escape(d_new['repr']))
              ) for (d_old, d_new) in zip(old_data, new_data)])
 
 

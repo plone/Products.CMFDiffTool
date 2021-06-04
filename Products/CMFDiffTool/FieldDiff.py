@@ -2,7 +2,7 @@
 from AccessControl.class_init import InitializeClass
 from Products.CMFDiffTool.BaseDiff import _getValue
 from Products.CMFDiffTool.BaseDiff import BaseDiff
-from Products.CMFDiffTool.utils import html_encode
+from Products.CMFDiffTool.utils import html_escape
 from six.moves import range
 
 import difflib
@@ -81,18 +81,18 @@ class FieldDiff(BaseDiff):
         for tag, alo, ahi, blo, bhi in self.getLineDiffs():
             if tag == 'replace':
                 for i in range(alo, ahi):
-                    r.append(inlinediff_fmt % (css_class, html_encode(a[i]), ''))
+                    r.append(inlinediff_fmt % (css_class, html_escape(a[i]), ''))
                 for i in range(blo, bhi):
-                    r.append(inlinediff_fmt % (css_class, '', html_encode(b[i])))
+                    r.append(inlinediff_fmt % (css_class, '', html_escape(b[i])))
             elif tag == 'delete':
                 for i in range(alo, ahi):
-                    r.append(inlinediff_fmt % (css_class, html_encode(a[i]), ''))
+                    r.append(inlinediff_fmt % (css_class, html_escape(a[i]), ''))
             elif tag == 'insert':
                 for i in range(blo, bhi):
-                    r.append(inlinediff_fmt % (css_class, '', html_encode(b[i])))
+                    r.append(inlinediff_fmt % (css_class, '', html_escape(b[i])))
             elif tag == 'equal':
                 for i in range(alo, ahi):
-                    r.append(same_fmt % (css_class, html_encode(a[i])))
+                    r.append(same_fmt % (css_class, html_escape(a[i])))
             else:
                 raise ValueError('unknown tag "%s"' % tag)
         return '\n'.join(r)
