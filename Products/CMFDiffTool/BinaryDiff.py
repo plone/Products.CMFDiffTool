@@ -3,7 +3,7 @@ from AccessControl.class_init import InitializeClass
 from os import linesep
 from Products.CMFDiffTool.BaseDiff import _getValue
 from Products.CMFDiffTool.FieldDiff import FieldDiff
-from Products.CMFDiffTool.utils import html_encode
+from Products.CMFDiffTool.utils import html_escape
 
 
 class BinaryDiff(FieldDiff):
@@ -51,8 +51,8 @@ class BinaryDiff(FieldDiff):
         if self.oldFilename != self.newFilename:
             html.append(
                 self.inlinediff_fmt % (css_class,
-                                       self.filenameTitle(html_encode(self.oldFilename)),
-                                       self.filenameTitle(html_encode(self.newFilename))),
+                                       self.filenameTitle(html_escape(self.oldFilename)),
+                                       self.filenameTitle(html_escape(self.newFilename))),
             )
 
         if html:

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from plone.app.testing import PLONE_INTEGRATION_TESTING
 from plone.app.textfield.value import RichTextValue
 from Products.CMFDiffTool.CMFDTHtmlDiff import CMFDTHtmlDiff
 from Products.CMFDiffTool.interfaces import IDifference
@@ -13,6 +14,7 @@ class DummyType(object):
 
 class RichTextDiffTestCase(unittest.TestCase):
     """Test RichTextDiff"""
+    layer = PLONE_INTEGRATION_TESTING
 
     def test_parseField_value_is_none(self):
         value = None
@@ -37,9 +39,9 @@ class RichTextDiffTestCase(unittest.TestCase):
         value = RichTextValue(u'<script>alert("Hacker value")</script>')
         diff = CMFDTHtmlDiff(DummyType(value), DummyType(value), 'body')
         inline_diff = diff.inline_diff()
-        # The script tag should be escaped.
+        # The script tag should not be escaped, but totally not shown.
         self.assertNotIn("<script", inline_diff)
-        self.assertIn("&gt;", inline_diff)
+        self.assertNotIn("&gt;", inline_diff)
 
     def test_inline_diff_different(self):
         old_value = RichTextValue(u'foo')
@@ -58,14 +60,14 @@ class RichTextDiffTestCase(unittest.TestCase):
         new_value = RichTextValue(u'<script>alert("Hacker value")</script>')
         diff = CMFDTHtmlDiff(DummyType(old_value), DummyType(new_value), 'body')
         inline_diff = diff.inline_diff()
-        # The script tag should be escaped.
+        # The script tag should not be escaped, but totally not shown.
         self.assertNotIn("<script", inline_diff)
-        self.assertIn("&gt;", inline_diff)
+        self.assertNotIn("&gt;", inline_diff)
 
         old_value = RichTextValue(u'<script>alert("Hacker value")</script>')
         new_value = RichTextValue(u'clean')
         diff = CMFDTHtmlDiff(DummyType(old_value), DummyType(new_value), 'body')
         inline_diff = diff.inline_diff()
-        # The script tag should be escaped.
+        # The script tag should not be escaped, but totally not shown.
         self.assertNotIn("<script", inline_diff)
-        self.assertIn("&gt;", inline_diff)
+        self.assertNotIn("&gt;", inline_diff)

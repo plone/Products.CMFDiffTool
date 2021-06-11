@@ -4,7 +4,7 @@ from plone.dexterity.interfaces import IDexterityContent
 from Products.CMFDiffTool.choicediff import get_field_object
 from Products.CMFDiffTool.choicediff import title_or_value
 from Products.CMFDiffTool.FieldDiff import FieldDiff
-from Products.CMFDiffTool.utils import html_encode
+from Products.CMFDiffTool.utils import html_escape
 from six.moves import range
 
 
@@ -89,34 +89,34 @@ class RelationListDiff(FieldDiff):
             if tag == 'replace':
                 for i in range(alo, ahi):
                     obj = self.oldValue[i]
-                    obj_title = html_encode(obj.Title())
+                    obj_title = html_escape(obj.Title())
                     obj_url = obj.absolute_url()
                     r.append(inlinediff_fmt %
                              (css_class, 'diff_sub', obj_url, obj_title))
                 for i in range(blo, bhi):
                     obj = self.newValue[i]
-                    obj_title = html_encode(obj.Title())
+                    obj_title = html_escape(obj.Title())
                     obj_url = obj.absolute_url()
                     r.append(inlinediff_fmt %
                              (css_class, 'diff_add', obj_url, obj_title))
             elif tag == 'delete':
                 for i in range(alo, ahi):
                     obj = self.oldValue[i]
-                    obj_title = html_encode(obj.Title())
+                    obj_title = html_escape(obj.Title())
                     obj_url = obj.absolute_url()
                     r.append(inlinediff_fmt %
                              (css_class, 'diff_sub', obj_url, obj_title))
             elif tag == 'insert':
                 for i in range(blo, bhi):
                     obj = self.newValue[i]
-                    obj_title = html_encode(obj.Title())
+                    obj_title = html_escape(obj.Title())
                     obj_url = obj.absolute_url()
                     r.append(inlinediff_fmt %
                              (css_class, 'diff_add', obj_url, obj_title))
             elif tag == 'equal':
                 for i in range(alo, ahi):
                     obj = self.oldValue[i]
-                    obj_title = html_encode(obj.Title())
+                    obj_title = html_escape(obj.Title())
                     obj_url = obj.absolute_url()
                     r.append(same_fmt % (css_class, obj_url, obj_title))
             else:
