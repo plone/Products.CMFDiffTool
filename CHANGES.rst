@@ -8,6 +8,19 @@ Changelog
 
 .. towncrier release notes start
 
+3.3.3 (2021-06-30)
+------------------
+
+Bug fixes:
+
+
+- Added XSS fix from PloneHotfix20210518 for inline diff.
+  See `vulnerability <https://plone.org/security/hotfix/20210518/xss-vulnerability-in-cmfdifftool>`_.
+  The first version of the hotfix escaped all html.
+  Now for the rich text field, use the safe html transform, otherwise the inline diff is no longer inline.
+  [maurits] (#39)
+
+
 3.3.2 (2020-09-21)
 ------------------
 
