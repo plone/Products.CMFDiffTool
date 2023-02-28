@@ -10,7 +10,7 @@ from plone.app.testing import TEST_USER_ID
 from Products.CMFCore.utils import getToolByName
 from Products.CMFDiffTool.ChangeSet import BaseChangeSet
 from Products.CMFDiffTool.dexteritydiff import DexterityCompoundDiff
-from Products.CMFPlone.utils import safe_hasattr
+from plone.base.utils import safe_hasattr
 from unittest import TestCase
 
 

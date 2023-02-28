@@ -9,7 +9,7 @@ from Acquisition import aq_base
 from plone.dexterity.interfaces import IDexterityContent
 from Products.CMFDiffTool import CMFDiffToolMessageFactory as _
 from Products.CMFDiffTool.interfaces import IDifference
-from Products.CMFPlone.utils import safe_hasattr
+from plone.base.utils import safe_hasattr
 from z3c.relationfield.relation import RelationValue
 from zope.i18n import translate
 from zope.interface import implementer

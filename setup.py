@@ -44,6 +44,7 @@ setup(
     install_requires=[
         'setuptools',
         'zope.interface',
+        'plone.base',
         'Products.CMFCore',
         'Products.GenericSetup',
         'Acquisition',
