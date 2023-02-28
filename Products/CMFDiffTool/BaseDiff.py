@@ -83,12 +83,6 @@ def _getValue(ob, field, field_name, convert_to_str=True):
             value = getattr(ob, field, None)
     elif field and safe_hasattr(aq_base(ob), field):
         value = getattr(ob, field)
-    elif safe_hasattr(aq_base(ob), 'getField'):
-        # Archetypes with an adapter extended schema needs special handling
-        field = ob.getField(field_name)
-        if field is None:
-            raise AttributeError(field)
-        value = field.getAccessor(ob)
     else:
         raise AttributeError(field)
 

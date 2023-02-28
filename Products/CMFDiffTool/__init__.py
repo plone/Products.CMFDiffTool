@@ -11,7 +11,6 @@ from Products.CMFDiffTool import TextDiff  # NOQA
 from Products.CMFDiffTool import ListDiff  # NOQA
 from Products.CMFDiffTool import BinaryDiff  # NOQA
 from Products.CMFDiffTool import CMFDTHtmlDiff  # NOQA
-from Products.CMFDiffTool import ATCompoundDiff  # NOQA
 
 
 CMFDiffTool.registerDiffType(BinaryDiff.BinaryDiff)
@@ -20,7 +19,6 @@ CMFDiffTool.registerDiffType(ListDiff.ListDiff)
 CMFDiffTool.registerDiffType(TextDiff.TextDiff)
 CMFDiffTool.registerDiffType(TextDiff.AsTextDiff)
 CMFDiffTool.registerDiffType(CMFDTHtmlDiff.CMFDTHtmlDiff)
-CMFDiffTool.registerDiffType(ATCompoundDiff.ATCompoundDiff)
 
 # Soft plone.namedfile dependency
 try:

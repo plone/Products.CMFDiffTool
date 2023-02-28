@@ -99,30 +99,5 @@ class DXLayer(PloneSandboxLayer):
 
 PACKAGE_DX_FIXTURE = DXLayer()
 
-if six.PY2:
-    try:
-        from plone.app.testing.bbb_at import PTC_FIXTURE
-    except ImportError:
-        # plone.app.testing 5 or earlier
-        from plone.app.testing.bbb import PTC_FIXTURE
-
-    class ATLayer(PloneSandboxLayer):
-
-        defaultBases = (PTC_FIXTURE, )
-
-        def setUpZope(self, app, configurationContext):
-            # setup schema extender if available
-            try:
-                from archetypes import schemaextender
-                self.loadZCML(package=schemaextender)
-            except ImportError:
-                pass
-
-    PACKAGE_AT_FIXTURE = ATLayer()
-    CMFDiffToolATLayer = FunctionalTesting(
-        bases=(PACKAGE_AT_FIXTURE, ),
-        name='Products.CMFDiffTool.AT:functional')
-
-
 CMFDiffToolDXLayer = FunctionalTesting(
     bases=(PACKAGE_DX_FIXTURE, ), name='Products.CMFDiffTool.DX:functional')
