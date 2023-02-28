@@ -43,7 +43,6 @@ setup(
     python_requires='>=3.8',
     install_requires=[
         'setuptools',
-        'six',
         'zope.interface',
         'Products.CMFCore',
         'Products.GenericSetup',

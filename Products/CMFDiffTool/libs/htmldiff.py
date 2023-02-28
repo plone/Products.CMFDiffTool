@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 htmldiff.py
 (C) Ian Bicking <ianb@colorstudy.com>
@@ -11,16 +10,12 @@ Command-line usage:
 
 Better results if you use mxTidy first.  The output is HTML.
 """
-from __future__ import print_function
 from difflib import SequenceMatcher
-from six import StringIO
+from html import escape
+from io import StringIO
 
 import re
 
-try:
-    from html import escape
-except ImportError:
-    from cgi import escape
 
 
 def htmlEncode(s, esc=escape):

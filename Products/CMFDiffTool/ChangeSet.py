@@ -12,9 +12,9 @@ from AccessControl import ClassSecurityInfo
 from Acquisition import aq_base
 from Acquisition import Implicit
 from ComputedAttribute import ComputedAttribute
+from functools import reduce
 from Products.CMFCore.utils import getToolByName
 from Products.CMFDiffTool.interfaces import IChangeSet
-from six.moves import reduce
 from zope.interface import implementer
 
 import logging
