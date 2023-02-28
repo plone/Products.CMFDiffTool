@@ -17,7 +17,6 @@ from io import StringIO
 import re
 
 
-
 def htmlEncode(s, esc=escape):
     return esc(s, 1)
 

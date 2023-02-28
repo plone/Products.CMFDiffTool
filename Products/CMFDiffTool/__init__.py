@@ -2,15 +2,17 @@
 """Initialize CMFDiffTool Product"""
 # Set up a MessageFactory for the cmfdifftool domain
 from zope.i18nmessageid import MessageFactory
+
+
 CMFDiffToolMessageFactory = MessageFactory('plone')
 
 from Products.CMFCore.utils import ToolInit  # NOQA
-from Products.CMFDiffTool import CMFDiffTool  # NOQA
-from Products.CMFDiffTool import FieldDiff  # NOQA
-from Products.CMFDiffTool import TextDiff  # NOQA
-from Products.CMFDiffTool import ListDiff  # NOQA
 from Products.CMFDiffTool import BinaryDiff  # NOQA
+from Products.CMFDiffTool import CMFDiffTool  # NOQA
 from Products.CMFDiffTool import CMFDTHtmlDiff  # NOQA
+from Products.CMFDiffTool import FieldDiff  # NOQA
+from Products.CMFDiffTool import ListDiff  # NOQA
+from Products.CMFDiffTool import TextDiff  # NOQA
 
 
 CMFDiffTool.registerDiffType(BinaryDiff.BinaryDiff)
@@ -31,8 +33,8 @@ else:
 
 # Soft Dexterity dependency
 try:
-    from Products.CMFDiffTool import dexteritydiff
     from Products.CMFDiffTool import choicediff
+    from Products.CMFDiffTool import dexteritydiff
 except ImportError:
     pass
 else:
