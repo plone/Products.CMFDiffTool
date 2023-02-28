@@ -36,8 +36,7 @@ setup(
             'plone.app.testing',
             'plone.namedfile',
             'plone.app.dexterity',
-            'plone.app.contenttypes',
-            'plone.app.robotframework',  # Only because plone.app.event fails
+            'plone.app.contenttypes[test]',
             ]
     ),
     python_requires='>=3.8',
