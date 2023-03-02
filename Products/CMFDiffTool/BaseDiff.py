@@ -6,10 +6,10 @@
 
 from AccessControl.class_init import InitializeClass
 from Acquisition import aq_base
+from plone.base.utils import safe_hasattr
 from plone.dexterity.interfaces import IDexterityContent
 from Products.CMFDiffTool import CMFDiffToolMessageFactory as _
 from Products.CMFDiffTool.interfaces import IDifference
-from Products.CMFPlone.utils import safe_hasattr
 from z3c.relationfield.relation import RelationValue
 from zope.i18n import translate
 from zope.interface import implementer
@@ -83,12 +83,6 @@ def _getValue(ob, field, field_name, convert_to_str=True):
             value = getattr(ob, field, None)
     elif field and safe_hasattr(aq_base(ob), field):
         value = getattr(ob, field)
-    elif safe_hasattr(aq_base(ob), 'getField'):
-        # Archetypes with an adapter extended schema needs special handling
-        field = ob.getField(field_name)
-        if field is None:
-            raise AttributeError(field)
-        value = field.getAccessor(ob)
     else:
         raise AttributeError(field)
 

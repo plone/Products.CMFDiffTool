@@ -7,10 +7,10 @@ from os import linesep
 from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FUNCTIONAL_TESTING  # NOQA
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
+from plone.base.utils import safe_hasattr
 from Products.CMFCore.utils import getToolByName
 from Products.CMFDiffTool.ChangeSet import BaseChangeSet
 from Products.CMFDiffTool.dexteritydiff import DexterityCompoundDiff
-from Products.CMFPlone.utils import safe_hasattr
 from unittest import TestCase
 
 

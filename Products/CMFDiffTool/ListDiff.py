@@ -1,11 +1,9 @@
-# -*- coding: utf-8 -*-
 from AccessControl.class_init import InitializeClass
 from plone.dexterity.interfaces import IDexterityContent
 from Products.CMFDiffTool.choicediff import get_field_object
 from Products.CMFDiffTool.choicediff import title_or_value
 from Products.CMFDiffTool.FieldDiff import FieldDiff
 from Products.CMFDiffTool.utils import html_escape
-from six.moves import range
 
 
 class ListDiff(FieldDiff):

@@ -7,12 +7,12 @@ from AccessControl import ClassSecurityInfo
 from AccessControl.class_init import InitializeClass
 from Acquisition import aq_base
 from OFS.SimpleItem import SimpleItem
+from plone.base.utils import safe_hasattr
 from Products.CMFCore.permissions import ManagePortal
 from Products.CMFCore.utils import registerToolInterface
 from Products.CMFCore.utils import UniqueObject
 from Products.CMFDiffTool.ChangeSet import BaseChangeSet
 from Products.CMFDiffTool.interfaces import IDiffTool
-from Products.CMFPlone.utils import safe_hasattr
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from zExceptions import BadRequest
 from zope.interface import implementer

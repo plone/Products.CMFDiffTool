@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
 from AccessControl.class_init import InitializeClass
 from Products.CMFDiffTool.BaseDiff import _getValue
 from Products.CMFDiffTool.BaseDiff import BaseDiff
 from Products.CMFDiffTool.utils import html_escape
-from six.moves import range
 
 import difflib
 

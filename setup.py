@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
-from setuptools import setup, find_packages
+from setuptools import find_packages
+from setuptools import setup
 
-version = '3.3.4.dev0'
+
+version = '4.0.0.dev0'
 
 setup(
     name='Products.CMFDiffTool',
@@ -11,14 +13,11 @@ setup(
                       open("CHANGES.rst").read()),
     classifiers=[
         "Development Status :: 5 - Production/Stable",
-        "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "Framework :: Plone",
-        "Framework :: Plone :: 5.1",
-        "Framework :: Plone :: 5.2",
         "Framework :: Plone :: 6.0",
         "Framework :: Plone :: Core",
         "License :: OSI Approved :: GNU General Public License (GPL)",
@@ -27,7 +26,7 @@ setup(
     keywords='Diff Plone',
     author='Brent Hendricks',
     author_email='plone-developers@lists.sourceforge.net',
-    url='https://pypi.org/project/Products.CMFDiffTool',
+    url='https://github.com/plone/Products.CMFDiffTool',
     license='GPL',
     packages=find_packages(),
     namespace_packages=['Products'],
@@ -39,18 +38,18 @@ setup(
             'plone.app.testing',
             'plone.namedfile',
             'plone.app.dexterity',
-            'plone.app.contenttypes',
-            'plone.app.robotframework',  # Only because plone.app.event fails
+            'plone.app.contenttypes[test]',
             ]
     ),
+    python_requires='>=3.8',
     install_requires=[
         'setuptools',
-        'six',
         'zope.interface',
+        'plone.base',
         'Products.CMFCore',
         'Products.GenericSetup',
         'Acquisition',
-        'Zope2',
+        'Zope',
     ],
     entry_points="""
     [z3c.autoinclude.plugin]

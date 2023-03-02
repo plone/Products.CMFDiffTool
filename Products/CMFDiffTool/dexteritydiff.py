@@ -69,9 +69,7 @@ EXCLUDED_FIELDS = ('modification_date', 'IVersionable.changeNote')
 
 
 class DexterityCompoundDiff(object):
-    """Same as `Products.CMFDiffTool.ATCompoundDiff.ATCompoundDiff` but for
-    Dexterity.
-    """
+    """text difference for Dexterity"""
 
     meta_type = 'Compound Diff for Dexterity types'
 

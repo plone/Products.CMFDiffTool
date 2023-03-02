@@ -1,15 +1,12 @@
-# -*- coding: utf-8 -*-
 from AccessControl.class_init import InitializeClass
 from os import linesep
 from Products.CMFDiffTool import CMFDiffToolMessageFactory as _
 from Products.CMFDiffTool.FieldDiff import FieldDiff
 from Products.CMFDiffTool.utils import html_escape
 from Products.CMFDiffTool.utils import safe_unicode
-from Products.CMFDiffTool.utils import safe_utf8
 from zope.component.hooks import getSite
 
 import difflib
-import six
 
 
 class TextDiff(FieldDiff):
@@ -37,9 +34,6 @@ class TextDiff(FieldDiff):
         """Return a unified diff"""
         a = self._parseField(self.oldValue, filename=self.oldFilename)
         b = self._parseField(self.newValue, filename=self.newFilename)
-        if six.PY2:
-            a = [safe_utf8(i) for i in a]
-            b = [safe_utf8(i) for i in b]
         # in py3 unified_diff does not accept None for ids (id1 and id2)
         # But TextDiff() sets None as default. We overwrite this here so the
         # default of unified_diff ('') can be used .
@@ -62,8 +56,6 @@ class TextDiff(FieldDiff):
             safe_unicode(self.id1),
             safe_unicode(self.id2),
             context=context)
-        if six.PY2:
-            diff = safe_utf8(diff)
         return diff
 
     def inline_diff(self):
