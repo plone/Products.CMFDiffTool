@@ -19,17 +19,18 @@ from zope.interface import implementer
 import logging
 
 
-logger = logging.getLogger('CMFDiffTool')
+logger = logging.getLogger("CMFDiffTool")
 
 
 @implementer(IChangeSet)
 class BaseChangeSet(Implicit):
     """A ChangeSet represents the set of differences between two objects"""
+
     # This should really not be needed just for same, we should use a method
     __allow_access_to_unprotected_subobjects__ = 1
     security = ClassSecurityInfo()
 
-    def __init__(self, id, title=''):
+    def __init__(self, id, title=""):
         """ChangeSet constructor"""
         self.id = id
         self.title = title
@@ -41,7 +42,7 @@ class BaseChangeSet(Implicit):
         self._changesets = {}
         self.recursive = 0
 
-    security.declarePublic('getId')  # NOQA
+    security.declarePublic("getId")  # NOQA
 
     def getId(self):
         """ChangeSet id"""
@@ -54,13 +55,12 @@ class BaseChangeSet(Implicit):
         """Returns true if there are no differences between the two objects"""
         return reduce(lambda x, y: x and y, [d.same for d in self._diffs], 1)
 
-    security.declarePublic('same')  # NOQA
+    security.declarePublic("same")  # NOQA
     same = ComputedAttribute(_isSame)
 
-    security.declarePublic('computeDiff')  # NOQA
+    security.declarePublic("computeDiff")  # NOQA
 
-    def computeDiff(self, ob1, ob2, recursive=1, exclude=None,
-                    id1=None, id2=None):
+    def computeDiff(self, ob1, ob2, recursive=1, exclude=None, id1=None, id2=None):
         """Compute the differences from ob1 to ob2 (ie. ob2 - ob1).
 
         The results can be accessed through getDiffs()"""
@@ -75,7 +75,7 @@ class BaseChangeSet(Implicit):
         self._changed = []
         self._changesets = {}
 
-        purl = getToolByName(self, 'portal_url', None)
+        purl = getToolByName(self, "portal_url", None)
         if purl is not None:
             try:
                 self.ob1_path = purl.getRelativeContentPath(ob1)
@@ -83,12 +83,10 @@ class BaseChangeSet(Implicit):
             except AttributeError:
                 # one or both of the objects may not have a path
                 return
-        diff_tool = getToolByName(self, 'portal_diff')
+        diff_tool = getToolByName(self, "portal_diff")
         self._diffs = diff_tool.computeDiff(ob1, ob2, id1=id1, id2=id2)
 
-        if (recursive and
-                ob1.isPrincipiaFolderish and
-                ob2.isPrincipiaFolderish):
+        if recursive and ob1.isPrincipiaFolderish and ob2.isPrincipiaFolderish:
             self.recursive = 1
             ids1 = set(ob1.objectIds())
             ids2 = set(ob2.objectIds())
@@ -119,12 +117,12 @@ class BaseChangeSet(Implicit):
                 self._addSubSet(id, ob1, ob2, exclude, id1, id2)
 
     def _addSubSet(self, id, ob1, ob2, exclude, id1, id2):
-        cs = BaseChangeSet(id, title='Changes to: %s' % id)
+        cs = BaseChangeSet(id, title="Changes to: %s" % id)
         cs = cs.__of__(self)
         cs.computeDiff(ob1[id], ob2[id], exclude=exclude, id1=id1, id2=id2)
         self._changesets[id] = aq_base(cs)
 
-    security.declarePublic('testChanges')  # NOQA
+    security.declarePublic("testChanges")  # NOQA
 
     def testChanges(self, ob):
         """
@@ -139,7 +137,7 @@ class BaseChangeSet(Implicit):
             child = ob[id]
             cs.testChanges(child)
 
-    security.declarePublic('applyChanges')  # NOQA
+    security.declarePublic("applyChanges")  # NOQA
 
     def applyChanges(self, ob):
         """Apply the change set to the specified object"""
@@ -158,7 +156,7 @@ class BaseChangeSet(Implicit):
             child = ob[id]
             cs.applyChanges(child)
 
-    security.declarePublic('getDiffs')  # NOQA
+    security.declarePublic("getDiffs")  # NOQA
 
     def getDiffs(self):
         """
@@ -169,18 +167,18 @@ class BaseChangeSet(Implicit):
         """
         return self._diffs
 
-    security.declarePublic('getSubDiffs')  # NOQA
+    security.declarePublic("getSubDiffs")  # NOQA
 
     def getSubDiffs(self):
         """If the ChangeSet was computed recursively, returns a list
-           of ChangeSet objects representing subjects differences
+        of ChangeSet objects representing subjects differences
 
-           Each ChangeSet will have the same ID as the objects whose
-           difference it represents.
-           """
+        Each ChangeSet will have the same ID as the objects whose
+        difference it represents.
+        """
         return [self[id] for id in self._changed]
 
-    security.declarePublic('getAddedItems')  # NOQA
+    security.declarePublic("getAddedItems")  # NOQA
 
     def getAddedItems(self):
         """If the ChangeSet was computed recursively, returns the list
@@ -190,7 +188,7 @@ class BaseChangeSet(Implicit):
         """
         return list(self._added)
 
-    security.declarePublic('getRemovedItems')  # NOQA
+    security.declarePublic("getRemovedItems")  # NOQA
 
     def getRemovedItems(self):
         """If the ChangeSet was computed recursively, returns the list

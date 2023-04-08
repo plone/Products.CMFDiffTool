@@ -21,15 +21,15 @@ from zope.interface import implementer
 class CMFDiffTool(UniqueObject, SimpleItem):
     """ """
 
-    id = 'portal_diff'
-    meta_type = 'CMF Diff Tool'
+    id = "portal_diff"
+    meta_type = "CMF Diff Tool"
 
     security = ClassSecurityInfo()
 
-    manage_options = (({'label': 'Configure', 'action': 'manage_difftypes'},
-                      {'label': 'Overview', 'action': 'manage_overview'},
-                       ) + SimpleItem.manage_options
-                      )
+    manage_options = (
+        {"label": "Configure", "action": "manage_difftypes"},
+        {"label": "Overview", "action": "manage_overview"},
+    ) + SimpleItem.manage_options
 
     #  Internal attributes
     _difftypes = {}
@@ -37,8 +37,8 @@ class CMFDiffTool(UniqueObject, SimpleItem):
     def __init__(self):
         self._pt_diffs = {}
 
-    security.declareProtected(ManagePortal, 'manage_difftypes')  # NOQA
-    manage_difftypes = PageTemplateFile('zpt/editCMFDiffTool', globals())
+    security.declareProtected(ManagePortal, "manage_difftypes")  # NOQA
+    manage_difftypes = PageTemplateFile("zpt/editCMFDiffTool", globals())
 
     def manage_editDiffFields(self, updates, REQUEST=None):
         """Edit the portal type fields"""
@@ -47,49 +47,48 @@ class CMFDiffTool(UniqueObject, SimpleItem):
         del self._pt_diffs
         self._pt_diffs = {}
         for r in updates:
-            if r.get('delete', None):
+            if r.get("delete", None):
                 continue
             self.setDiffField(r.pt_name, r.field, r.diff)
 
         self._p_changed = 1
 
         if REQUEST:
-            return self.manage_difftypes(
-                manage_tabs_message='Diff mappings updated')
+            return self.manage_difftypes(manage_tabs_message="Diff mappings updated")
 
-    security.declareProtected(ManagePortal, 'listDiffTypes')  # NOQA
+    security.declareProtected(ManagePortal, "listDiffTypes")  # NOQA
 
     def manage_addDiffField(self, pt_name, field, diff, REQUEST=None):
         """Add a new diff field from the ZMI"""
         self.setDiffField(pt_name, field, diff)
         if REQUEST:
-            return self.manage_difftypes(manage_tabs_message='Field added')
+            return self.manage_difftypes(manage_tabs_message="Field added")
 
     def setDiffField(self, pt_name, field, diff):
         """
         Set the diff type for 'field' on the portal type 'pt_name' to 'diff'
         """
         if pt_name not in self.portal_types.listContentTypes():
-            raise BadRequest('Error: invalid portal type')
+            raise BadRequest("Error: invalid portal type")
 
         elif not field:
-            raise BadRequest('Error: no field specified')
+            raise BadRequest("Error: no field specified")
 
         elif diff not in self.listDiffTypes():
-            raise BadRequest('Error: invalid diff type')
+            raise BadRequest("Error: invalid diff type")
 
         else:
             self._pt_diffs.setdefault(pt_name, {})[field] = diff
             self._p_changed = 1
 
     #  Interface fulfillment
-    security.declareProtected(ManagePortal, 'listDiffTypes')  # NOQA
+    security.declareProtected(ManagePortal, "listDiffTypes")  # NOQA
 
     def listDiffTypes(self):
         """List the names of the registered difference types"""
         return list(self._difftypes)
 
-    security.declareProtected(ManagePortal, 'getDiffType')  # NOQA
+    security.declareProtected(ManagePortal, "getDiffType")  # NOQA
 
     def getDiffType(self, diff):
         """Return a class corresponding to the specified diff type.
@@ -97,7 +96,7 @@ class CMFDiffTool(UniqueObject, SimpleItem):
         interface"""
         return self._difftypes.get(diff, None)
 
-    security.declareProtected(ManagePortal, 'setDiffForPortalType')  # NOQA
+    security.declareProtected(ManagePortal, "setDiffForPortalType")  # NOQA
 
     def setDiffForPortalType(self, pt_name, mapping):
         """Set the difference type(self, s) for the specific portal type
@@ -109,7 +108,7 @@ class CMFDiffTool(UniqueObject, SimpleItem):
         self._pt_diffs[pt_name] = mapping.copy()
         self._p_changed = 1
 
-    security.declareProtected(ManagePortal, 'getDiffForPortalType')  # NOQA
+    security.declareProtected(ManagePortal, "getDiffForPortalType")  # NOQA
 
     def getDiffForPortalType(self, pt_name):
         """Returns a dictionary where each key is an attribute or
@@ -118,7 +117,7 @@ class CMFDiffTool(UniqueObject, SimpleItem):
         # Return a copy so we don't have to worry about the user changing it
         return self._pt_diffs.get(pt_name, {}).copy()
 
-    security.declarePublic('computeDiff')  # NOQA
+    security.declarePublic("computeDiff")  # NOQA
 
     def computeDiff(self, ob1, ob2, id1=None, id2=None):
         """Compute the differences between two objects and return the
@@ -126,7 +125,7 @@ class CMFDiffTool(UniqueObject, SimpleItem):
         IDifference interface"""
 
         # Try to get the portal type from obj1 first.  If that fails, use obj2
-        pt_name = ''
+        pt_name = ""
         try:
             pt_name = aq_base(ob1).portal_type
         except AttributeError:
@@ -142,19 +141,19 @@ class CMFDiffTool(UniqueObject, SimpleItem):
             klass = self._difftypes[klass_name]
             f_diff = klass(ob1, ob2, field, id1=id1, id2=id2)
             # handle compound diff types
-            if safe_hasattr(f_diff, '__getitem__'):
+            if safe_hasattr(f_diff, "__getitem__"):
                 diffs.extend(f_diff)
             else:
                 diffs.append(f_diff)
         return diffs
 
-    security.declarePublic('createChangeSet')  # NOQA
+    security.declarePublic("createChangeSet")  # NOQA
 
     def createChangeSet(self, ob1, ob2, id1=None, id2=None):
         """Returns a ChangeSet object that represents the differences
         between ob1 and ob2 (ie. ob2 - ob1) ."""
         # FIXME: Pick a better ID
-        cs = BaseChangeSet('Changes').__of__(self)
+        cs = BaseChangeSet("Changes").__of__(self)
         cs.computeDiff(ob1, ob2, id1=id1, id2=id2)
         return aq_base(cs)
 
@@ -178,4 +177,4 @@ def unregisterDiffType(klass):
 
 
 InitializeClass(CMFDiffTool)
-registerToolInterface('portal_diff', IDiffTool)
+registerToolInterface("portal_diff", IDiffTool)

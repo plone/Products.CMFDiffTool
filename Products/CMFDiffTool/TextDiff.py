@@ -12,7 +12,7 @@ import difflib
 class TextDiff(FieldDiff):
     """Text difference"""
 
-    meta_type = 'Lines Diff'
+    meta_type = "Lines Diff"
     inlinediff_fmt = """
 <div class="%s">
     <del>%s</del>
@@ -23,7 +23,7 @@ class TextDiff(FieldDiff):
     def _parseField(self, value, filename=None):
         """Parse a field value in preparation for diffing"""
         if value is None:
-            value = ''
+            value = ""
         if filename is None:
             # Split the text into a list for diffs
             return value.splitlines()
@@ -45,27 +45,26 @@ class TextDiff(FieldDiff):
         """Return an HTML table showing differences"""
         # difflib is not Unicode-aware, so we need to force everything to
         # utf-8 manually
-        a = [safe_unicode(i) for i in
-             self._parseField(self.oldValue, filename=self.oldFilename)]
-        b = [safe_unicode(i) for i in
-             self._parseField(self.newValue, filename=self.newFilename)]
+        a = [
+            safe_unicode(i)
+            for i in self._parseField(self.oldValue, filename=self.oldFilename)
+        ]
+        b = [
+            safe_unicode(i)
+            for i in self._parseField(self.newValue, filename=self.newFilename)
+        ]
         vis_diff = difflib.HtmlDiff(wrapcolumn=wrapcolumn)
         diff = vis_diff.make_table(
-            a,
-            b,
-            safe_unicode(self.id1),
-            safe_unicode(self.id2),
-            context=context)
+            a, b, safe_unicode(self.id1), safe_unicode(self.id2), context=context
+        )
         return diff
 
     def inline_diff(self):
         """Simple inline diff that just assumes that either the filename
         has changed, or the text has been completely replaced."""
-        css_class = 'InlineDiff'
-        old_attr = self._parseField(self.oldValue,
-                                    filename=self.oldFilename)
-        new_attr = self._parseField(self.newValue,
-                                    filename=self.newFilename)
+        css_class = "InlineDiff"
+        old_attr = self._parseField(self.oldValue, filename=self.oldFilename)
+        new_attr = self._parseField(self.newValue, filename=self.newFilename)
         if old_attr:
             old_fname = old_attr.pop(0)
         else:
@@ -79,8 +78,12 @@ class TextDiff(FieldDiff):
         html = []
         if old_fname != new_fname:
             html.append(
-                self.inlinediff_fmt % ('%s FilenameDiff' % css_class,
-                                       html_escape(old_fname), html_escape(new_fname)),
+                self.inlinediff_fmt
+                % (
+                    "%s FilenameDiff" % css_class,
+                    html_escape(old_fname),
+                    html_escape(new_fname),
+                ),
             )
         if a != b:
             html.append(
@@ -102,11 +105,11 @@ class AsTextDiff(TextDiff):
 
     def _parseField(self, value, filename=None):
         if value is None:
-            value = ''
+            value = ""
 
         # In tests translation is not available, so we account for this
         # case here.
-        translate = getattr(getSite(), 'translate', None)
+        translate = getattr(getSite(), "translate", None)
         if translate is not None:
             value = translate(_(value))
 

@@ -30,10 +30,10 @@ FIELDS_AND_DIFF_TYPES_RELATION = [
     ((RelationList,), RelationListDiff),
     ((Iterable, Container), ListDiff),
     ((Date, Datetime, Time), AsTextDiff),
-    ((Bool, ), AsTextDiff),
-    ((Choice, ), ChoiceDiff),
+    ((Bool,), AsTextDiff),
+    ((Choice,), ChoiceDiff),
     ((Text, Bytes), TextDiff),
-    ((RichText, ), CMFDTHtmlDiff),
+    ((RichText,), CMFDTHtmlDiff),
 ]
 
 """
@@ -63,14 +63,14 @@ the list. If a match is not found then a fall back is used.
 """
 
 # TODO: provide an easier way to exclude fields.
-EXCLUDED_FIELDS = ('modification_date', 'IVersionable.changeNote')
+EXCLUDED_FIELDS = ("modification_date", "IVersionable.changeNote")
 """Names of fields not to compare."""
 
 
 class DexterityCompoundDiff:
     """text difference for Dexterity"""
 
-    meta_type = 'Compound Diff for Dexterity types'
+    meta_type = "Compound Diff for Dexterity types"
 
     def __init__(self, obj1, obj2, field, id1=None, id2=None):
         self.id1 = id1 or obj1.getId()
@@ -97,8 +97,9 @@ class DexterityCompoundDiff:
         diffs = []
         for field, field_name in self._compute_fields_order(obj1):
             if field_name not in EXCLUDED_FIELDS:
-                schema_name = '.' in field_name and \
-                    field_name.split('.')[0] or 'default'
+                schema_name = (
+                    "." in field_name and field_name.split(".")[0] or "default"
+                )
                 diffs.append(self._diff_field(obj1, obj2, field, schema_name))
 
         return diffs
@@ -127,14 +128,14 @@ class DexterityCompoundDiff:
         Return a subclass of `Products.CMFEditions.BaseDiff.BaseDiff` suitable
         for the given `zope.schema.Field` instance.
         """
-        diff_type = self._compute_diff_type(
-            field, FIELDS_AND_DIFF_TYPES_RELATION)
+        diff_type = self._compute_diff_type(field, FIELDS_AND_DIFF_TYPES_RELATION)
 
         if diff_type is ListDiff:
             return (
                 self._compute_diff_type(
-                    field.value_type, VALUE_TYPES_AND_DIFF_TYPES_RELATION) or
-                diff_type
+                    field.value_type, VALUE_TYPES_AND_DIFF_TYPES_RELATION
+                )
+                or diff_type
             )
 
         return diff_type or FALL_BACK_DIFF_TYPE
@@ -154,7 +155,7 @@ class DexterityCompoundDiff:
             subclass.
         """
 
-        for (field_types, diff_type) in relation:
+        for field_types, diff_type in relation:
             if isinstance(field, field_types):
                 return diff_type
 
@@ -173,7 +174,8 @@ class DexterityCompoundDiff:
         all_fields += [(form.fields[name].field, name) for name in form.fields]
         if form.groups:
             for group in form.groups:
-                all_fields += [(group.fields[name].field, name)
-                               for name in group.fields]
+                all_fields += [
+                    (group.fields[name].field, name) for name in group.fields
+                ]
 
         return all_fields

@@ -9,7 +9,7 @@ import difflib
 class FieldDiff(BaseDiff):
     """Text difference"""
 
-    meta_type = 'Field Diff'
+    meta_type = "Field Diff"
 
     same_fmt = """<div class="%s">%s</div>"""
     inlinediff_fmt = """<div class="%s">
@@ -41,8 +41,9 @@ class FieldDiff(BaseDiff):
         """
         value = _getValue(ob, self.field)
         if not self.same and value != self.oldValue:
-            raise ValueError('Conflict Error during merge',
-                             self.field, value, self.oldValue)
+            raise ValueError(
+                "Conflict Error during merge", self.field, value, self.oldValue
+            )
 
     def applyChanges(self, ob):
         """Update the specified object with the difference"""
@@ -57,43 +58,43 @@ class FieldDiff(BaseDiff):
         a = self._parseField(self.oldValue, filename=self.oldFilename)
         b = self._parseField(self.newValue, filename=self.newFilename)
         for tag, alo, ahi, blo, bhi in self.getLineDiffs():
-            if tag == 'replace':
+            if tag == "replace":
                 plain_replace(a, alo, ahi, b, blo, bhi, r)
-            elif tag == 'delete':
-                dump('-', a, alo, ahi, r)
-            elif tag == 'insert':
-                dump('+', b, blo, bhi, r)
-            elif tag == 'equal':
-                dump(' ', a, alo, ahi, r)
+            elif tag == "delete":
+                dump("-", a, alo, ahi, r)
+            elif tag == "insert":
+                dump("+", b, blo, bhi, r)
+            elif tag == "equal":
+                dump(" ", a, alo, ahi, r)
             else:
-                raise ValueError('unknown tag %r', tag)
-        return '\n'.join(r)
+                raise ValueError("unknown tag %r", tag)
+        return "\n".join(r)
 
     def inline_diff(self):
-        css_class = 'InlineDiff'
+        css_class = "InlineDiff"
         inlinediff_fmt = self.inlinediff_fmt
         same_fmt = self.same_fmt
         r = []
         a = self._parseField(self.oldValue, filename=self.oldFilename)
         b = self._parseField(self.newValue, filename=self.newFilename)
         for tag, alo, ahi, blo, bhi in self.getLineDiffs():
-            if tag == 'replace':
+            if tag == "replace":
                 for i in range(alo, ahi):
-                    r.append(inlinediff_fmt % (css_class, html_escape(a[i]), ''))
+                    r.append(inlinediff_fmt % (css_class, html_escape(a[i]), ""))
                 for i in range(blo, bhi):
-                    r.append(inlinediff_fmt % (css_class, '', html_escape(b[i])))
-            elif tag == 'delete':
+                    r.append(inlinediff_fmt % (css_class, "", html_escape(b[i])))
+            elif tag == "delete":
                 for i in range(alo, ahi):
-                    r.append(inlinediff_fmt % (css_class, html_escape(a[i]), ''))
-            elif tag == 'insert':
+                    r.append(inlinediff_fmt % (css_class, html_escape(a[i]), ""))
+            elif tag == "insert":
                 for i in range(blo, bhi):
-                    r.append(inlinediff_fmt % (css_class, '', html_escape(b[i])))
-            elif tag == 'equal':
+                    r.append(inlinediff_fmt % (css_class, "", html_escape(b[i])))
+            elif tag == "equal":
                 for i in range(alo, ahi):
                     r.append(same_fmt % (css_class, html_escape(a[i])))
             else:
                 raise ValueError('unknown tag "%s"' % tag)
-        return '\n'.join(r)
+        return "\n".join(r)
 
 
 InitializeClass(FieldDiff)
@@ -101,7 +102,7 @@ InitializeClass(FieldDiff)
 
 def dump(tag, x, lo, hi, r):
     for i in range(lo, hi):
-        r.append(tag + ' %s' % x[i])
+        r.append(tag + " %s" % x[i])
 
 
 def plain_replace(a, alo, ahi, b, blo, bhi, r):
@@ -109,8 +110,8 @@ def plain_replace(a, alo, ahi, b, blo, bhi, r):
     # dump the shorter block first -- reduces the burden on short-term
     # memory if the blocks are of very different sizes
     if bhi - blo < ahi - alo:
-        dump('+', b, blo, bhi, r)
-        dump('-', a, alo, ahi, r)
+        dump("+", b, blo, bhi, r)
+        dump("-", a, alo, ahi, r)
     else:
-        dump('-', a, alo, ahi, r)
-        dump('+', b, blo, bhi, r)
+        dump("-", a, alo, ahi, r)
+        dump("+", b, blo, bhi, r)

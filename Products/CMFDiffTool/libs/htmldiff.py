@@ -21,13 +21,12 @@ def htmlEncode(s, esc=escape):
     return esc(s, 1)
 
 
-commentRE = re.compile(r'<!--.*?-->', re.S)
-tagRE = re.compile(r'<.*?>', re.S)
-headRE = re.compile(r'<\s*head\s*>', re.S | re.I)
+commentRE = re.compile(r"<!--.*?-->", re.S)
+tagRE = re.compile(r"<.*?>", re.S)
+headRE = re.compile(r"<\s*head\s*>", re.S | re.I)
 
 
 class HTMLMatcher(SequenceMatcher):
-
     def __init__(self, source1, source2):
         SequenceMatcher.__init__(self, None, source1, source2)
 
@@ -45,7 +44,7 @@ class HTMLMatcher(SequenceMatcher):
             if not match:
                 result.append(t[pos:])
                 break
-            result.append(t[pos:match.start()])
+            result.append(t[pos : match.start()])
             result.append(match.group(0))
             pos = match.end()
         return result
@@ -54,11 +53,11 @@ class HTMLMatcher(SequenceMatcher):
         return t.strip().split()
 
     def splitHTML(self, t):
-        t = commentRE.sub('', t)
+        t = commentRE.sub("", t)
         r = self.splitTags(t)
         result = []
         for item in r:
-            if item.startswith('<'):
+            if item.startswith("<"):
                 result.append(item)
             else:
                 result.extend(self.splitWords(item))
@@ -71,13 +70,13 @@ class HTMLMatcher(SequenceMatcher):
         out = StringIO()
         #  print [o[0] for o in opcodes]
         for tag, i1, i2, j1, j2 in opcodes:
-            if tag == 'equal':
+            if tag == "equal":
                 for item in a[i1:i2]:
                     out.write(item)
-                    out.write(' ')
-            if tag == 'delete' or tag == 'replace':
+                    out.write(" ")
+            if tag == "delete" or tag == "replace":
                 self.textDelete(a[i1:i2], out)
-            if tag == 'insert' or tag == 'replace':
+            if tag == "insert" or tag == "replace":
                 self.textInsert(b[j1:j2], out)
         html = out.getvalue()
         out.close()
@@ -88,7 +87,7 @@ class HTMLMatcher(SequenceMatcher):
     def textDelete(self, lst, out):
         inSpan = False
         for item in lst:
-            if item.startswith('<'):
+            if item.startswith("<"):
                 if inSpan:
                     out.write(self.endDeleteText())
                     inSpan = False
@@ -98,36 +97,36 @@ class HTMLMatcher(SequenceMatcher):
                     out.write(self.startDeleteText())
                     inSpan = True
                 out.write(item)
-                out.write(' ')
+                out.write(" ")
         if inSpan:
             out.write(self.endDeleteText())
 
     def textInsert(self, lst, out):
         inSpan = False
         for item in lst:
-            if item.startswith('<'):
+            if item.startswith("<"):
                 if inSpan:
                     out.write(self.endInsertText())
                     inSpan = False
                 out.write(self.formatInsertTag(item))
                 out.write(item)
-                out.write(' ')
+                out.write(" ")
             else:
                 if not inSpan:
                     out.write(self.startInsertText())
                     inSpan = True
                 out.write(item)
-                out.write(' ')
+                out.write(" ")
         if inSpan:
             out.write(self.endInsertText())
 
     def stylesheet(self):
-        return '''
+        return """
 .insert { background-color: #aaffaa }
 .delete { background-color: #ff8888 }
 .tagInsert { background-color: #007700; color: #ffffff }
 .tagDelete { background-color: #770000; color: #ffffff }
-'''
+"""
 
     def addStylesheet(self, html, ss):
         match = headRE.search(html)
@@ -135,36 +134,35 @@ class HTMLMatcher(SequenceMatcher):
             pos = match.end()
         else:
             pos = 0
-        return ('{}<style type="text/css"><!--\n{}\n--></style>{}'.format(
-            html[:pos], ss, html[pos:]))
+        return '{}<style type="text/css"><!--\n{}\n--></style>{}'.format(
+            html[:pos], ss, html[pos:]
+        )
 
     def startInsertText(self):
         return '<span class="insert">'
 
     def endInsertText(self):
-        return '</span> '
+        return "</span> "
 
     def startDeleteText(self):
         return '<span class="delete">'
 
     def endDeleteText(self):
-        return '</span> '
+        return "</span> "
 
     def formatInsertTag(self, tag):
-        return ('<span class="tagInsert">insert: <tt>%s</tt></span> ' %
-                htmlEncode(tag))
+        return '<span class="tagInsert">insert: <tt>%s</tt></span> ' % htmlEncode(tag)
 
     def formatDeleteTag(self, tag):
-        return ('<span class="tagDelete">delete: <tt>%s</tt></span> ' %
-                htmlEncode(tag))
+        return '<span class="tagDelete">delete: <tt>%s</tt></span> ' % htmlEncode(tag)
 
 
 class NoTagHTMLMatcher(HTMLMatcher):
     def formatInsertTag(self, tag):
-        return ''
+        return ""
 
     def formatDeleteTag(self, tag):
-        return ''
+        return ""
 
 
 def htmldiff(source1, source2, addStylesheet=False):
@@ -194,22 +192,22 @@ class SimpleHTMLMatcher(HTMLMatcher):
     """
 
     def startInsertText(self):
-        return '+['
+        return "+["
 
     def endInsertText(self):
-        return ']'
+        return "]"
 
     def startDeleteText(self):
-        return '-['
+        return "-["
 
     def endDeleteText(self):
-        return ']'
+        return "]"
 
     def formatInsertTag(self, tag):
-        return '+[%s]' % tag
+        return "+[%s]" % tag
 
     def formatDeleteTag(self, tag):
-        return '-[%s]' % tag
+        return "-[%s]" % tag
 
 
 def simplehtmldiff(source1, source2):
@@ -226,12 +224,11 @@ def simplehtmldiff(source1, source2):
 
 
 class TextMatcher(HTMLMatcher):
-
     def set_seq1(self, a):
-        SequenceMatcher.set_seq1(self, a.split('\n'))
+        SequenceMatcher.set_seq1(self, a.split("\n"))
 
     def set_seq2(self, b):
-        SequenceMatcher.set_seq2(self, b.split('\n'))
+        SequenceMatcher.set_seq2(self, b.split("\n"))
 
     def htmlDiff(self, addStylesheet=False):
         opcodes = self.get_opcodes()
@@ -239,13 +236,13 @@ class TextMatcher(HTMLMatcher):
         b = self.b
         out = StringIO()
         for tag, i1, i2, j1, j2 in opcodes:
-            if tag == 'equal':
+            if tag == "equal":
                 self.writeLines(a[i1:i2], out)
-            if tag == 'delete' or tag == 'replace':
+            if tag == "delete" or tag == "replace":
                 out.write(self.startDeleteText())
                 self.writeLines(a[i1:i2], out)
                 out.write(self.endDeleteText())
-            if tag == 'insert' or tag == 'replace':
+            if tag == "insert" or tag == "replace":
                 out.write(self.startInsertText())
                 self.writeLines(b[j1:j2], out)
                 out.write(self.endInsertText())
@@ -258,20 +255,22 @@ class TextMatcher(HTMLMatcher):
     def writeLines(self, lines, out):
         for line in lines:
             line = htmlEncode(line)
-            line = line.replace('  ', '&nbsp; ')
-            line = line.replace('\t', '&nbsp; &nbsp; &nbsp; &nbsp; ')
-            if line.startswith(' '):
-                line = '&nbsp;' + line[1:]
-            out.write('<tt>%s</tt><br>\n' % line)
+            line = line.replace("  ", "&nbsp; ")
+            line = line.replace("\t", "&nbsp; &nbsp; &nbsp; &nbsp; ")
+            if line.startswith(" "):
+                line = "&nbsp;" + line[1:]
+            out.write("<tt>%s</tt><br>\n" % line)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import sys
+
     if not sys.argv[1:]:
-        print('Usage: %s file1 file2' % sys.argv[0])  # NOQA
-        print('or to test: %s test' % sys.argv[0])  # NOQA
-    elif sys.argv[1] == 'test' and not sys.argv[2:]:
+        print("Usage: %s file1 file2" % sys.argv[0])  # NOQA
+        print("or to test: %s test" % sys.argv[0])  # NOQA
+    elif sys.argv[1] == "test" and not sys.argv[2:]:
         import doctest
+
         doctest.testmod()
     else:
         print(diffFiles(sys.argv[1], sys.argv[2]))  # NOQA
