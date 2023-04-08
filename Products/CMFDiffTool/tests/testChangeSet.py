@@ -3,9 +3,7 @@
 #
 from Acquisition import aq_base
 from os import linesep
-from plone.app.contenttypes.testing import (
-    PLONE_APP_CONTENTTYPES_FUNCTIONAL_TESTING,
-)  # NOQA
+from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FUNCTIONAL_TESTING
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.base.utils import safe_hasattr

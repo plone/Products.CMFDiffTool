@@ -116,9 +116,7 @@ class TestListDiff(BaseDXTestCase):
         """Test text diff output with no diff"""
         a = A()
         b = B()
-        expected = "  1%(linesep)s  2%(linesep)s  3%(linesep)s+ 4" % {
-            "linesep": linesep
-        }
+        expected = "  1{linesep}  2{linesep}  3{linesep}+ 4".format(linesep=linesep)
         diff = ListDiff(a, b, "attribute")
         self.assertEqual(diff.ndiff(), expected)
 
