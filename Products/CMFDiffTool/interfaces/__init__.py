@@ -59,7 +59,7 @@ class IDifference(Interface):
     def testChanges(ob):
         """Test the specified object to determine if the change set will apply cleanly.
 
-        Returns None if there would be no erros
+        Returns None if there would be no errors
         """
 
     def applyChanges(ob):
@@ -91,7 +91,7 @@ class IChangeSet(Interface):
     def computeDiff(ob1, ob2, recursive=1, exclude=None):
         """Compute the differences from ob1 to ob2 (ie. ob2 - ob1).
 
-        If resursive is 1, compute differences between subobjects of
+        If recursive is 1, compute differences between subobjects of
         ob1 and ob2 as well, excluding any subobjects whose IDs are
         listed in exclude
 
@@ -100,7 +100,7 @@ class IChangeSet(Interface):
     def testChanges(ob):
         """Test the specified object to determine if the change set will apply cleanly.
 
-        Returns None if there would be no erros
+        Returns None if there would be no errors
         """
 
     def applyChanges(ob):
