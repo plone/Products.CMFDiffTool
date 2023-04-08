@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Initialize CMFDiffTool Product"""
 # Set up a MessageFactory for the cmfdifftool domain
 from zope.i18nmessageid import MessageFactory

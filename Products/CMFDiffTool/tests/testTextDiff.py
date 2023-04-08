@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from os import linesep
 from plone.app.testing import PLONE_INTEGRATION_TESTING
 from Products.CMFDiffTool.TextDiff import TextDiff

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from plone.app.textfield import RichText
 from plone.dexterity.browser.edit import DefaultEditForm
 from Products.CMFDiffTool.choicediff import ChoiceDiff
@@ -68,7 +67,7 @@ EXCLUDED_FIELDS = ('modification_date', 'IVersionable.changeNote')
 """Names of fields not to compare."""
 
 
-class DexterityCompoundDiff(object):
+class DexterityCompoundDiff:
     """text difference for Dexterity"""
 
     meta_type = 'Compound Diff for Dexterity types'

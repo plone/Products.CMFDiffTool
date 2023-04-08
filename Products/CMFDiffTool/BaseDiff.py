@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """CMFDiffTool.py
 
    Calculate differences between content objects
@@ -63,7 +62,7 @@ class BaseDiff:
     def filenameTitle(self, filename):
         """Translate the filename leading text
         """
-        msg = _(u'Filename: ${filename}',
+        msg = _('Filename: ${filename}',
                 mapping={'filename': filename})
         return translate(msg)
 

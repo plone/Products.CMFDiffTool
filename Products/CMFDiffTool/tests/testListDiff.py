@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # CMFDiffTool tests
 #
@@ -110,7 +109,7 @@ class TestListDiff(BaseDXTestCase):
         """Test text diff output with no diff"""
         a = A()
         diff = ListDiff(a, a, 'attribute')
-        expected = '  1%(linesep)s  2%(linesep)s  3' % {'linesep': linesep}
+        expected = '  1{linesep}  2{linesep}  3'.format(linesep=linesep)
         self.assertEqual(diff.ndiff(), expected)
 
     def testDiffText(self):
@@ -153,15 +152,15 @@ class TestListDiff(BaseDXTestCase):
 
     def test_inline_diff_vocabulary(self):
         # unchanged, with vocabulary title
-        expected = u'<div class="InlineDiff">First Title</div>'
+        expected = '<div class="InlineDiff">First Title</div>'
         self._test_diff_list([testing.VOCABULARY_TUPLES[0][0]],
                              [testing.VOCABULARY_TUPLES[0][0]], True, expected)
         # unchanged, without vocabulary title
-        expected = u'<div class="InlineDiff">second_value</div>'
+        expected = '<div class="InlineDiff">second_value</div>'
         self._test_diff_list([testing.VOCABULARY_TUPLES[1][0]],
                              [testing.VOCABULARY_TUPLES[1][0]], True, expected)
         # changed: add value, with vocabulary title
-        expected = u'''<div class="InlineDiff">
+        expected = '''<div class="InlineDiff">
     <div class="diff_sub"></div>
     <div class="diff_add">First Title</div>
 </div>'''
@@ -169,7 +168,7 @@ class TestListDiff(BaseDXTestCase):
                              [testing.VOCABULARY_TUPLES[0][0]],
                              False, expected)
         # changed: replaced unique value by another one, displaying titles
-        expected = u'''<div class="InlineDiff">
+        expected = '''<div class="InlineDiff">
     <div class="diff_sub">First Title</div>
     <div class="diff_add"></div>
 </div>
@@ -181,7 +180,7 @@ class TestListDiff(BaseDXTestCase):
                              [testing.VOCABULARY_TUPLES[2][0]],
                              False, expected)
         # changed: replaced multiple values by others, displaying titles
-        expected = u'''<div class="InlineDiff">
+        expected = '''<div class="InlineDiff">
     <div class="diff_sub">First Title</div>
     <div class="diff_add"></div>
 </div>
@@ -196,7 +195,7 @@ class TestListDiff(BaseDXTestCase):
                               testing.VOCABULARY_TUPLES[2][0]],
                              False, expected)
         # changed: replaced multiple values by others, displaying titles
-        expected = u'''<div class="InlineDiff">
+        expected = '''<div class="InlineDiff">
     <div class="diff_sub"></div>
     <div class="diff_add">Third Title</div>
 </div>
@@ -211,7 +210,7 @@ class TestListDiff(BaseDXTestCase):
                               testing.VOCABULARY_TUPLES[0][0]],
                              False, expected)
         # changed: removed values, displaying titles
-        expected = u'''<div class="InlineDiff">
+        expected = '''<div class="InlineDiff">
     <div class="diff_sub">First Title</div>
     <div class="diff_add"></div>
 </div>

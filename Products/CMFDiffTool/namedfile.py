@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from AccessControl.class_init import InitializeClass
 from plone.namedfile import NamedFile
 from Products.CMFDiffTool.BinaryDiff import BinaryDiff

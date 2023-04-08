@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # CMFDiffTool tests
 #
@@ -27,10 +26,10 @@ class B:
 
 
 class U:
-    attribute = u'\xfcnicode value'
+    attribute = '\xfcnicode value'
 
     def method(self):
-        return u'different method val\xfce'
+        return 'different method val\xfce'
 
 
 class H:
@@ -118,7 +117,7 @@ class TestFieldDiff(TestCase):
         self.assertEqual(fd.ndiff(), '  value')
         uu = U()
         fd = FieldDiff(uu, uu, 'attribute')
-        self.assertEqual(fd.ndiff(), u'  \xfcnicode value')
+        self.assertEqual(fd.ndiff(), '  \xfcnicode value')
 
     def testDiffText(self):
         """Test text diff output with different value"""
@@ -128,7 +127,7 @@ class TestFieldDiff(TestCase):
         expected = '- value%s+ different value' % linesep
         fd = FieldDiff(a, b, 'attribute')
         self.assertEqual(fd.ndiff(), expected)
-        expected = u'- value%s+ \xfcnicode value' % linesep
+        expected = '- value%s+ \xfcnicode value' % linesep
         fd = FieldDiff(a, uu, 'attribute')
         self.assertEqual(fd.ndiff(), expected)
 
@@ -139,13 +138,13 @@ class TestFieldDiff(TestCase):
         self.assertEqual(diff, ['- support'])
         # Try unicode, a 'u' with an umlaut.
         diff = []
-        dump('+', [u's\xfcpport'], 0, 1, diff)
-        self.assertEqual(diff, [u'+ s\xfcpport'])
+        dump('+', ['s\xfcpport'], 0, 1, diff)
+        self.assertEqual(diff, ['+ s\xfcpport'])
         # Combine them.
         diff = []
         dump('-', ['support'], 0, 1, diff)
-        dump('+', [u's\xfcpport'], 0, 1, diff)
-        self.assertEqual(diff, ['- support', u'+ s\xfcpport'])
+        dump('+', ['s\xfcpport'], 0, 1, diff)
+        self.assertEqual(diff, ['- support', '+ s\xfcpport'])
 
     def test_dump_integer(self):
         """Test dumping a diff of integers."""

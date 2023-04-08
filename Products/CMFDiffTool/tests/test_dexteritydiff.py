@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from datetime import date
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
@@ -23,17 +22,17 @@ class DexterityDiffTestCase(BaseDXTestCase):
         self.portal.invokeFactory(
             testing.TEST_CONTENT_TYPE_ID,
             'obj1',
-            title=u'Object 1',
-            description=u'Desc 1',
-            text=u'Text 1',
+            title='Object 1',
+            description='Desc 1',
+            text='Text 1',
         )
         obj1 = self.portal['obj1']
 
         self.portal.invokeFactory(
             testing.TEST_CONTENT_TYPE_ID,
             'obj2',
-            title=u'Object 2',
-            text=u'Text 2',
+            title='Object 2',
+            text='Text 2',
         )
         obj2 = self.portal['obj2']
 
@@ -78,7 +77,7 @@ class DexterityDiffTestCase(BaseDXTestCase):
         self.portal.invokeFactory(
             testing.TEST_CONTENT_TYPE_ID,
             'obj2',
-            files=[NamedFile(data='data', filename=u'a.txt')],
+            files=[NamedFile(data='data', filename='a.txt')],
         )
         obj2 = self.portal['obj2']
 
@@ -115,9 +114,9 @@ class DexterityDiffTestCase(BaseDXTestCase):
         self.portal.invokeFactory(
             testing.TEST_CONTENT_TYPE_ID,
             'obj1',
-            title=u'Object 1',
-            description=u'Desc 1',
-            text=u'Text 1',
+            title='Object 1',
+            description='Desc 1',
+            text='Text 1',
         )
         obj1 = self.portal['obj1']
 
@@ -125,7 +124,7 @@ class DexterityDiffTestCase(BaseDXTestCase):
         self.portal.invokeFactory(
             testing.TEST_CONTENT_TYPE_ID,
             'obj2',
-            title=u'Object 2',
+            title='Object 2',
             relatedItems=[RelationValue(intid)],
         )
         obj2 = self.portal['obj2']
@@ -134,7 +133,7 @@ class DexterityDiffTestCase(BaseDXTestCase):
         self.portal.invokeFactory(
             testing.TEST_CONTENT_TYPE_ID,
             'obj3',
-            title=u'Object 3',
+            title='Object 3',
             relatedItems=[RelationValue(intid)],
         )
         obj3 = self.portal['obj3']

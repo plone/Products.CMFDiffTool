@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FIXTURE
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import PloneSandboxLayer
@@ -13,9 +12,9 @@ from zope.schema.vocabulary import SimpleVocabulary
 TEST_CONTENT_TYPE_ID = 'TestContentType'
 
 VOCABULARY_TUPLES = [
-    (u'first_value', u'First Title'),
-    (u'second_value', None),
-    (u'third_value', u'Third Title'),
+    ('first_value', 'First Title'),
+    ('second_value', None),
+    ('third_value', 'Third Title'),
 ]
 
 VOCABULARY = SimpleVocabulary(
@@ -41,7 +40,7 @@ class DXLayer(PloneSandboxLayer):
         sm.registerUtility(
             component=vocabulary_factory,
             provided=IVocabularyFactory,
-            name=u'Products.CMFDiffTool.testing.VOCABULARY',
+            name='Products.CMFDiffTool.testing.VOCABULARY',
         )
 
         fti = DexterityFTI(

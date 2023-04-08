@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from datetime import date
 from Products.CMFDiffTool.interfaces import IDifference
 from Products.CMFDiffTool.TextDiff import AsTextDiff
@@ -6,12 +5,12 @@ from Products.CMFDiffTool.TextDiff import AsTextDiff
 import unittest
 
 
-class DateDummyType(object):
+class DateDummyType:
     def __init__(self, date):
         self.date = date
 
 
-class BoolDummyType(object):
+class BoolDummyType:
     def __init__(self, bool_field):
         self.bool_field = bool_field
 

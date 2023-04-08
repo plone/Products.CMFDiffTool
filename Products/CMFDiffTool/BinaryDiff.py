@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from AccessControl.class_init import InitializeClass
 from os import linesep
 from Products.CMFDiffTool.BaseDiff import _getValue

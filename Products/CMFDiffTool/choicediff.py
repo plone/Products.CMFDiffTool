@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from AccessControl.class_init import InitializeClass
 from plone.dexterity.interfaces import IDexterityFTI
 from plone.dexterity.utils import getAdditionalSchemata

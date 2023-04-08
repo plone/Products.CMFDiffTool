@@ -135,7 +135,7 @@ class HTMLMatcher(SequenceMatcher):
             pos = match.end()
         else:
             pos = 0
-        return ('{0}<style type="text/css"><!--\n{1}\n--></style>{2}'.format(
+        return ('{}<style type="text/css"><!--\n{}\n--></style>{}'.format(
             html[:pos], ss, html[pos:]))
 
     def startInsertText(self):

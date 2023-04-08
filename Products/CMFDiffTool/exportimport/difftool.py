@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from Products.CMFCore.utils import getToolByName
 from Products.CMFDiffTool.interfaces import IDiffTool
 from Products.GenericSetup.utils import exportObjects

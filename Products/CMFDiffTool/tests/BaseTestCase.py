@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from Products.CMFDiffTool.testing import CMFDiffToolDXLayer
 
 import unittest

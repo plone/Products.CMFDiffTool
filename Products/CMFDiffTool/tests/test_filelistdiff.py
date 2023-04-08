@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from plone.namedfile import NamedFile
 from Products.CMFDiffTool import namedfile
 from Products.CMFDiffTool.interfaces import IDifference
@@ -6,7 +5,7 @@ from Products.CMFDiffTool.interfaces import IDifference
 import unittest
 
 
-class DummyType(object):
+class DummyType:
     def __init__(self, files):
         """`files` is a sequence of (data, filename) tuples."""
         self.files = files and [
@@ -17,53 +16,53 @@ class AsTextDiffTestCase(unittest.TestCase):
 
     def test_should_diff_file_lists_correctly(self):
         self._test_diff_files(
-            [('data1', u'filename1')],
-            [('data2', u'filename2')],
+            [('data1', 'filename1')],
+            [('data2', 'filename2')],
             False,
         )
         self._test_diff_files(
-            [('data1', u'filename1'), ('datax', u'filenamex')],
-            [('data1', u'filename1'), ('datay', u'filenamey')],
+            [('data1', 'filename1'), ('datax', 'filenamex')],
+            [('data1', 'filename1'), ('datay', 'filenamey')],
             False,
         )
         self._test_diff_files(
-            [('data1', u'filename1'), ('datax', u'filenamex')],
-            [('datax', u'filenamex'), ('data1', u'filename1')],
+            [('data1', 'filename1'), ('datax', 'filenamex')],
+            [('datax', 'filenamex'), ('data1', 'filename1')],
             False,
         )
         self._test_diff_files(
-            [('data1', u'filename1')],
-            [('data1', u'filename1'), ('datax', u'filenamex')],
+            [('data1', 'filename1')],
+            [('data1', 'filename1'), ('datax', 'filenamex')],
             False,
         )
         self._test_diff_files(
-            [('data1', u'filename1')],
-            [('data1', u'filename1')],
+            [('data1', 'filename1')],
+            [('data1', 'filename1')],
             True,
         )
         self._test_diff_files(
-            [('data1', u'filename1'), ('datax', u'filenamex')],
-            [('data1', u'filename1'), ('datax', u'filenamex')],
+            [('data1', 'filename1'), ('datax', 'filenamex')],
+            [('data1', 'filename1'), ('datax', 'filenamex')],
             True,
         )
         self._test_diff_files(
-            [('data1', u'filename1'), ('datax', u'filenamex')],
+            [('data1', 'filename1'), ('datax', 'filenamex')],
             None,
             False,
         )
         self._test_diff_files(
-            [('data1', u'filename1'), ('datax', u'filenamex')],
+            [('data1', 'filename1'), ('datax', 'filenamex')],
             [],
             False,
         )
         self._test_diff_files(
             [
-                ('<script>alert("Hacker data 1")</script>', u'filename1'),
-                ('<script>alert("Hacker data 2")</script>', u'filename2'),
+                ('<script>alert("Hacker data 1")</script>', 'filename1'),
+                ('<script>alert("Hacker data 2")</script>', 'filename2'),
             ],
             [
-                ('data1', u'<script>alert("Hacker data")</script>.txt'),
-                ('<script>alert("Hacker data 2")</script>', u'filename2'),
+                ('data1', '<script>alert("Hacker data")</script>.txt'),
+                ('<script>alert("Hacker data 2")</script>', 'filename2'),
             ],
             False,
         )

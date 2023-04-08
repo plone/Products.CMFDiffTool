@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from AccessControl.class_init import InitializeClass
 from Products.CMFDiffTool.libs import htmldiff
 from Products.CMFDiffTool.TextDiff import TextDiff
