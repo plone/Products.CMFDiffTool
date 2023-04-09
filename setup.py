@@ -35,19 +35,19 @@ setup(
             "zope.component",
             "plone.app.testing",
             "plone.namedfile",
-            "plone.app.dexterity",
             "plone.app.contenttypes[test]",
+            "zope.intid",
         ]
     ),
     python_requires=">=3.8",
     install_requires=[
-        "setuptools",
-        "zope.interface",
-        "plone.base",
-        "Products.CMFCore",
+        "ExtensionClass",
         "Products.GenericSetup",
-        "Acquisition",
+        "Products.PortalTransforms",
         "Zope",
+        "setuptools",
+        "plone.base",
+        "z3c.relationfield",
     ],
     entry_points="""
     [z3c.autoinclude.plugin]
