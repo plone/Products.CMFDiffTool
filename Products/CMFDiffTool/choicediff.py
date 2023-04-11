@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from AccessControl.class_init import InitializeClass
 from plone.dexterity.interfaces import IDexterityFTI
 from plone.dexterity.utils import getAdditionalSchemata
@@ -52,10 +51,20 @@ class ChoiceDiff(AsTextDiff):
     user-friendlier inline diff to the user.
     """
 
-    def __init__(self, obj1, obj2, field, id1=None, id2=None, field_name=None,
-                 field_label=None, schemata=None):
-        AsTextDiff.__init__(self, obj1, obj2, field, id1, id2, field_name,
-                            field_label, schemata)
+    def __init__(
+        self,
+        obj1,
+        obj2,
+        field,
+        id1=None,
+        id2=None,
+        field_name=None,
+        field_label=None,
+        schemata=None,
+    ):
+        AsTextDiff.__init__(
+            self, obj1, obj2, field, id1, id2, field_name, field_label, schemata
+        )
         self._vocabulary = None
 
         # Tries to find a vocabulary. First we need to find an object and
@@ -63,8 +72,7 @@ class ChoiceDiff(AsTextDiff):
         obj = obj1 if (obj1 is not None) else obj2
         field_name = field_name or field
         field_instance = (
-            get_field_object(obj, field_name) if (obj and field_name)
-            else None
+            get_field_object(obj, field_name) if (obj and field_name) else None
         )
 
         if field_instance is not None:
@@ -74,7 +82,7 @@ class ChoiceDiff(AsTextDiff):
 
     def _parseField(self, value, filename=None):
         if value is None:
-            value = ''
+            value = ""
         elif self._vocabulary is not None:
             value = title_or_value(self._vocabulary, value)
 

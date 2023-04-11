@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Interface definitions
 from zope.interface import Attribute
 from zope.interface import Interface
@@ -6,9 +5,9 @@ from zope.interface import Interface
 
 class IDiffTool(Interface):
     """An interface to compute object differences via pluggable
-       difference engine"""
+    difference engine"""
 
-    id = Attribute('id', 'Must be set to "portal_diff"')
+    id = Attribute("id", 'Must be set to "portal_diff"')
 
     def listDiffTypes():
         """List the names of the available difference types"""
@@ -41,30 +40,33 @@ class IDifference(Interface):
     """An interface for interacting with the difference between two
     objects"""
 
-    meta_type = Attribute('title', 'A human readable name for the diff type')
-    field = Attribute('field', 'The name of the field being compared')
-    same = Attribute('same',
-                     'True if the fields are the "same" '
-                     '(whatever that means for this difference)')
-    oldValue = Attribute('oldValue', 'The old field value being compared')
-    newValue = Attribute('newValue', 'The new field value being compared')
-    oldFilename = Attribute('oldFilename',
-                            'The old filename for the field being compared')
-    newFilename = Attribute('newFilename',
-                            'The new filename for the field being compared')
+    meta_type = Attribute("title", "A human readable name for the diff type")
+    field = Attribute("field", "The name of the field being compared")
+    same = Attribute(
+        "same",
+        'True if the fields are the "same" '
+        "(whatever that means for this difference)",
+    )
+    oldValue = Attribute("oldValue", "The old field value being compared")
+    newValue = Attribute("newValue", "The new field value being compared")
+    oldFilename = Attribute(
+        "oldFilename", "The old filename for the field being compared"
+    )
+    newFilename = Attribute(
+        "newFilename", "The new filename for the field being compared"
+    )
 
     def testChanges(ob):
         """Test the specified object to determine if the change set will apply cleanly.
 
-        Returns None if there would be no erros
+        Returns None if there would be no errors
         """
 
     def applyChanges(ob):
         """Update the specified object with the difference"""
 
     def filenameTitle(self, filename):
-        """Translate the filename leading text
-        """
+        """Translate the filename leading text"""
 
 
 class IStringDifference(IDifference):
@@ -84,12 +86,12 @@ class IStringDifference(IDifference):
 class IChangeSet(Interface):
     """And interface representing all of the differences between two objects"""
 
-    same = Attribute('same', 'True if the fields are the "same"')
+    same = Attribute("same", 'True if the fields are the "same"')
 
     def computeDiff(ob1, ob2, recursive=1, exclude=None):
         """Compute the differences from ob1 to ob2 (ie. ob2 - ob1).
 
-        If resursive is 1, compute differences between subobjects of
+        If recursive is 1, compute differences between subobjects of
         ob1 and ob2 as well, excluding any subobjects whose IDs are
         listed in exclude
 
@@ -98,7 +100,7 @@ class IChangeSet(Interface):
     def testChanges(ob):
         """Test the specified object to determine if the change set will apply cleanly.
 
-        Returns None if there would be no erros
+        Returns None if there would be no errors
         """
 
     def applyChanges(ob):
@@ -112,11 +114,11 @@ class IChangeSet(Interface):
 
     def getSubDiffs():
         """If the ChangeSet was computed recursively, returns a list
-           of ChangeSet objects representing subobject differences
+        of ChangeSet objects representing subobject differences
 
-           Each ChangeSet will have the same ID as the objects whose
-           difference it represents.
-           """
+        Each ChangeSet will have the same ID as the objects whose
+        difference it represents.
+        """
 
     def getAddedItems():
         """If the ChangeSet was computed recursively, returns the list

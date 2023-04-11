@@ -1,29 +1,31 @@
 <configure
-   xmlns="http://namespaces.zope.org/zope"
-   xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
-   i18n_domain="cmf"
-   >
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="cmf"
+    >
 
   <genericsetup:importStep
       name="difftool"
-      handler="Products.CMFDiffTool.exportimport.difftool.importDiffTool"
       title="Diff Tool"
-      description="Import CMFDiffTool settings">
+      description="Import CMFDiffTool settings"
+      handler="Products.CMFDiffTool.exportimport.difftool.importDiffTool"
+      >
     <depends name="toolset" />
     <depends name="componentregistry" />
   </genericsetup:importStep>
 
   <genericsetup:exportStep
       name="difftool"
-      handler="Products.CMFDiffTool.exportimport.difftool.exportDiffTool"
       title="Diff Tool"
-      description="Export CMFDiffTool settings"/>
+      description="Export CMFDiffTool settings"
+      handler="Products.CMFDiffTool.exportimport.difftool.exportDiffTool"
+      />
 
   <adapter
-     factory=".difftool.DiffToolXMLAdapter"
-     provides="Products.GenericSetup.interfaces.IBody"
-     for="Products.CMFDiffTool.interfaces.IDiffTool
-          Products.GenericSetup.interfaces.ISetupEnviron"
-     />
+      factory=".difftool.DiffToolXMLAdapter"
+      provides="Products.GenericSetup.interfaces.IBody"
+      for="Products.CMFDiffTool.interfaces.IDiffTool
+           Products.GenericSetup.interfaces.ISetupEnviron"
+      />
 
 </configure>

@@ -2,6 +2,6 @@
 
   <include package=".exportimport" />
 
-  <include file="profiles.zcml"/>
+  <include file="profiles.zcml" />
 
 </configure>

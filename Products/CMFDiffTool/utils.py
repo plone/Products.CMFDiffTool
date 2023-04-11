@@ -8,12 +8,12 @@ def safe_unicode(value):
     try:
         value = str(value)
     except UnicodeDecodeError:
-        value = value.decode('utf-8', 'replace')
+        value = value.decode("utf-8", "replace")
     return value
 
 
 def safe_utf8(value):
-    return safe_unicode(value).encode('utf-8')
+    return safe_unicode(value).encode("utf-8")
 
 
 def scrub_html(value):
@@ -36,6 +36,7 @@ def scrub_html(value):
 def html_escape(value):
     value = safe_unicode(value)
     return escape(value, 1)
+
 
 def html_safe(value):
     value = safe_unicode(value)

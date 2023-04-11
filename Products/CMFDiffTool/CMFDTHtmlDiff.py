@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from AccessControl.class_init import InitializeClass
 from Products.CMFDiffTool.libs import htmldiff
 from Products.CMFDiffTool.TextDiff import TextDiff
@@ -11,22 +10,20 @@ from Products.CMFDiffTool.utils import html_safe
 class CMFDTHtmlDiff(TextDiff):
     """Text difference"""
 
-    meta_type = 'HTML Diff'
+    meta_type = "HTML Diff"
 
     def inline_diff(self):
         """Return a specialized diff for HTML"""
-        a = '\n'.join(self._parseField(self.oldValue,
-                                       filename=self.oldFilename))
-        b = '\n'.join(self._parseField(self.newValue,
-                                       filename=self.newFilename))
+        a = "\n".join(self._parseField(self.oldValue, filename=self.oldFilename))
+        b = "\n".join(self._parseField(self.newValue, filename=self.newFilename))
         return htmldiff.htmldiff(html_safe(a), html_safe(b))
 
     def _parseField(self, value, filename=None):
         """Use the field's raw value if available."""
         if value is None:
-            value = ''
+            value = ""
         else:
-            value = getattr(value, 'raw', value)
+            value = getattr(value, "raw", value)
         return TextDiff._parseField(self, value, filename)
 
 

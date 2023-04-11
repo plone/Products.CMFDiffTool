@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # CMFDiffTool tests
 #
@@ -13,24 +12,24 @@ _marker = []
 
 
 class A:
-    attribute = 'value'
+    attribute = "value"
 
     def method(self):
-        return 'method value'
+        return "method value"
 
 
 class B:
-    attribute = 'different value'
+    attribute = "different value"
 
     def method(self):
-        return 'different method value'
+        return "different method value"
 
 
 class U:
-    attribute = u'\xfcnicode value'
+    attribute = "\xfcnicode value"
 
     def method(self):
-        return u'different method val\xfce'
+        return "different method val\xfce"
 
 
 class H:
@@ -48,24 +47,25 @@ class TestFieldDiff(TestCase):
     def testInterface(self):
         """Ensure that tool instances implement the portal_diff interface"""
         from Products.CMFDiffTool.interfaces.portal_diff import IDifference
+
         self.assertTrue(IDifference.implementedBy(FieldDiff))
 
     def testAttributeSame(self):
         """Test attribute with same value"""
         a = A()
-        fd = FieldDiff(a, a, 'attribute')
+        fd = FieldDiff(a, a, "attribute")
         self.assertTrue(fd.same)
         uu = U()
-        fd = FieldDiff(uu, uu, 'attribute')
+        fd = FieldDiff(uu, uu, "attribute")
         self.assertTrue(fd.same)
 
     def testMethodSame(self):
         """Test method with same value"""
         a = A()
-        fd = FieldDiff(a, a, 'method')
+        fd = FieldDiff(a, a, "method")
         self.assertTrue(fd.same)
         uu = U()
-        fd = FieldDiff(uu, uu, 'method')
+        fd = FieldDiff(uu, uu, "method")
         self.assertTrue(fd.same)
 
     def testAttributeDiff(self):
@@ -73,9 +73,9 @@ class TestFieldDiff(TestCase):
         a = A()
         b = B()
         uu = U()
-        fd = FieldDiff(a, b, 'attribute')
+        fd = FieldDiff(a, b, "attribute")
         self.assertFalse(fd.same)
-        fd = FieldDiff(a, uu, 'attribute')
+        fd = FieldDiff(a, uu, "attribute")
         self.assertFalse(fd.same)
 
     def testMethodDiff(self):
@@ -83,20 +83,20 @@ class TestFieldDiff(TestCase):
         a = A()
         b = B()
         uu = U()
-        fd = FieldDiff(a, b, 'method')
+        fd = FieldDiff(a, b, "method")
         self.assertFalse(fd.same)
-        fd = FieldDiff(a, uu, 'method')
+        fd = FieldDiff(a, uu, "method")
         self.assertFalse(fd.same)
 
     def testGetLineDiffsSame(self):
         """test getLineDiffs() method with same value"""
         a = A()
-        fd = FieldDiff(a, a, 'attribute')
-        expected = [('equal', 0, 1, 0, 1)]
+        fd = FieldDiff(a, a, "attribute")
+        expected = [("equal", 0, 1, 0, 1)]
         self.assertEqual(fd.getLineDiffs(), expected)
         uu = U()
-        fd = FieldDiff(uu, uu, 'attribute')
-        expected = [('equal', 0, 1, 0, 1)]
+        fd = FieldDiff(uu, uu, "attribute")
+        expected = [("equal", 0, 1, 0, 1)]
         self.assertEqual(fd.getLineDiffs(), expected)
 
     def testGetLineDiffsDifferent(self):
@@ -104,72 +104,72 @@ class TestFieldDiff(TestCase):
         a = A()
         b = B()
         uu = U()
-        fd = FieldDiff(a, b, 'attribute')
-        expected = [('replace', 0, 1, 0, 1)]
+        fd = FieldDiff(a, b, "attribute")
+        expected = [("replace", 0, 1, 0, 1)]
         self.assertEqual(fd.getLineDiffs(), expected)
-        fd = FieldDiff(a, uu, 'attribute')
-        expected = [('replace', 0, 1, 0, 1)]
+        fd = FieldDiff(a, uu, "attribute")
+        expected = [("replace", 0, 1, 0, 1)]
         self.assertEqual(fd.getLineDiffs(), expected)
 
     def testSameText(self):
         """Test text diff output with same value"""
         a = A()
-        fd = FieldDiff(a, a, 'attribute')
-        self.assertEqual(fd.ndiff(), '  value')
+        fd = FieldDiff(a, a, "attribute")
+        self.assertEqual(fd.ndiff(), "  value")
         uu = U()
-        fd = FieldDiff(uu, uu, 'attribute')
-        self.assertEqual(fd.ndiff(), u'  \xfcnicode value')
+        fd = FieldDiff(uu, uu, "attribute")
+        self.assertEqual(fd.ndiff(), "  \xfcnicode value")
 
     def testDiffText(self):
         """Test text diff output with different value"""
         a = A()
         b = B()
         uu = U()
-        expected = '- value%s+ different value' % linesep
-        fd = FieldDiff(a, b, 'attribute')
+        expected = "- value%s+ different value" % linesep
+        fd = FieldDiff(a, b, "attribute")
         self.assertEqual(fd.ndiff(), expected)
-        expected = u'- value%s+ \xfcnicode value' % linesep
-        fd = FieldDiff(a, uu, 'attribute')
+        expected = "- value%s+ \xfcnicode value" % linesep
+        fd = FieldDiff(a, uu, "attribute")
         self.assertEqual(fd.ndiff(), expected)
 
     def test_dump_text(self):
         """Test dumping a diff of text."""
         diff = []
-        dump('-', ['support'], 0, 1, diff)
-        self.assertEqual(diff, ['- support'])
+        dump("-", ["support"], 0, 1, diff)
+        self.assertEqual(diff, ["- support"])
         # Try unicode, a 'u' with an umlaut.
         diff = []
-        dump('+', [u's\xfcpport'], 0, 1, diff)
-        self.assertEqual(diff, [u'+ s\xfcpport'])
+        dump("+", ["s\xfcpport"], 0, 1, diff)
+        self.assertEqual(diff, ["+ s\xfcpport"])
         # Combine them.
         diff = []
-        dump('-', ['support'], 0, 1, diff)
-        dump('+', [u's\xfcpport'], 0, 1, diff)
-        self.assertEqual(diff, ['- support', u'+ s\xfcpport'])
+        dump("-", ["support"], 0, 1, diff)
+        dump("+", ["s\xfcpport"], 0, 1, diff)
+        self.assertEqual(diff, ["- support", "+ s\xfcpport"])
 
     def test_dump_integer(self):
         """Test dumping a diff of integers."""
         diff = []
-        dump('-', [4], 0, 1, diff)
-        self.assertEqual(diff, ['- 4'])
-        dump('+', [42], 0, 1, diff)
-        self.assertEqual(diff, ['- 4', '+ 42'])
+        dump("-", [4], 0, 1, diff)
+        self.assertEqual(diff, ["- 4"])
+        dump("+", [42], 0, 1, diff)
+        self.assertEqual(diff, ["- 4", "+ 42"])
 
     def test_dump_float(self):
         """Test dumping a diff of floats."""
         diff = []
-        dump('-', [1.1], 0, 1, diff)
-        self.assertEqual(diff, ['- 1.1'])
-        dump('+', [1.2], 0, 1, diff)
-        self.assertEqual(diff, ['- 1.1', '+ 1.2'])
+        dump("-", [1.1], 0, 1, diff)
+        self.assertEqual(diff, ["- 1.1"])
+        dump("+", [1.2], 0, 1, diff)
+        self.assertEqual(diff, ["- 1.1", "+ 1.2"])
 
     def test_dump_boolean(self):
         """Test dumping a diff of booleans."""
         diff = []
-        dump('-', [True], 0, 1, diff)
-        self.assertEqual(diff, ['- True'])
-        dump('+', [False], 0, 1, diff)
-        self.assertEqual(diff, ['- True', '+ False'])
+        dump("-", [True], 0, 1, diff)
+        self.assertEqual(diff, ["- True"])
+        dump("+", [False], 0, 1, diff)
+        self.assertEqual(diff, ["- True", "+ False"])
 
     def test_inline_diff_same(self):
         """Test inline diff for attribute with same value"""
@@ -177,12 +177,12 @@ class TestFieldDiff(TestCase):
         uu = U()
         h = H()
         # We mostly just want to check that the inline diff renders without error.
-        fd = FieldDiff(a, a, 'attribute')
+        fd = FieldDiff(a, a, "attribute")
         self.assertIn('class="InlineDiff"', fd.inline_diff())
-        fd = FieldDiff(uu, uu, 'attribute')
+        fd = FieldDiff(uu, uu, "attribute")
         self.assertIn('class="InlineDiff"', fd.inline_diff())
         self.assertNotIn("&gt;", fd.inline_diff())
-        fd = FieldDiff(h, h, 'attribute')
+        fd = FieldDiff(h, h, "attribute")
         self.assertIn('class="InlineDiff"', fd.inline_diff())
         # h.attribute contains a script, and this should be escaped.
         self.assertNotIn(h.attribute, fd.inline_diff())
@@ -193,16 +193,16 @@ class TestFieldDiff(TestCase):
         a = A()
         uu = U()
         h = H()
-        fd = FieldDiff(a, uu, 'attribute')
+        fd = FieldDiff(a, uu, "attribute")
         self.assertIn('class="InlineDiff"', fd.inline_diff())
-        fd = FieldDiff(uu, a, 'attribute')
+        fd = FieldDiff(uu, a, "attribute")
         self.assertIn('class="InlineDiff"', fd.inline_diff())
         self.assertNotIn("&gt;", fd.inline_diff())
-        fd = FieldDiff(uu, h, 'attribute')
+        fd = FieldDiff(uu, h, "attribute")
         self.assertIn('class="InlineDiff"', fd.inline_diff())
         # h.attribute contains a script, and this should be escaped.
         self.assertNotIn(h.attribute, fd.inline_diff())
-        fd = FieldDiff(h, uu, 'attribute')
+        fd = FieldDiff(h, uu, "attribute")
         self.assertIn('class="InlineDiff"', fd.inline_diff())
         # h.attribute contains a script, and this should be escaped.
         self.assertNotIn(h.attribute, fd.inline_diff())

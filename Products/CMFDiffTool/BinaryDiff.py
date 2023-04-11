@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from AccessControl.class_init import InitializeClass
 from os import linesep
 from Products.CMFDiffTool.BaseDiff import _getValue
@@ -9,7 +8,7 @@ from Products.CMFDiffTool.utils import html_escape
 class BinaryDiff(FieldDiff):
     """Simple binary difference"""
 
-    meta_type = 'Binary Diff'
+    meta_type = "Binary Diff"
     inlinediff_fmt = """
 <div class="%s">
     <del>%s</del>
@@ -33,8 +32,9 @@ class BinaryDiff(FieldDiff):
         """
         value = _getValue(ob, self.field)
         if not self.same and value != self.oldValue:
-            raise ValueError('Conflict Error during merge',
-                             self.field, value, self.oldValue)
+            raise ValueError(
+                "Conflict Error during merge", self.field, value, self.oldValue
+            )
 
     def applyChanges(self, ob):
         """Update the specified object with the difference"""
@@ -46,13 +46,16 @@ class BinaryDiff(FieldDiff):
     def inline_diff(self):
         """Simple inline diff that just checks that the filename
         has changed."""
-        css_class = 'FilenameDiff'
+        css_class = "FilenameDiff"
         html = []
         if self.oldFilename != self.newFilename:
             html.append(
-                self.inlinediff_fmt % (css_class,
-                                       self.filenameTitle(html_escape(self.oldFilename)),
-                                       self.filenameTitle(html_escape(self.newFilename))),
+                self.inlinediff_fmt
+                % (
+                    css_class,
+                    self.filenameTitle(html_escape(self.oldFilename)),
+                    self.filenameTitle(html_escape(self.newFilename)),
+                ),
             )
 
         if html:

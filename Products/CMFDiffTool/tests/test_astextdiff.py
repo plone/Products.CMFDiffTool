@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from datetime import date
 from Products.CMFDiffTool.interfaces import IDifference
 from Products.CMFDiffTool.TextDiff import AsTextDiff
@@ -6,18 +5,17 @@ from Products.CMFDiffTool.TextDiff import AsTextDiff
 import unittest
 
 
-class DateDummyType(object):
+class DateDummyType:
     def __init__(self, date):
         self.date = date
 
 
-class BoolDummyType(object):
+class BoolDummyType:
     def __init__(self, bool_field):
         self.bool_field = bool_field
 
 
 class AsTextDiffTestCase(unittest.TestCase):
-
     def test_should_diff_anything_as_text(self):
         self._test_diff_date(date(2011, 1, 1), date(2012, 2, 2), False)
         self._test_diff_date(date(2011, 1, 1), date(2011, 1, 1), True)
@@ -25,7 +23,7 @@ class AsTextDiffTestCase(unittest.TestCase):
         self._test_diff_date(None, None, True)
 
     def _test_diff_date(self, d1, d2, same):
-        diff = AsTextDiff(DateDummyType(d1), DateDummyType(d2), 'date')
+        diff = AsTextDiff(DateDummyType(d1), DateDummyType(d2), "date")
         self.assertTrue(IDifference.providedBy(diff))
         self.assertEqual(diff.same, same)
 
@@ -52,7 +50,7 @@ class AsTextDiffTestCase(unittest.TestCase):
         self._test_diff_bool(None, None, True)
 
     def _test_diff_bool(self, b1, b2, same):
-        diff = AsTextDiff(BoolDummyType(b1), BoolDummyType(b2), 'bool_field')
+        diff = AsTextDiff(BoolDummyType(b1), BoolDummyType(b2), "bool_field")
 
         self.assertTrue(IDifference.providedBy(diff))
         self.assertEqual(diff.same, same)
@@ -61,6 +59,5 @@ class AsTextDiffTestCase(unittest.TestCase):
         if same:
             self.assertFalse(inline_diff)
         else:
-            self.assertTrue(
-                ('True' in inline_diff) or ('False' in inline_diff))
+            self.assertTrue(("True" in inline_diff) or ("False" in inline_diff))
             # self.assertFalse('None' in inline_diff)

@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 """Initialize CMFDiffTool Product"""
 # Set up a MessageFactory for the cmfdifftool domain
 from zope.i18nmessageid import MessageFactory
 
 
-CMFDiffToolMessageFactory = MessageFactory('plone')
+CMFDiffToolMessageFactory = MessageFactory("plone")
 
 from Products.CMFCore.utils import ToolInit  # NOQA
 from Products.CMFDiffTool import BinaryDiff  # NOQA
@@ -41,11 +40,12 @@ else:
     CMFDiffTool.registerDiffType(choicediff.ChoiceDiff)
     CMFDiffTool.registerDiffType(dexteritydiff.DexterityCompoundDiff)
 
-tools = (CMFDiffTool.CMFDiffTool, )
+tools = (CMFDiffTool.CMFDiffTool,)
 
 
 def initialize(context):
-    ToolInit('CMF Diff Tool',
-             tools=tools,
-             icon='tool.gif',
-             ).initialize(context)
+    ToolInit(
+        "CMF Diff Tool",
+        tools=tools,
+        icon="tool.gif",
+    ).initialize(context)

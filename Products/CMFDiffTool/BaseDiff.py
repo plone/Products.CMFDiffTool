@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """CMFDiffTool.py
 
    Calculate differences between content objects
@@ -20,36 +19,45 @@ import Acquisition
 @implementer(IDifference)
 class BaseDiff:
     """Basic diff type"""
-    __allow_access_to_unprotected_subobjects__ = 1
-    meta_type = 'Base Diff'
 
-    def __init__(self, obj1, obj2, field, id1=None, id2=None,
-                 field_name=None, field_label=None, schemata=None):
+    __allow_access_to_unprotected_subobjects__ = 1
+    meta_type = "Base Diff"
+
+    def __init__(
+        self,
+        obj1,
+        obj2,
+        field,
+        id1=None,
+        id2=None,
+        field_name=None,
+        field_label=None,
+        schemata=None,
+    ):
         self.field = field
         self.oldValue = _getValue(obj1, field, field_name)
         self.newValue = _getValue(obj2, field, field_name)
-        self.same = (self.oldValue == self.newValue)
-        if not id1 and safe_hasattr(obj1, 'getId'):
+        self.same = self.oldValue == self.newValue
+        if not id1 and safe_hasattr(obj1, "getId"):
             id1 = obj1.getId()
-        if not id2 and safe_hasattr(obj2, 'getId'):
+        if not id2 and safe_hasattr(obj2, "getId"):
             id2 = obj2.getId()
         self.id1 = id1
         self.id2 = id2
         self.label = field_label or field
-        self.schemata = schemata or 'default'
+        self.schemata = schemata or "default"
         fld1 = _getValue(obj1, field, field_name, convert_to_str=False)
         fld2 = _getValue(obj2, field, field_name, convert_to_str=False)
-        if safe_hasattr(fld1, 'getFilename'):
+        if safe_hasattr(fld1, "getFilename"):
             self.oldFilename = fld1.getFilename()
         else:
             self.oldFilename = None
-        if safe_hasattr(fld2, 'getFilename'):
+        if safe_hasattr(fld2, "getFilename"):
             self.newFilename = fld2.getFilename()
         else:
             self.newFilename = None
-        if self.oldFilename is not None and self.newFilename is not None \
-           and self.same:
-            self.same = (self.oldFilename == self.newFilename)
+        if self.oldFilename is not None and self.newFilename is not None and self.same:
+            self.same = self.oldFilename == self.newFilename
 
     def testChanges(self, ob):
         """Test the specified object to determine if the change set
@@ -61,10 +69,8 @@ class BaseDiff:
         pass
 
     def filenameTitle(self, filename):
-        """Translate the filename leading text
-        """
-        msg = _(u'Filename: ${filename}',
-                mapping={'filename': filename})
+        """Translate the filename leading text"""
+        msg = _("Filename: ${filename}", mapping={"filename": filename})
         return translate(msg)
 
 
@@ -77,7 +83,7 @@ def _getValue(ob, field, field_name, convert_to_str=True):
         # as `subject` attribute but the schema name is `subjects`
         # see plone.app.dexterity.behaviors.metadata.ICategorization and
         # plone.dexterity.content.DexterityContent
-        if field == 'subjects':
+        if field == "subjects":
             value = ob.Subject()
         else:
             value = getattr(ob, field, None)
