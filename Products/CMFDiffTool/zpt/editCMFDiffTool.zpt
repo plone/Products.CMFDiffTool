@@ -1,4 +1,12 @@
-<html tal:omit-tag="">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      lang="en"
+      xml:lang="en"
+      tal:omit-tag=""
+      i18n:domain="der.freitag"
+>
   <span tal:replace="structure here/manage_page_header">Header</span>
   <span tal:define="
           manage_tabs_message options/manage_tabs_message | nothing;
@@ -20,16 +28,16 @@
     }
   </style>
 
-  <h3>Differences by Type</h3>
+  <h3 i18n:translate="">Differences by Type</h3>
 
   <form action="manage_addDiffField"
         method="post"
   >
     <table>
       <tr>
-        <th>Portal Type</th>
-        <th>Field name</th>
-        <th>Diff Type</th>
+        <th i18n:translate="">Portal Type</th>
+        <th i18n:translate="">Field name</th>
+        <th i18n:translate="">Diff Type</th>
       </tr>
       <tr>
         <td>
@@ -61,6 +69,7 @@
           <input name="add"
                  type="submit"
                  value="Add field"
+                 i18n:attributes="value"
           />
         </td>
       </tr>
@@ -74,10 +83,10 @@
     <table id="diffTable">
       <thead>
         <tr>
-          <th>Portal Type</th>
-          <th>Field</th>
-          <th>Diff Type</th>
-          <th>Delete</th>
+          <th i18n:translate="">Portal Type</th>
+          <th i18n:translate="">Field</th>
+          <th i18n:translate="">Diff Type</th>
+          <th i18n:translate="">Delete</th>
         </tr>
       </thead>
       <tal:p_type tal:repeat="pt_name here/portal_types/listContentTypes">
@@ -147,6 +156,7 @@
     <input name="manage_editDiffFields:action"
            type="submit"
            value="Update"
+           i18n:attributes="value"
     />
   </form>
 
