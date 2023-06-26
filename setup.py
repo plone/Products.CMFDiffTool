@@ -41,7 +41,6 @@ setup(
     zip_safe=False,
     extras_require=dict(
         test=[
-            "zope.component",
             "plone.app.testing",
             "plone.namedfile",
             "plone.app.contenttypes[test]",
@@ -50,7 +49,6 @@ setup(
     ),
     python_requires=">=3.8",
     install_requires=[
-        "ExtensionClass",
         "Products.GenericSetup",
         "Products.PortalTransforms",
         "Zope",
