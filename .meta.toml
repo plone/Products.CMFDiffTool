@@ -1,5 +1,10 @@
 # Generated from:
 # https://github.com/plone/meta/tree/master/config/default
+# See the inline comments on how to expand/tweak this configuration file
 [meta]
 template = "default"
-commit-id = "3333c742"
+commit-id = "cfffba8c"
+
+[pyproject]
+dependencies_ignores = "['plone.namedfile', 'plone.dexterity', 'plone.app.textfield']"
+codespell_ignores = "alo,"
