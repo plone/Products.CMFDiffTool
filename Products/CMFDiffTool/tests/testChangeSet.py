@@ -13,6 +13,9 @@ from Products.CMFDiffTool.dexteritydiff import DexterityCompoundDiff
 from unittest import TestCase
 
 
+EXPECTED_LENGTH = 14
+
+
 class TestChangeSet(TestCase):
     """Tests for ChangeSet objects"""
 
@@ -70,7 +73,7 @@ class TestChangeSet(TestCase):
         self.setupTestFolders()
         self.cs.computeDiff(self.folder.folder1, self.folder.copy_of_folder1)
         diffs = self.cs.getDiffs()
-        self.assertEqual(len(diffs), 14)
+        self.assertEqual(len(diffs), EXPECTED_LENGTH)
         self.assertTrue(diffs[0].same)
         sub_cs = self.cs.getSubDiffs()
         self.assertEqual(len(sub_cs), 3)
@@ -87,7 +90,7 @@ class TestChangeSet(TestCase):
         self.folder.copy_of_folder1.setTitle("My New Title")
         self.cs.computeDiff(self.folder.folder1, self.folder.copy_of_folder1)
         diffs = self.cs.getDiffs()
-        self.assertEqual(len(diffs), 14)
+        self.assertEqual(len(diffs), EXPECTED_LENGTH)
         self.assertFalse(diffs[0].same)
         self.assertEqual(
             diffs[0].ndiff(), "- My Folder Title%s+ My New Title" % linesep
@@ -108,7 +111,7 @@ class TestChangeSet(TestCase):
         self.folder.copy_of_folder1.doc1.setTitle("My New Title")
         self.cs.computeDiff(self.folder.folder1, self.folder.copy_of_folder1)
         diffs = self.cs.getDiffs()
-        self.assertEqual(len(diffs), 14)
+        self.assertEqual(len(diffs), EXPECTED_LENGTH)
         self.assertTrue(diffs[0].same)
         self.assertTrue(diffs[1].same)
         self.assertFalse(self.cs._added)
@@ -133,7 +136,7 @@ class TestChangeSet(TestCase):
         self.folder.copy_of_folder1.manage_delObjects("doc1")
         self.cs.computeDiff(self.folder.folder1, self.folder.copy_of_folder1)
         diffs = self.cs.getDiffs()
-        self.assertEqual(len(diffs), 14)
+        self.assertEqual(len(diffs), EXPECTED_LENGTH)
         self.assertTrue(diffs[0].same)
         self.assertTrue(diffs[1].same)
         sub_cs = self.cs.getSubDiffs()
@@ -155,7 +158,7 @@ class TestChangeSet(TestCase):
         )
         self.cs.computeDiff(self.folder.folder1, self.folder.copy_of_folder1)
         diffs = self.cs.getDiffs()
-        self.assertEqual(len(diffs), 14)
+        self.assertEqual(len(diffs), EXPECTED_LENGTH)
         self.assertTrue(diffs[0].same)
         self.assertTrue(diffs[1].same)
         sub_cs = self.cs.getSubDiffs()
@@ -180,7 +183,7 @@ class TestChangeSet(TestCase):
             return
         self.cs.computeDiff(self.folder.folder1, self.folder.copy_of_folder1)
         diffs = self.cs.getDiffs()
-        self.assertEqual(len(diffs), 14)
+        self.assertEqual(len(diffs), EXPECTED_LENGTH)
         self.assertTrue(diffs[0].same)
         self.assertFalse(self.cs._added)
         self.assertFalse(self.cs._removed)
@@ -217,7 +220,7 @@ class TestChangeSet(TestCase):
 
         self.cs.computeDiff(self.folder["folder1"], self.folder["copy_of_folder1"])
         diffs = self.cs.getDiffs()
-        self.assertEqual(len(diffs), 14)
+        self.assertEqual(len(diffs), EXPECTED_LENGTH)
         self.assertFalse(diffs[0].same)
         self.assertEqual(
             diffs[0].ndiff(), "- My Folder Title%s+ My New Title" % linesep
