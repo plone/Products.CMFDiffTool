@@ -13,7 +13,7 @@ from Products.CMFDiffTool.dexteritydiff import DexterityCompoundDiff
 from unittest import TestCase
 
 
-EXPECTED_LENGTH = 14
+EXPECTED_LENGTH = 13
 
 
 class TestChangeSet(TestCase):
