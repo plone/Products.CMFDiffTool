@@ -1,14 +1,23 @@
+from pathlib import Path
 from setuptools import find_packages
 from setuptools import setup
 
 
 version = "4.0.2.dev0"
+version = "2.0.7.dev0"
+
+long_description = (
+    f"{Path('README.rst').read_text()}\n{Path('CHANGES.rst').read_text()}"
+)
 
 setup(
     name="Products.CMFDiffTool",
     version=version,
     description="Diff tool for Plone",
-    long_description=(open("README.rst").read() + "\n" + open("CHANGES.rst").read()),
+    long_description=long_description,
+    long_description_content_type="text/x-rst",
+    # Get more strings from
+    # https://pypi.org/classifiers/
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Programming Language :: Python :: 3.8",
@@ -32,7 +41,6 @@ setup(
     zip_safe=False,
     extras_require=dict(
         test=[
-            "zope.component",
             "plone.app.testing",
             "plone.namedfile",
             "plone.app.contenttypes[test]",
@@ -41,7 +49,6 @@ setup(
     ),
     python_requires=">=3.8",
     install_requires=[
-        "ExtensionClass",
         "Products.GenericSetup",
         "Products.PortalTransforms",
         "Zope",
