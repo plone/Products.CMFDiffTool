@@ -8,6 +8,16 @@ Changelog
 
 .. towncrier release notes start
 
+4.0.2 (2024-02-01)
+------------------
+
+Bug fixes:
+
+
+- Rerelease 2.0.7 as 4.0.2.  There was a double version number.
+  [maurits] (#402)
+
+
 2.0.7 (2024-01-22)
 ------------------
 
