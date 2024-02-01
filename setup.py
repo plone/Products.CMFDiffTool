@@ -3,8 +3,7 @@ from setuptools import find_packages
 from setuptools import setup
 
 
-version = "2.0.8.dev0"
-version = "2.0.7.dev0"
+version = "4.0.2.dev0"
 
 long_description = (
     f"{Path('README.rst').read_text()}\n{Path('CHANGES.rst').read_text()}"
@@ -24,8 +23,10 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
         "Framework :: Plone",
         "Framework :: Plone :: 6.0",
+        "Framework :: Plone :: 6.1",
         "Framework :: Plone :: Core",
         "License :: OSI Approved :: GNU General Public License (GPL)",
         "Topic :: Internet :: WWW/HTTP",
