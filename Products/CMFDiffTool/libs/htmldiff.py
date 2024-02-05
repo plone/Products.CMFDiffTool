@@ -10,6 +10,7 @@ Command-line usage:
 
 Better results if you use mxTidy first.  The output is HTML.
 """
+
 from difflib import SequenceMatcher
 from html import escape
 from io import StringIO

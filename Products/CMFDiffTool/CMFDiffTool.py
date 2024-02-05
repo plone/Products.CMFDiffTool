@@ -2,6 +2,7 @@
 
    Calculate differences between content objects
 """
+
 from AccessControl import ClassSecurityInfo
 from AccessControl.class_init import InitializeClass
 from Acquisition import aq_base
