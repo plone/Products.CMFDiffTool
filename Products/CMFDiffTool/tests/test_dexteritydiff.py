@@ -154,3 +154,50 @@ class DexterityDiffTestCase(BaseDXTestCase):
                 i_add = n_diff.index("+")
                 i_obj2 = n_diff.index("obj2")
                 self.assertTrue(i_rem < i_obj1 < i_add < i_obj2)
+
+    def test_dont_break_on_broken_relations(self):
+        """Diff should still render when a relation is broken"""
+        intids = getUtility(IIntIds)
+
+        self.portal.invokeFactory(
+            testing.TEST_CONTENT_TYPE_ID,
+            "obj1",
+            title="Object 1",
+            description="Desc 1",
+            text="Text 1",
+        )
+        obj1 = self.portal["obj1"]
+
+        intid = intids.register(obj1)
+        self.portal.invokeFactory(
+            testing.TEST_CONTENT_TYPE_ID,
+            "obj2",
+            title="Object 2",
+            relatedItems=[RelationValue(intid)],
+        )
+        obj2 = self.portal["obj2"]
+
+        intid = intids.register(obj2)
+        self.portal.invokeFactory(
+            testing.TEST_CONTENT_TYPE_ID,
+            "obj3",
+            title="Object 3",
+            relatedItems=[RelationValue(intid)],
+        )
+        obj3 = self.portal["obj3"]
+
+        obj2.relatedItems[0].broken("broken")
+        self.assertTrue(obj2.relatedItems[0].isBroken())
+
+        diffs = DexterityCompoundDiff(obj2, obj3, "any")
+        for d in diffs:
+            if d.field == "relatedItems":
+                inline_diff = d.inline_diff()
+                self.assertTrue(inline_diff)
+                i_diff_sub = inline_diff.index('<div class="diff_add">')
+                i_obj1 = inline_diff.index("Object 2")
+
+                n_diff = d.ndiff()
+                self.assertTrue(n_diff)
+                i_add = n_diff.index("+")
+                i_obj2 = n_diff.index("obj2")

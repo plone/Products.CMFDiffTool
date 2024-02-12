@@ -79,11 +79,11 @@ class RelationListDiff(FieldDiff):
         if filename is None:
             # Since we only want to compare a single field, make a
             # one-item list out of it
-            return ["/".join(val.getPhysicalPath()) for val in value]
+            return ["/".join(val.getPhysicalPath()) for val in value if val]
         else:
             return [
                 self.filenameTitle(filename),
-                ["/".join(val.getPhysicalPath()) for val in value],
+                ["/".join(val.getPhysicalPath()) for val in value if val],
             ]
 
     def inline_diff(self):
