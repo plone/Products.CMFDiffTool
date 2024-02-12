@@ -194,10 +194,10 @@ class DexterityDiffTestCase(BaseDXTestCase):
             if d.field == "relatedItems":
                 inline_diff = d.inline_diff()
                 self.assertTrue(inline_diff)
-                i_diff_sub = inline_diff.index('<div class="diff_add">')
-                i_obj1 = inline_diff.index("Object 2")
+                self.assertIn('<div class="diff_add">', inline_diff)
+                self.assertIn("Object 2", inline_diff)
 
                 n_diff = d.ndiff()
                 self.assertTrue(n_diff)
-                i_add = n_diff.index("+")
-                i_obj2 = n_diff.index("obj2")
+                self.assertIn("+", n_diff)
+                self.assertIn("obj2", n_diff)
