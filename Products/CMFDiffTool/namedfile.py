@@ -70,9 +70,11 @@ class NamedFileBinaryDiff(BinaryDiff):
 
     def _parseField(self, value, filename=None):
         return [
-            ""
-            if (value is None)
-            else named_file_as_str(NamedFile(data=value, filename=filename)),
+            (
+                ""
+                if (value is None)
+                else named_file_as_str(NamedFile(data=value, filename=filename))
+            ),
         ]
 
     def inline_diff(self):
