@@ -8,6 +8,16 @@ Changelog
 
 .. towncrier release notes start
 
+4.0.3 (2024-02-21)
+------------------
+
+Bug fixes:
+
+
+- Make sure diff still renders when a relationlist has broken relations
+  [pbauer] (#54)
+
+
 4.0.2 (2024-02-01)
 ------------------
 
