@@ -6,6 +6,7 @@ from os import linesep
 from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FUNCTIONAL_TESTING
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
+from plone.base.utils import get_installer
 from plone.base.utils import safe_hasattr
 from Products.CMFCore.utils import getToolByName
 from Products.CMFDiffTool.ChangeSet import BaseChangeSet
@@ -26,6 +27,10 @@ class TestChangeSet(TestCase):
         # ChangeSet needs an acquisition wrapper
         self.cs = cs.__of__(self.portal)
         setRoles(self.portal, TEST_USER_ID, ["Contributor"])
+        self.expected_diff_len = 13
+        installer = get_installer(self.portal)
+        if installer.is_product_installed("plone.app.discussion"):
+            self.expected_diff_len += 1
 
     def testInterface(self):
         """Ensure that tool instances implement the portal_diff interface"""
@@ -70,7 +75,7 @@ class TestChangeSet(TestCase):
         self.setupTestFolders()
         self.cs.computeDiff(self.folder.folder1, self.folder.copy_of_folder1)
         diffs = self.cs.getDiffs()
-        self.assertEqual(len(diffs), 14)
+        self.assertEqual(len(diffs), self.expected_diff_len)
         self.assertTrue(diffs[0].same)
         sub_cs = self.cs.getSubDiffs()
         self.assertEqual(len(sub_cs), 3)
@@ -87,7 +92,7 @@ class TestChangeSet(TestCase):
         self.folder.copy_of_folder1.setTitle("My New Title")
         self.cs.computeDiff(self.folder.folder1, self.folder.copy_of_folder1)
         diffs = self.cs.getDiffs()
-        self.assertEqual(len(diffs), 14)
+        self.assertEqual(len(diffs), self.expected_diff_len)
         self.assertFalse(diffs[0].same)
         self.assertEqual(
             diffs[0].ndiff(), "- My Folder Title%s+ My New Title" % linesep
@@ -108,7 +113,7 @@ class TestChangeSet(TestCase):
         self.folder.copy_of_folder1.doc1.setTitle("My New Title")
         self.cs.computeDiff(self.folder.folder1, self.folder.copy_of_folder1)
         diffs = self.cs.getDiffs()
-        self.assertEqual(len(diffs), 14)
+        self.assertEqual(len(diffs), self.expected_diff_len)
         self.assertTrue(diffs[0].same)
         self.assertTrue(diffs[1].same)
         self.assertFalse(self.cs._added)
@@ -133,7 +138,7 @@ class TestChangeSet(TestCase):
         self.folder.copy_of_folder1.manage_delObjects("doc1")
         self.cs.computeDiff(self.folder.folder1, self.folder.copy_of_folder1)
         diffs = self.cs.getDiffs()
-        self.assertEqual(len(diffs), 14)
+        self.assertEqual(len(diffs), self.expected_diff_len)
         self.assertTrue(diffs[0].same)
         self.assertTrue(diffs[1].same)
         sub_cs = self.cs.getSubDiffs()
@@ -155,7 +160,7 @@ class TestChangeSet(TestCase):
         )
         self.cs.computeDiff(self.folder.folder1, self.folder.copy_of_folder1)
         diffs = self.cs.getDiffs()
-        self.assertEqual(len(diffs), 14)
+        self.assertEqual(len(diffs), self.expected_diff_len)
         self.assertTrue(diffs[0].same)
         self.assertTrue(diffs[1].same)
         sub_cs = self.cs.getSubDiffs()
@@ -180,7 +185,7 @@ class TestChangeSet(TestCase):
             return
         self.cs.computeDiff(self.folder.folder1, self.folder.copy_of_folder1)
         diffs = self.cs.getDiffs()
-        self.assertEqual(len(diffs), 14)
+        self.assertEqual(len(diffs), self.expected_diff_len)
         self.assertTrue(diffs[0].same)
         self.assertFalse(self.cs._added)
         self.assertFalse(self.cs._removed)
@@ -217,7 +222,7 @@ class TestChangeSet(TestCase):
 
         self.cs.computeDiff(self.folder["folder1"], self.folder["copy_of_folder1"])
         diffs = self.cs.getDiffs()
-        self.assertEqual(len(diffs), 14)
+        self.assertEqual(len(diffs), self.expected_diff_len)
         self.assertFalse(diffs[0].same)
         self.assertEqual(
             diffs[0].ndiff(), "- My Folder Title%s+ My New Title" % linesep
