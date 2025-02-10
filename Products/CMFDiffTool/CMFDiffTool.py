@@ -1,6 +1,6 @@
 """CMFDiffTool.py
 
-   Calculate differences between content objects
+Calculate differences between content objects
 """
 
 from AccessControl import ClassSecurityInfo
