@@ -1,9 +1,8 @@
 from pathlib import Path
-from setuptools import find_packages
 from setuptools import setup
 
 
-version = "4.0.6.dev0"
+version = "5.0.0.dev0"
 
 long_description = (
     f"{Path('README.rst').read_text()}\n{Path('CHANGES.rst').read_text()}"
@@ -19,14 +18,11 @@ setup(
     # https://pypi.org/classifiers/
     classifiers=[
         "Development Status :: 5 - Production/Stable",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
         "Framework :: Plone",
-        "Framework :: Plone :: 6.0",
-        "Framework :: Plone :: 6.1",
+        "Framework :: Plone :: 6.2",
         "Framework :: Plone :: Core",
         "License :: OSI Approved :: GNU General Public License (GPL)",
         "Topic :: Internet :: WWW/HTTP",
@@ -36,9 +32,6 @@ setup(
     author_email="plone-developers@lists.sourceforge.net",
     url="https://github.com/plone/Products.CMFDiffTool",
     license="GPL",
-    packages=find_packages("src"),
-    namespace_packages=["Products"],
-    package_dir={"": "src"},
     include_package_data=True,
     zip_safe=False,
     extras_require=dict(
@@ -49,12 +42,11 @@ setup(
             "zope.intid",
         ]
     ),
-    python_requires=">=3.8",
+    python_requires=">=3.10",
     install_requires=[
         "Products.GenericSetup",
         "Products.PortalTransforms",
         "Zope",
-        "setuptools",
         "plone.base",
         "z3c.relationfield",
     ],
