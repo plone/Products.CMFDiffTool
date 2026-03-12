@@ -22,7 +22,6 @@ from zope.schema import Iterable
 from zope.schema import Text
 from zope.schema import Time
 
-
 # TODO: Perhaps this can be replaced with some kind of Zope 3 style
 # adaptation, in order to provide better extensibility.
 FIELDS_AND_DIFF_TYPES_RELATION = [

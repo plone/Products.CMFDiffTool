@@ -7,7 +7,6 @@ from Products.CMFDiffTool.FieldDiff import dump
 from Products.CMFDiffTool.FieldDiff import FieldDiff
 from unittest import TestCase
 
-
 _marker = []
 
 
