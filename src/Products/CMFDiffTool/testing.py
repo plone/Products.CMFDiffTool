@@ -8,7 +8,6 @@ from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
 
-
 TEST_CONTENT_TYPE_ID = "TestContentType"
 
 VOCABULARY_TUPLES = [

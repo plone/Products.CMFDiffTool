@@ -32,7 +32,7 @@ def get_field_object(obj, field_name):
     Return the `zope.schema.Field` object corresponding to `field_name` in
     `obj`. Return `None` if not found.
     """
-    (schema, additional_schemata) = get_schemas(obj)
+    schema, additional_schemata = get_schemas(obj)
     schemas = [schema] + list(additional_schemata)
     for s in schemas:
         field = s.get(field_name, None)

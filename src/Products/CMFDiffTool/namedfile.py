@@ -5,7 +5,6 @@ from Products.CMFDiffTool.ListDiff import ListDiff
 from Products.CMFDiffTool.TextDiff import TextDiff
 from Products.CMFDiffTool.utils import html_escape
 
-
 FILE_FIELD_TYPES = []
 
 try:

@@ -9,7 +9,6 @@ from Products.CMFDiffTool.interfaces import IDifference
 from Products.CMFDiffTool.ListDiff import ListDiff
 from Products.CMFDiffTool.tests.BaseTestCase import BaseDXTestCase
 
-
 _marker = []
 
 
