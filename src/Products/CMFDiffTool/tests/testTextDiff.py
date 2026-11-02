@@ -3,6 +3,8 @@ from plone.app.testing import PLONE_INTEGRATION_TESTING
 from Products.CMFDiffTool.TextDiff import TextDiff
 from unittest import TestCase
 
+import sys
+
 _marker = []
 
 
@@ -124,6 +126,11 @@ class TestTextDiff(TestCase):
             <tr><td class="diff_next" id="difflib_chg_to0__0"><a href="#difflib_chg_to0__top">t</a></td><td class="diff_header" id="from0_1">1</td><td nowrap="nowrap"><span class="diff_sub">कामसूत्र</span></td><td class="diff_next"><a href="#difflib_chg_to0__top">t</a></td><td class="diff_header" id="to0_1">1</td><td nowrap="nowrap"><span class="diff_add">過労死</span></td></tr>
         </tbody>
     </table>"""  # NOQA
+        if sys.version_info >= (3, 15):
+            # Python 3.15 adds a css class to changed cells.
+            expected = expected.replace(
+                '<td nowrap="nowrap">', '<td class="diff_changed" nowrap="nowrap">'
+            )
         fd = TextDiff(a, b, "attribute")
         self.assertEqual(fd.html_diff(), expected)
 
