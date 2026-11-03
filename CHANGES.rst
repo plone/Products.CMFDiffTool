@@ -8,6 +8,20 @@ Changelog
 
 .. towncrier release notes start
 
+5.0.1 (2026-11-03)
+------------------
+
+Internal:
+
+
+- Fix ``testHTMLDiff`` test on Python 3.15, which adds a ``diff_changed`` css class to changed cells in ``difflib.HtmlDiff`` output.
+  [maurits]
+- Move package metadata from ``setup.py`` to ``pyproject.toml``.
+  [plone devs]
+- Update configuration files.
+  [plone devs]
+
+
 5.0.0 (2026-05-18)
 ------------------
 

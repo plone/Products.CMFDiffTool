@@ -1,2 +1,0 @@
-Fix ``testHTMLDiff`` test on Python 3.15, which adds a ``diff_changed`` css class to changed cells in ``difflib.HtmlDiff`` output.
-[maurits]
